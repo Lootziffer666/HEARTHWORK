@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HEARTHWORK — Desktop UI Kit</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;900&family=DM+Sans:wght@300;400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:#F8F6F2;min-height:100vh;-webkit-font-smoothing:antialiased;overflow:hidden;}
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+  @keyframes heartPop{0%{transform:scale(1)}40%{transform:scale(1.35)}70%{transform:scale(0.9)}100%{transform:scale(1)}}
+  @keyframes spin{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const NAV='#0D2847',ORG='#F2994A',BG='#F8F6F2',WH='#fff';
+const img={wildflowers:'../../assets/images/wildflowers-sunset.png',daisy:'../../assets/images/purple-daisy-droplet.png',children:'../../assets/images/children-golden-field.png',hyacinth:'../../assets/images/grape-hyacinth.png',underwater:'../../assets/images/underwater-green.png'};
+
+// ── Sidebar ───────────────────────────────────────────────
+const Sidebar=({active,onNav})=>{
+  React.useEffect(()=>{lucide.createIcons();});
+  const items=[
+    {id:'dashboard',icon:'layout-dashboard',label:'Dashboard'},
+    {id:'content',icon:'image',label:'Content'},
+    {id:'analytics',icon:'bar-chart-2',label:'Analytics'},
+    {id:'llm',icon:'cpu',label:'API Providers'},
+    {id:'ide',icon:'code-2',label:'IDE'},
+    {id:'settings',icon:'settings',label:'Settings'},
+    {id:'lifestyle',icon:'layout',label:'Lifestyle Blog'},
+    {id:'shop',icon:'shopping-bag',label:'E-Commerce'},
+    {id:'social',icon:'users',label:'Social Feed'},
+    {id:'repos',icon:'git-branch',label:'Repositories'},
+    {id:'chat',icon:'message-square',label:'Chat Support'},
+  ];
+  return(
+    <div style={{width:210,background:NAV,height:'100vh',display:'flex',flexDirection:'column',flexShrink:0}}>
+      <div style={{padding:'18px 18px 14px'}}>
+        <div style={{fontFamily:"'Nunito',sans-serif",fontWeight:900,fontSize:19,color:WH,letterSpacing:'-0.02em',marginBottom:2}}>COZY<span style={{color:ORG}}>-</span>COOL</div>
+        <div style={{fontSize:11,color:'rgba(255,255,255,0.35)',fontWeight:500}}>Admin Dashboard</div>
+      </div>
+      <div style={{padding:'0 8px',flex:1,overflowY:'auto'}}>
+        {items.map(item=>(
+          <button key={item.id} onClick={()=>onNav(item.id)} style={{width:'100%',display:'flex',alignItems:'center',gap:9,padding:'7px 10px',borderRadius:6,border:'none',cursor:'pointer',marginBottom:1,background:active===item.id?'rgba(255,255,255,0.12)':'transparent',color:active===item.id?WH:'rgba(255,255,255,0.5)',fontFamily:"'DM Sans',sans-serif",fontSize:13,fontWeight:active===item.id?600:400,transition:'all 150ms',textAlign:'left'}}>
+            <i data-lucide={item.icon} style={{width:15,height:15,flexShrink:0}}></i>{item.label}
+            {active===item.id&&<div style={{marginLeft:'auto',width:4,height:4,borderRadius:'50%',background:ORG,flexShrink:0}}></div>}
+          </button>
+        ))}
+      </div>
+      <div style={{padding:'12px 16px',borderTop:'1px solid rgba(255,255,255,0.08)',display:'flex',alignItems:'center',gap:10,flexShrink:0}}>
+        <div style={{width:30,height:30,borderRadius:'50%',background:ORG,display:'flex',alignItems:'center',justifyContent:'center',fontSize:12,fontWeight:700,color:WH,flexShrink:0}}>YA</div>
+        <div><div style={{fontSize:13,fontWeight:600,color:WH}}>Yahya A.</div><div style={{fontSize:11,color:'rgba(255,255,255,0.4)'}}>Admin</div></div>
+      </div>
+    </div>
+  );
+};
+
+const TopBar=({title,subtitle})=>{
+  React.useEffect(()=>{lucide.createIcons();});
+  return(
+    <div style={{height:58,background:WH,borderBottom:'1px solid #E0E0E0',display:'flex',alignItems:'center',padding:'0 28px',gap:16,flexShrink:0}}>
+      <div style={{flex:1}}><div style={{fontFamily:"'Nunito',sans-serif",fontSize:20,fontWeight:900,color:NAV,letterSpacing:'-0.01em'}}>{title}</div>{subtitle&&<div style={{fontSize:12,color:'#828282',marginTop:1}}>{subtitle}</div>}</div>
+      <div style={{display:'flex',gap:8,alignItems:'center'}}>
+        <div style={{position:'relative'}}><input placeholder="Search…" style={{background:'#F8F6F2',border:'1px solid #E0E0E0',borderRadius:6,padding:'7px 12px 7px 30px',fontSize:13,outline:'none',fontFamily:"'DM Sans',sans-serif",width:180}}/><i data-lucide="search" style={{position:'absolute',left:9,top:'50%',transform:'translateY(-50%)',width:13,height:13,color:'#BDBDBD'}}></i></div>
+        <button style={{width:32,height:32,borderRadius:6,background:'#F8F6F2',border:'1px solid #E0E0E0',cursor:'pointer',display:'flex',alignItems:'center',justifyContent:'center'}}><i data-lucide="bell" style={{width:15,height:15,color:'#828282'}}></i></button>
+      </div>
+    </div>
+  );
+};
+
+// ── Dashboard ─────────────────────────────────────────────
+const StatCard=({label,value,delta,icon,color})=>{
+  React.useEffect(()=>{lucide.createIcons();});
+  return(
+    <div style={{background:WH,borderRadius:4,padding:'18px 22px',boxShadow:'0 2px 8px rgba(0,0,0,0.08)',flex:1}}>
+      <div style={{display:'flex',justifyContent:'space-between',alignItems:'flex-start',marginBottom:10}}>
+        <div style={{fontSize:11,fontWeight:600,color:'#828282',textTransform:'uppercase',letterSpacing:'0.06em'}}>{label}</div>
+        <div style={{width:30,height:30,borderRadius:6,background:color+'18',display:'flex',alignItems:'center',justifyContent:'center'}}><i data-lucide={icon} style={{width:15,height:15,color}}></i></div>
+      </div>
+      <div style={{fontFamily:"'Nunito',sans-serif",fontSize:34,fontWeight:900,color:NAV,lineHeight:1,marginBottom:5}}>{value}</div>
+      <div style={{fontSize:11,color:delta>0?'#27AE60':'#EB5757',fontWeight:600}}>{delta>0?'↑':'↓'} {Math.abs(delta)}% from last month</div>
+    </div>
+  );
+};
+
+const DashboardScreen=()=>{
+  const posts=[{title:'Wildflowers at Dusk',img:img.wildflowers,cat:'Nature',views:2840,date:'May 24'},{title:'The Detail in the Drop',img:img.daisy,cat:'Macro',views:1920,date:'May 22'},{title:'Golden Hour Chasing',img:img.children,cat:'Life',views:3410,date:'May 20'},{title:'Grape Hyacinth',img:img.hyacinth,cat:'Nature',views:980,date:'May 18'},{title:'Underwater Light',img:img.underwater,cat:'Abstract',views:1540,date:'May 15'}];
+  return(
+    <div style={{flex:1,overflow:'auto',background:BG}}>
+      <TopBar title="Dashboard" subtitle="Welcome back, Yahya :)"/>
+      <div style={{padding:'24px 28px'}}>
+        <div style={{display:'flex',gap:16,marginBottom:24}}><StatCard label="Total views" value="12.4k" delta={18} icon="eye" color={NAV}/><StatCard label="Stories" value="24" delta={4} icon="file-text" color={ORG}/><StatCard label="Followers" value="3.2k" delta={12} icon="users" color="#27AE60"/><StatCard label="Avg. rating" value="4.9" delta={2} icon="star" color="#E2B93B"/></div>
+        <div style={{display:'grid',gridTemplateColumns:'2fr 1fr',gap:16}}>
+          <div style={{background:WH,borderRadius:4,boxShadow:'0 2px 8px rgba(0,0,0,0.08)'}}>
+            <div style={{padding:'14px 18px',borderBottom:'1px solid #E0E0E0',display:'flex',justifyContent:'space-between',alignItems:'center'}}><div style={{fontFamily:"'Nunito',sans-serif",fontSize:16,fontWeight:900,color:NAV}}>Recent content</div><button style={{fontSize:12,color:ORG,fontWeight:700,background:'none',border:'none',cursor:'pointer',fontFamily:"'DM Sans',sans-serif"}}>View all</button></div>
+            {posts.map((p,i)=>(
+              <div key={i} style={{display:'flex',alignItems:'center',gap:12,padding:'10px 18px',borderBottom:i<posts.length-1?'1px solid #F0EDE7':'none'}}>
+                <img src={p.img} alt="" style={{width:44,height:34,objectFit:'cover',borderRadius:3,flexShrink:0}}/>
+                <div style={{flex:1}}><div style={{fontSize:13,fontWeight:600,color:'#333'}}>{p.title}</div><div style={{fontSize:11,color:'#BDBDBD',marginTop:1}}>{p.cat} · {p.date}</div></div>
+                <div style={{fontSize:12,fontWeight:600,color:'#828282'}}>{p.views.toLocaleString()}</div>
+              </div>
+            ))}
+          </div>
+          <div style={{display:'flex',flexDirection:'column',gap:16}}>
+            <div style={{background:NAV,borderRadius:4,padding:'20px'}}><div style={{fontSize:11,fontWeight:700,color:'rgba(255,255,255,0.45)',textTransform:'uppercase',letterSpacing:'0.08em',marginBottom:10}}>Quick publish</div><div style={{fontFamily:"'Nunito',sans-serif",fontSize:20,fontWeight:900,color:WH,marginBottom:14,lineHeight:1.2}}>Ready to share a new story?</div><button style={{width:'100%',background:ORG,color:WH,border:'none',borderRadius:4,padding:'9px',fontSize:13,fontWeight:700,cursor:'pointer',fontFamily:"'DM Sans',sans-serif"}}>+ New story</button></div>
+            <div style={{background:WH,borderRadius:4,boxShadow:'0 2px 8px rgba(0,0,0,0.08)',padding:'14px 18px'}}><div style={{fontFamily:"'Nunito',sans-serif",fontSize:15,fontWeight:900,color:NAV,marginBottom:10}}>Tags breakdown</div>{[['Nature','58%','#27AE60'],['Macro','22%',ORG],['Life','12%','#2F80ED'],['Other','8%','#BDBDBD']].map(([l,p,c])=><div key={l} style={{marginBottom:8}}><div style={{display:'flex',justifyContent:'space-between',marginBottom:2}}><span style={{fontSize:12,color:'#4F4F4F',fontWeight:500}}>{l}</span><span style={{fontSize:12,color:'#828282'}}>{p}</span></div><div style={{height:4,background:'#F0EDE7',borderRadius:999}}><div style={{height:'100%',width:p,background:c,borderRadius:999}}></div></div></div>)}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// ── Analytics Screen ──────────────────────────────────────
+const AnalyticsScreen=()=>{
+  React.useEffect(()=>{lucide.createIcons();});
+  const months=['Jan','Feb','Mar','Apr','May','Jun'];
+  const views=[1800,2400,2100,3200,2840,3800];
+  const maxV=Math.max(...views);
+  const posts=[{title:'Wildflowers at Dusk',img:img.wildflowers,cat:'Nature',views:2840,growth:18},{title:'The Detail in the Drop',img:img.daisy,cat:'Macro',views:1920,growth:12},{title:'Golden Hour Chasing',img:img.children,cat:'Life',views:3410,growth:24},{title:'Grape Hyacinth',img:img.hyacinth,cat:'Nature',views:980,growth:-4},{title:'Underwater Light',img:img.underwater,cat:'Abstract',views:1540,growth:9}];
+  return(
+    <div style={{flex:1,overflow:'auto',background:BG}}>
+      <TopBar title="Analytics" subtitle="Traffic, engagement and growth metrics"/>
+      <div style={{padding:'24px 28px'}}>
+        <div style={{display:'flex',gap:16,marginBottom:24}}>
+          {[{label:'Page Views',value:'16.2k',delta:22,icon:'eye',color:NAV},{label:'Unique Visitors',value:'8.4k',delta:15,icon:'user',color:ORG},{label:'Avg. Time',value:'3m 42s',delta:8,icon:'clock',color:'#27AE60'},{label:'Bounce Rate',value:'38%',delta:-5,icon:'trending-down',color:'#EB5757'}].map(s=><StatCard key={s.label} label={s.label} value={s.value} delta={s.delta} icon={s.icon} color={s.color}/>)}
+        </div>
+        <div style={{display:'grid',gridTemplateColumns:'2fr 1fr',gap:16,marginBottom:16}}>
+          {/* Chart */}
+          <div style={{background:WH,borderRadius:4,boxShadow:'0 2px 8px rgba(0,0,0,0.08)',padding:'18px'}}>
+            <div style={{fontFamily:"'Nunito',sans-serif",fontSize:16,fontWeight:900,color:NAV,marginBottom:4}}>Monthly Views</div>
+            <div style={{fontSize:12,color:'#828282',marginBottom:18}}>Last 6 months</div>
+            <div style={{display:'flex',alignItems:'flex-end',gap:12,height:140}}>
+              {views.map((v,i)=>(
+                <div key={i} style={{flex:1,display:'flex',flexDirection:'column',alignItems:'center',gap:6}}>
+                  <div style={{fontSize:11,fontWeight:700,color:NAV}}>{(v/1000).toFixed(1)}k</div>
+                  <div style={{width:'100%',background:i===months.length-1?ORG:NAV+'30',borderRadius:'4px 4px 0 0',height:Math.round((v/maxV)*100)+'%',transition:'height 400ms cubic-bezier(0.34,1.56,0.64,1)',minHeight:4}}></div>
+                  <div style={{fontSize:11,color:'#828282'}}>{months[i]}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+          {/* Traffic sources */}
+          <div style={{background:WH,borderRadius:4,boxShadow:'0 2px 8px rgba(0,0,0,0.08)',padding:'18px'}}>
+            <div style={{fontFamily:"'Nunito',sans-serif",fontSize:16,fontWeight:900,color:NAV,marginBottom:16}}>Traffic Sources</div>
+            {[['Organic Search','44%',NAV],['Social Media','28%',ORG],['Direct','18%','#27AE60'],['Referral','10%','#E2B93B']].map(([src,pct,col])=>(
+              <div key={src} style={{marginBottom:14}}>
+                <div style={{display:'flex',justifyContent:'space-between',marginBottom:5}}>
+                  <span style={{fontSize:13,fontWeight:500,color:'#333'}}>{src}</span>
+                  <span style={{fontSize:13,fontWeight:700,color:col}}>{pct}</span>
+                </div>
+                <div style={{height:6,background:'#F0EDE7',borderRadius:999}}><div style={{height:'100%',width:pct,background:col,borderRadius:999}}></div></div>
+              </div>
+            ))}
+          </div>
+        </div>
+        {/* Top posts */}
+        <div style={{background:WH,borderRadius:4,boxShadow:'0 2px 8px rgba(0,0,0,0.08)'}}>
+          <div style={{padding:'14px 18px',borderBottom:'1px solid #E0E0E0'}}><div style={{fontFamily:"'Nunito',sans-serif",fontSize:16,fontWeight:900,color:NAV}}>Top Performing Posts</div></div>
+          {posts.map((p,i)=>(
+            <div key={i} style={{display:'flex',alignItems:'center',gap:14,padding:'12px 18px',borderBottom:i<posts.length-1?'1px solid #F0EDE7':'none'}}>
+              <div style={{width:24,height:24,borderRadius:'50%',background:i===0?ORG:NAV+'20',display:'flex',alignItems:'center',justifyContent:'center',fontSize:11,fontWeight:900,color:i===0?WH:NAV,flexShrink:0}}>{i+1}</div>
+              <img src={p.img} alt="" style={{width:48,height:36,objectFit:'cover',borderRadius:3,flexShrink:0}}/>
+              <div style={{flex:1}}><div style={{fontSize:14,fontWeight:600,color:'#333'}}>{p.title}</div><div style={{fontSize:11,color:'#BDBDBD',marginTop:1}}>{p.cat}</div></div>
+              <div style={{textAlign:'right'}}><div style={{fontSize:14,fontWeight:700,color:NAV}}>{p.views.toLocaleString()}</div><div style={{fontSize:11,fontWeight:600,color:p.growth>0?'#27AE60':'#EB5757'}}>{p.growth>0?'↑':'↓'}{Math.abs(p.growth)}%</div></div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// ── Content Manager ───────────────────────────────────────
+const ContentScreen=()=>{
+  const [selected,setSelected]=React.useState(null);
+  React.useEffect(()=>{lucide.createIcons();});
+  const items=[{id:1,img:img.wildflowers,title:'Wildflowers at Dusk',status:'Published',views:2840,cat:'Nature'},{id:2,img:img.daisy,title:'The Detail in the Drop',status:'Published',views:1920,cat:'Macro'},{id:3,img:img.children,title:'Golden Hour Chasing',status:'Draft',views:0,cat:'Life'},{id:4,img:img.hyacinth,title:'Grape Hyacinth',status:'Published',views:980,cat:'Nature'},{id:5,img:img.underwater,title:'Underwater Light',status:'Scheduled',views:0,cat:'Abstract'}];
+  const sc={Published:'#27AE60',Draft:'#828282',Scheduled:ORG};
+  return(
+    <div style={{flex:1,overflow:'auto',background:BG}}>
+      <TopBar title="Content" subtitle="Manage your stories and media"/>
+      <div style={{padding:'24px 28px'}}>
+        <div style={{display:'grid',gridTemplateColumns:'1fr 360px',gap:16,height:'calc(100vh - 116px)'}}>
+          <div style={{background:WH,borderRadius:4,boxShadow:'0 2px 8px rgba(0,0,0,0.08)',overflow:'hidden',display:'flex',flexDirection:'column'}}>
+            <div style={{padding:'12px 18px',borderBottom:'1px solid #E0E0E0',display:'flex',gap:10,alignItems:'center'}}><div style={{fontFamily:"'Nunito',sans-serif",fontSize:16,fontWeight:900,color:NAV,flex:1}}>All stories</div><button style={{background:NAV,color:WH,border:'none',borderRadius:4,padding:'6px 14px',fontSize:13,fontWeight:700,cursor:'pointer',fontFamily:"'DM Sans',sans-serif"}}>+ New</button></div>
+            <div style={{flex:1,overflowY:'auto'}}>
+              {items.map(item=>(
+                <div key={item.id} onClick={()=>setSelected(item)} style={{display:'flex',gap:12,padding:'12px 18px',borderBottom:'1px solid #F0EDE7',cursor:'pointer',background:selected?.id===item.id?'#F8F6F2':'transparent',transition:'background 150ms'}}>
+                  <img src={item.img} alt="" style={{width:56,height:40,objectFit:'cover',borderRadius:3,flexShrink:0}}/>
+                  <div style={{flex:1,minWidth:0}}><div style={{fontSize:14,fontWeight:600,color:'#333',marginBottom:2,whiteSpace:'nowrap',overflow:'hidden',textOverflow:'ellipsis'}}>{item.title}</div><div style={{display:'flex',gap:8,alignItems:'center'}}><span style={{fontSize:10,fontWeight:700,color:sc[item.status]}}>● {item.status}</span><span style={{fontSize:11,color:'#BDBDBD'}}>{item.cat}</span></div></div>
+                  <div style={{fontSize:12,color:'#828282',flexShrink:0}}>{item.views?item.views.toLocaleString()+' views':'—'}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div style={{background:WH,borderRadius:4,boxShadow:'0 2px 8px rgba(0,0,0,0.08)',overflow:'hidden'}}>
+            {selected?(<div style={{height:'100%',display:'flex',flexDirection:'column'}}><img src={selected.img} alt="" style={{width:'100%',height:170,objectFit:'cover',display:'block'}}/><div style={{padding:'18px',flex:1,overflowY:'auto'}}><span style={{fontSize:10,fontWeight:700,color:sc[selected.status]}}>● {selected.status}</span><div style={{fontFamily:"'Nunito',sans-serif",fontSize:20,fontWeight:900,color:NAV,marginTop:5,marginBottom:12,lineHeight:1.2}}>{selected.title}</div>{[['Category',selected.cat],['Views',selected.views||'—'],['Date','May 2026']].map(([k,v])=><div key={k} style={{display:'flex',justifyContent:'space-between',padding:'7px 0',borderBottom:'1px solid #F0EDE7'}}><span style={{fontSize:12,color:'#828282'}}>{k}</span><span style={{fontSize:12,fontWeight:600,color:'#333'}}>{v}</span></div>)}<div style={{display:'flex',gap:8,marginTop:14}}><button style={{flex:1,background:NAV,color:WH,border:'none',borderRadius:4,padding:'8px',fontSize:13,fontWeight:700,cursor:'pointer',fontFamily:"'DM Sans',sans-serif"}}>Edit</button><button style={{flex:1,background:'transparent',color:'#EB5757',border:'1px solid #EB5757',borderRadius:4,padding:'8px',fontSize:13,fontWeight:700,cursor:'pointer',fontFamily:"'DM Sans',sans-serif"}}>Delete</button></div></div></div>):(<div style={{height:'100%',display:'flex',alignItems:'center',justifyContent:'center',flexDirection:'column',gap:10}}><div style={{width:44,height:44,borderRadius:'50%',background:'#F0EDE7',display:'flex',alignItems:'center',justifyContent:'center'}}><i data-lucide="mouse-pointer-click" style={{width:20,height:20,color:'#BDBDBD'}}></i></div><div style={{fontSize:13,fontWeight:600,color:'#828282'}}>Select a story to preview</div></div>)}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// ── Settings ──────────────────────────────────────────────
+const SettingsScreen=()=>{
+  const [notifs,setNotifs]=React.useState(true);
+  const [dark,setDark]=React.useState(false);
+  const [auto,setAuto]=React.useState(true);
+  const Toggle=({val,onToggle})=><button onClick={onToggle} style={{width:40,height:22,borderRadius:999,background:val?NAV:'#E0E0E0',border:'none',cursor:'pointer',position:'relative',transition:'background 200ms',flexShrink:0}}><div style={{width:16,height:16,borderRadius:'50%',background:WH,position:'absolute',top:3,transition:'transform 200ms cubic-bezier(0.34,1.56,0.64,1)',transform:val?'translateX(18px)':'translateX(2px)',boxShadow:'0 1px 3px rgba(0,0,0,0.2)'}}></div></button>;
+  const Sec=({title,children})=><div style={{background:WH,borderRadius:4,boxShadow:'0 2px 8px rgba(0,0,0,0.08)',marginBottom:16}}><div style={{padding:'12px 18px',borderBottom:'1px solid #F0EDE7'}}><div style={{fontSize:13,fontWeight:700,color:NAV}}>{title}</div></div>{children}</div>;
+  const Row=({label,desc,ctrl})=><div style={{display:'flex',alignItems:'center',gap:14,padding:'12px 18px',borderBottom:'1px solid #F0EDE7'}}><div style={{flex:1}}><div style={{fontSize:14,fontWeight:500,color:'#333'}}>{label}</div>{desc&&<div style={{fontSize:12,color:'#828282',marginTop:1}}>{desc}</div>}</div>{ctrl}</div>;
+  return(
+    <div style={{flex:1,overflow:'auto',background:BG}}>
+      <TopBar title="Settings" subtitle="Account and preferences"/>
+      <div style={{padding:'24px 28px',maxWidth:700}}>
+        <Sec title="Account">
+          <Row label="Display name" desc="Shown on your profile" ctrl={<input defaultValue="Yahya Amirudin" style={{border:'1px solid #E0E0E0',borderRadius:4,padding:'7px 10px',fontSize:13,fontFamily:"'DM Sans',sans-serif",outline:'none',width:180}}/>}/>
+          <Row label="Email" desc="Used for login" ctrl={<input defaultValue="yahya@cozycool.co" style={{border:'1px solid #E0E0E0',borderRadius:4,padding:'7px 10px',fontSize:13,fontFamily:"'DM Sans',sans-serif",outline:'none',width:180}}/>}/>
+          <div style={{padding:'12px 18px'}}><button style={{background:NAV,color:WH,border:'none',borderRadius:4,padding:'8px 22px',fontSize:13,fontWeight:700,cursor:'pointer',fontFamily:"'DM Sans',sans-serif"}}>Save changes</button></div>
+        </Sec>
+        <Sec title="Preferences">
+          <Row label="Email notifications" desc="Alerts for comments and followers" ctrl={<Toggle val={notifs} onToggle={()=>setNotifs(v=>!v)}/>}/>
+          <Row label="Dark mode" desc="Switch to dark theme" ctrl={<Toggle val={dark} onToggle={()=>setDark(v=>!v)}/>}/>
+          <Row label="Auto-save drafts" desc="Save every 30 seconds" ctrl={<Toggle val={auto} onToggle={()=>setAuto(v=>!v)}/>}/>
+        </Sec>
+        <Sec title="Danger zone">
+          <Row label="Delete account" desc="Permanently removes all data" ctrl={<button style={{background:'#EB5757',color:WH,border:'none',borderRadius:4,padding:'7px 14px',fontSize:13,fontWeight:700,cursor:'pointer',fontFamily:"'DM Sans',sans-serif"}}>Delete</button>}/>
+        </Sec>
+      </div>
+    </div>
+  );
+};
+
+// ── LLM API Provider Screen ───────────────────────────────
+const LLMScreen=()=>{
+  const [wizardOpen,setWizardOpen]=React.useState(false);
+  const [wizardStep,setWizardStep]=React.useState(0);
+  const [selectedProvider,setSelectedProvider]=React.useState(null);
+  const [apiKey,setApiKey]=React.useState('');
+  const [testing,setTesting]=React.useState(false);
+  React.useEffect(()=>{lucide.createIcons();});
+
+  const providers=[
+    {id:'anthropic',name:'Anthropic',tagline:'Claude family',color:'#D97757',models:['claude-opus-4-5','claude-sonnet-4-5','claude-haiku-4-5'],pricing:'$3–75 / M tokens',context:'200K',badge:'Recommended'},
+    {id:'openai',name:'OpenAI',tagline:'GPT-4o family',color:'#10a37f',models:['gpt-4o','gpt-4o-mini','o3'],pricing:'$0.6–60 / M tokens',context:'128K',badge:'Popular'},
+    {id:'google',name:'Google',tagline:'Gemini family',color:'#4285f4',models:['gemini-2.0-flash','gemini-1.5-pro','gemini-nano'],pricing:'Free–$7 / M tokens',context:'1M',badge:'Long context'},
+    {id:'mistral',name:'Mistral AI',tagline:'Open weights',color:'#FF7000',models:['mistral-large','mixtral-8x7b','mistral-7b'],pricing:'$0.25–4 / M tokens',context:'32K',badge:'Open source'},
+    {id:'meta',name:'Meta AI',tagline:'Llama family',color:'#0866FF',models:['llama-3.3-70b','llama-3.2-3b','llama-3.1-8b'],pricing:'Self-hosted',context:'128K',badge:'Free'},
+    {id:'cohere',name:'Cohere',tagline:'Enterprise RAG',color:'#39594D',models:['command-r+','command-r','embed-v3'],pricing:'$0.5–15 / M tokens',context:'128K',badge:'RAG focus'},
+  ];
+
+  const startWizard=(p)=>{ setSelectedProvider(p); setWizardStep(0); setApiKey(''); setWizardOpen(true); };
+  const nextStep=()=>{
+    if(wizardStep===1){ setTesting(true); setTimeout(()=>{ setTesting(false); setWizardStep(2); },1800); }
+    else setWizardStep(s=>s+1);
+  };
+
+  const WizardModal=()=>(
+    <div style={{position:'fixed',inset:0,background:'rgba(0,0,0,0.55)',zIndex:200,display:'flex',alignItems:'center',justifyContent:'center'}}>
+      <div style={{background:WH,borderRadius:8,width:520,boxShadow:'0 24px 64px rgba(0,0,0,0.25)',overflow:'hidden'}}>
+        <div style={{background:NAV,padding:'18px 24px',display:'flex',alignItems:'center',justifyContent:'space-between'}}>
+          <div>
+            <div style={{fontSize:11,fontWeight:700,color:'rgba(255,255,255,0.5)',textTransform:'uppercase',letterSpacing:'0.08em',marginBottom:3}}>API Key Setup</div>
+            <div style={{fontFamily:"'Nunito',sans-serif",fontSize:18,fontWeight:900,color:WH}}>{selectedProvider?.name}</div>
+          </div>
+          <div style={{display:'flex',gap:6}}>
+            {[0,1,2].map(i=><div key={i} style={{width:8,height:8,borderRadius:'50%',background:wizardStep>=i?ORG:'rgba(255,255,255,0.2)',transition:'background 200ms'}}></div>)}
+          </div>
+        </div>
+        <div style={{padding:'28px 28px 20px'}}>
+          {wizardStep===0&&<>
+            <div style={{fontSize:16,fontWeight:700,color:NAV,marginBottom:6}}>Where to find your API key</div>
+            <div style={{fontSize:13,color:'#828282',lineHeight:1.7,marginBottom:20}}>Log in to <strong style={{color:'#333'}}>{selectedProvider?.name}</strong>, go to your account settings → API keys → Create new key. Copy the full key including any prefix like <code style={{background:'#F0EDE7',padding:'1px 5px',borderRadius:3,fontFamily:"'DM Mono',monospace",fontSize:12}}>sk-</code>.</div>
+            <div style={{background:'#F8F6F2',borderRadius:6,padding:'14px',marginBottom:20,display:'flex',gap:10}}>
+              <i data-lucide="info" style={{width:16,height:16,color:ORG,flexShrink:0,marginTop:1}}></i>
+              <div style={{fontSize:12,color:'#4F4F4F',lineHeight:1.6}}>Your key is stored locally only and never sent to our servers. It's used only for direct API calls from your browser.</div>
+            </div>
+          </>}
+          {wizardStep===1&&<>
+            <div style={{fontSize:16,fontWeight:700,color:NAV,marginBottom:6}}>Paste your API key</div>
+            <div style={{fontSize:13,color:'#828282',marginBottom:14}}>Enter the key for <strong style={{color:'#333'}}>{selectedProvider?.name}</strong></div>
+            <div style={{position:'relative',marginBottom:12}}>
+              <input type="password" value={apiKey} onChange={e=>setApiKey(e.target.value)} placeholder={`${selectedProvider?.id==='anthropic'?'sk-ant-':'sk-'}…`} style={{width:'100%',border:'1.5px solid #E0E0E0',borderRadius:6,padding:'11px 40px 11px 14px',fontSize:14,fontFamily:"'DM Mono',monospace",outline:'none',color:'#333'}}/>
+              <i data-lucide="key" style={{position:'absolute',right:12,top:'50%',transform:'translateY(-50%)',width:16,height:16,color:'#BDBDBD'}}></i>
+            </div>
+            <div style={{fontSize:12,color:'#BDBDBD'}}>We'll test the key before saving it.</div>
+          </>}
+          {wizardStep===2&&<div style={{textAlign:'center',padding:'16px 0'}}>
+            <div style={{width:56,height:56,borderRadius:'50%',background:'#E8F8EF',display:'flex',alignItems:'center',justifyContent:'center',margin:'0 auto 14px'}}>
+              <i data-lucide="check-circle" style={{width:28,height:28,color:'#27AE60'}}></i>
+            </div>
+            <div style={{fontFamily:"'Nunito',sans-serif",fontSize:22,fontWeight:900,color:NAV,marginBottom:6}}>Key verified!</div>
+            <div style={{fontSize:14,color:'#828282',lineHeight:1.6}}><strong style={{color:'#333'}}>{selectedProvider?.name}</strong> is now connected. You can start making API calls immediately.</div>
+            <div style={{marginTop:16,padding:'12px 16px',background:'#F8F6F2',borderRadius:6,fontFamily:"'DM Mono',monospace",fontSize:12,color:'#828282',textAlign:'left',wordBreak:'break-all'}}>✓ Model access: {selectedProvider?.models.join(', ')}</div>
+          </div>}
+        </div>
+        <div style={{padding:'0 28px 24px',display:'flex',gap:10,justifyContent:'flex-end'}}>
+          <button onClick={()=>setWizardOpen(false)} style={{background:'transparent',color:'#828282',border:'1px solid #E0E0E0',borderRadius:4,padding:'9px 20px',fontSize:13,fontWeight:600,cursor:'pointer',fontFamily:"'DM Sans',sans-serif"}}>{wizardStep===2?'Close':'Cancel'}</button>
+          {wizardStep<2&&<button onClick={nextStep} disabled={wizardStep===1&&!apiKey.trim()} style={{background:wizardStep===1&&!apiKey.trim()?'#BDBDBD':NAV,color:WH,border:'none',borderRadius:4,padding:'9px 24px',fontSize:13,fontWeight:700,cursor:wizardStep===1&&!apiKey.trim()?'not-allowed':'pointer',fontFamily:"'DM Sans',sans-serif",minWidth:100,display:'flex',alignItems:'center',justifyContent:'center',gap:8}}>
+            {testing?<><span style={{width:14,height:14,border:'2px solid rgba(255,255,255,0.3)',borderTopColor:WH,borderRadius:'50%',display:'inline-block',animation:'spin 0.7s linear infinite'}}></span>Testing…</>:wizardStep===0?'Next →':'Test & save'}
+          </button>}
+        </div>
+      </div>
+    </div>
+  );
+
+  const cols=[
+    {key:'models',label:'Best models'},
+    {key:'context',label:'Context window'},
+    {key:'pricing',label:'Pricing'},
+    {key:'badge',label:'Best for'},
+  ];
+
+  return(
+    <div style={{flex:1,overflow:'auto',background:BG}}>
+      {wizardOpen&&<WizardModal/>}
+      <TopBar title="API Providers" subtitle="Connect LLM providers and manage keys"/>
+      <div style={{padding:'24px 28px'}}>
+        <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:16,marginBottom:24}}>
+          {providers.map(p=>(
+            <div key={p.id} style={{background:WH,borderRadius:4,boxShadow:'0 2px 8px rgba(0,0,0,0.08)',overflow:'hidden'}}>
+              <div style={{height:4,background:p.color}}></div>
+              <div style={{padding:'16px 18px 18px'}}>
+                <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:8}}>
+                  <div><div style={{fontFamily:"'Nunito',sans-serif",fontSize:18,fontWeight:900,color:NAV}}>{p.name}</div><div style={{fontSize:12,color:'#828282'}}>{p.tagline}</div></div>
+                  <span style={{fontSize:10,fontWeight:700,padding:'3px 9px',borderRadius:999,background:p.color+'18',color:p.color,whiteSpace:'nowrap'}}>{p.badge}</span>
+                </div>
+                <div style={{display:'flex',flexWrap:'wrap',gap:4,marginBottom:12}}>
+                  {p.models.slice(0,2).map(m=><span key={m} style={{fontFamily:"'DM Mono',monospace",fontSize:10,color:'#4F4F4F',background:'#F0EDE7',padding:'2px 7px',borderRadius:3}}>{m}</span>)}
+                  {p.models.length>2&&<span style={{fontSize:10,color:'#BDBDBD',padding:'2px 4px'}}>+{p.models.length-2}</span>}
+                </div>
+                <div style={{display:'flex',gap:10,alignItems:'center',marginBottom:14}}>
+                  <span style={{fontSize:11,color:'#828282'}}>{p.context} context</span>
+                  <span style={{width:3,height:3,borderRadius:'50%',background:'#E0E0E0'}}></span>
+                  <span style={{fontSize:11,color:'#828282'}}>{p.pricing}</span>
+                </div>
+                <button onClick={()=>startWizard(p)} style={{width:'100%',background:NAV,color:WH,border:'none',borderRadius:4,padding:'8px',fontSize:13,fontWeight:700,cursor:'pointer',fontFamily:"'DM Sans',sans-serif",display:'flex',alignItems:'center',justifyContent:'center',gap:6}}>
+                  <i data-lucide="key" style={{width:14,height:14}}></i>Connect
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div style={{background:WH,borderRadius:4,boxShadow:'0 2px 8px rgba(0,0,0,0.08)',overflow:'hidden'}}>
+          <div style={{padding:'14px 20px',borderBottom:'1px solid #E0E0E0'}}><div style={{fontFamily:"'Nunito',sans-serif",fontSize:16,fontWeight:900,color:NAV}}>Model comparison</div></div>
+          <div style={{overflowX:'auto'}}>
+            <table style={{width:'100%',borderCollapse:'collapse',fontSize:13}}>
+              <thead><tr style={{background:'#F8F6F2'}}><th style={{padding:'10px 16px',textAlign:'left',fontSize:11,fontWeight:700,color:'#828282',textTransform:'uppercase',letterSpacing:'0.06em',width:140}}>Provider</th>{cols.map(c=><th key={c.key} style={{padding:'10px 16px',textAlign:'left',fontSize:11,fontWeight:700,color:'#828282',textTransform:'uppercase',letterSpacing:'0.06em'}}>{c.label}</th>)}</tr></thead>
+              <tbody>{providers.map((p,i)=><tr key={p.id} style={{borderTop:'1px solid #F0EDE7',background:i%2===0?WH:'#FAFAF9'}}><td style={{padding:'10px 16px',fontWeight:700,color:NAV,display:'flex',alignItems:'center',gap:8}}><span style={{width:8,height:8,borderRadius:'50%',background:p.color,flexShrink:0}}></span>{p.name}</td><td style={{padding:'10px 16px',fontFamily:"'DM Mono',monospace",fontSize:12,color:'#4F4F4F'}}>{p.models[0]}</td><td style={{padding:'10px 16px',color:'#4F4F4F'}}>{p.context}</td><td style={{padding:'10px 16px',color:'#4F4F4F'}}>{p.pricing}</td><td style={{padding:'10px 16px'}}><span style={{fontSize:11,fontWeight:700,padding:'3px 9px',borderRadius:999,background:p.color+'18',color:p.color}}>{p.badge}</span></td></tr>)}</tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// ── IDE Screen ────────────────────────────────────────────
+const IDEScreen=()=>{
+  const [activeFile,setActiveFile]=React.useState('colors_and_type.css');
+  const [openTabs,setOpenTabs]=React.useState(['colors_and_type.css','README.md']);
+  const [terminalOpen,setTerminalOpen]=React.useState(true);
+  const [termInput,setTermInput]=React.useState('');
+  const [termHistory,setTermHistory]=React.useState(['$ npm run dev','> hearthwork-ds@2.0.0 dev','> vite --host','VITE v5.4.0 ready','  ➜  Local:   http://localhost:5173/','  ➜  Network: http://192.168.1.1:5173/']);
+  React.useEffect(()=>{lucide.createIcons();});
+
+  const tree=[
+    {type:'folder',name:'assets',open:true,children:[{type:'folder',name:'images',open:false,children:[]}]},
+    {type:'folder',name:'preview',open:false,children:[]},
+    {type:'folder',name:'ui_kits',open:true,children:[{type:'folder',name:'web',open:false,children:[]},{type:'folder',name:'mobile',open:false,children:[]},{type:'folder',name:'desktop',open:false,children:[]}]},
+    {type:'folder',name:'slides',open:false,children:[]},
+    {type:'file',name:'colors_and_type.css',ext:'css'},
+    {type:'file',name:'README.md',ext:'md'},
+    {type:'file',name:'SKILL.md',ext:'md'},
+  ];
+
+  const fileColors={css:'#563d7c',md:'#0075ca',jsx:'#61dafb',js:'#f7df1e',html:'#e34c26',json:'#f4d03f'};
+  const extColor=ext=>fileColors[ext]||'#828282';
+
+  const fileContent={
+    'colors_and_type.css':[
+      {t:'comment',v:'/* Hearthwork Design System — Token Sheet */'},
+      {t:'blank'},
+      {t:'comment',v:'@import url("https://fonts.googleapis.com/css2?family=Nunito…");'},
+      {t:'blank'},
+      {t:'selector',v:':root {'},
+      {t:'prop',k:'  --color-primary',v:'#0D2847'},
+      {t:'prop',k:'  --color-secondary',v:'#F2994A'},
+      {t:'prop',k:'  --color-off-white',v:'#F8F6F2'},
+      {t:'prop',k:'  --font-display',v:"'Nunito', sans-serif"},
+      {t:'prop',k:'  --font-sans',v:"'DM Sans', sans-serif"},
+      {t:'prop',k:'  --font-mono',v:"'DM Mono', monospace"},
+      {t:'prop',k:'  --fs-h1',v:'56px'},
+      {t:'prop',k:'  --lh-h1',v:'61.6px'},
+      {t:'prop',k:'  --space-1',v:'8px'},
+      {t:'prop',k:'  --space-2',v:'16px'},
+      {t:'prop',k:'  --ease-spring',v:'cubic-bezier(0.34, 1.56, 0.64, 1)'},
+      {t:'selector',v:'}'},
+    ],
+    'README.md':[
+      {t:'md-h1',v:'# Hearthwork Design System'},
+      {t:'blank'},
+      {t:'md-text',v:'> Source: UI Style Guidelines by Yahya Amirudin'},
+      {t:'blank'},
+      {t:'md-h2',v:'## Brand Colors'},
+      {t:'md-text',v:'- **Primary:** `#0D2847` — deep navy'},
+      {t:'md-text',v:'- **Secondary:** `#F2994A` — warm orange'},
+      {t:'blank'},
+      {t:'md-h2',v:'## Typography'},
+      {t:'md-text',v:'- **Display:** Nunito (cozy side)'},
+      {t:'md-text',v:'- **UI/Body:** DM Sans (cool side)'},
+      {t:'md-text',v:'- **Mono:** DM Mono (code)'},
+      {t:'blank'},
+      {t:'md-h2',v:'## Motion'},
+      {t:'md-text',v:'Spring easing: `cubic-bezier(0.34, 1.56, 0.64, 1)` — brand signature'},
+    ],
+  };
+
+  const renderLine=(line,i)=>{
+    const base={fontFamily:"'DM Mono',monospace",fontSize:12,lineHeight:'20px',whiteSpace:'pre',display:'block',padding:'0 16px'};
+    if(line.t==='blank')return<span key={i} style={{...base,minHeight:20}}>&nbsp;</span>;
+    if(line.t==='comment')return<span key={i} style={{...base,color:'#6a9955'}}>{line.v}</span>;
+    if(line.t==='selector')return<span key={i} style={{...base,color:'#d7ba7d'}}>{line.v}</span>;
+    if(line.t==='prop')return<span key={i} style={{...base}}><span style={{color:'#9cdcfe'}}>{line.k}</span><span style={{color:'#cccccc'}}>: </span><span style={{color:'#ce9178'}}>{line.v}</span><span style={{color:'#cccccc'}}>;</span></span>;
+    if(line.t==='md-h1')return<span key={i} style={{...base,color:'#4ec9b0',fontWeight:700}}>{line.v}</span>;
+    if(line.t==='md-h2')return<span key={i} style={{...base,color:'#569cd6',fontWeight:700}}>{line.v}</span>;
+    if(line.t==='md-text')return<span key={i} style={{...base,color:'#cccccc'}}>{line.v}</span>;
+    return<span key={i} style={{...base,color:'#cccccc'}}>{line.v}</span>;
+  };
+
+  const content=fileContent[activeFile]||[{t:'comment',v:`/* ${activeFile} */`}];
+
+  const runCmd=()=>{
+    if(!termInput.trim())return;
+    setTermHistory(h=>[...h,`$ ${termInput}`,'  Command executed.']);
+    setTermInput('');
+  };
+
+  return(
+    <div style={{flex:1,display:'flex',flexDirection:'column',height:'100vh',background:'#1e1e1e',overflow:'hidden'}}>
+      {/* IDE top bar */}
+      <div style={{height:36,background:'#3c3c3c',display:'flex',alignItems:'center',padding:'0 12px',gap:8,flexShrink:0}}>
+        <div style={{fontFamily:"'Nunito',sans-serif",fontWeight:900,fontSize:14,color:ORG}}>C-C</div>
+        {['File','Edit','View','Run','Terminal'].map(m=><button key={m} style={{background:'none',border:'none',cursor:'pointer',color:'rgba(255,255,255,0.7)',fontSize:12,fontFamily:"'DM Sans',sans-serif",padding:'4px 8px',borderRadius:3}}>{m}</button>)}
+        <div style={{flex:1}}></div>
+        <div style={{fontFamily:"'DM Sans',sans-serif",fontSize:11,color:'rgba(255,255,255,0.4)'}}>Hearthwork Design System</div>
+      </div>
+      {/* Tabs */}
+      <div style={{height:34,background:'#252526',display:'flex',alignItems:'stretch',flexShrink:0,borderBottom:'1px solid #3c3c3c'}}>
+        {openTabs.map(tab=><div key={tab} onClick={()=>setActiveFile(tab)} style={{display:'flex',alignItems:'center',gap:6,padding:'0 14px',cursor:'pointer',borderRight:'1px solid #3c3c3c',background:tab===activeFile?'#1e1e1e':'#2d2d2d',borderTop:tab===activeFile?`2px solid ${ORG}`:'2px solid transparent'}}>
+          <span style={{width:8,height:8,borderRadius:'50%',background:extColor(tab.split('.').pop()),flexShrink:0}}></span>
+          <span style={{fontSize:12,color:tab===activeFile?WH:'rgba(255,255,255,0.5)',fontFamily:"'DM Sans',sans-serif",whiteSpace:'nowrap'}}>{tab}</span>
+          <button onClick={e=>{e.stopPropagation();setOpenTabs(t=>t.filter(x=>x!==tab));if(activeFile===tab)setActiveFile(openTabs[0]);}} style={{background:'none',border:'none',cursor:'pointer',color:'rgba(255,255,255,0.3)',fontSize:14,lineHeight:1,marginLeft:2}}>×</button>
+        </div>)}
+      </div>
+      {/* Main area */}
+      <div style={{flex:1,display:'flex',overflow:'hidden'}}>
+        {/* File tree */}
+        <div style={{width:200,background:'#252526',borderRight:'1px solid #3c3c3c',overflowY:'auto',flexShrink:0}}>
+          <div style={{padding:'8px 12px',fontSize:10,fontWeight:700,color:'rgba(255,255,255,0.4)',textTransform:'uppercase',letterSpacing:'0.1em'}}>Explorer</div>
+          {tree.map((item,i)=>(
+            <div key={i}>
+              <div onClick={()=>{if(item.type==='file'){setActiveFile(item.name);if(!openTabs.includes(item.name))setOpenTabs(t=>[...t,item.name]);}}} style={{display:'flex',alignItems:'center',gap:6,padding:'3px 12px',cursor:'pointer',color:item.name===activeFile?WH:'rgba(255,255,255,0.65)',fontSize:12,fontFamily:"'DM Sans',sans-serif",background:item.name===activeFile?'rgba(242,153,74,0.15)':'transparent'}}>
+                {item.type==='folder'?<><i data-lucide={item.open?'chevron-down':'chevron-right'} style={{width:12,height:12,flexShrink:0}}></i><i data-lucide="folder" style={{width:14,height:14,color:'#dcb67a',flexShrink:0}}></i></>:<><span style={{width:12,flexShrink:0}}></span><span style={{width:10,height:10,borderRadius:'50%',background:extColor(item.ext||''),flexShrink:0,display:'inline-block'}}></span></>}
+                <span style={{overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{item.name}</span>
+              </div>
+              {item.type==='folder'&&item.open&&item.children.map((c,j)=>(
+                <div key={j} onClick={()=>{if(c.type==='file'){setActiveFile(c.name);if(!openTabs.includes(c.name))setOpenTabs(t=>[...t,c.name]);}}} style={{display:'flex',alignItems:'center',gap:6,padding:'3px 12px 3px 28px',cursor:'pointer',color:'rgba(255,255,255,0.55)',fontSize:12,fontFamily:"'DM Sans',sans-serif"}}>
+                  <i data-lucide={c.open?'chevron-down':'chevron-right'} style={{width:12,height:12}}></i>
+                  <i data-lucide="folder" style={{width:14,height:14,color:'#dcb67a'}}></i>
+                  <span>{c.name}</span>
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+        {/* Editor + terminal */}
+        <div style={{flex:1,display:'flex',flexDirection:'column',overflow:'hidden'}}>
+          {/* Code editor */}
+          <div style={{flex:1,overflowY:'auto',padding:'12px 0',background:'#1e1e1e'}}>
+            <div style={{display:'flex'}}>
+              <div style={{width:40,flexShrink:0,textAlign:'right',paddingRight:10,userSelect:'none'}}>
+                {content.map((_,i)=><span key={i} style={{display:'block',fontFamily:"'DM Mono',monospace",fontSize:12,lineHeight:'20px',color:'rgba(255,255,255,0.2)'}}>{i+1}</span>)}
+              </div>
+              <div style={{flex:1}}>{content.map(renderLine)}</div>
+            </div>
+          </div>
+          {/* Terminal */}
+          {terminalOpen&&<div style={{height:160,background:'#0a0a0a',borderTop:'1px solid #3c3c3c',display:'flex',flexDirection:'column',flexShrink:0}}>
+            <div style={{height:28,background:'#1e1e1e',display:'flex',alignItems:'center',padding:'0 12px',gap:8}}>
+              <span style={{fontSize:11,color:'rgba(255,255,255,0.6)',fontFamily:"'DM Sans',sans-serif"}}>Terminal</span>
+              <div style={{flex:1}}></div>
+              <button onClick={()=>setTerminalOpen(false)} style={{background:'none',border:'none',cursor:'pointer',color:'rgba(255,255,255,0.4)',fontSize:16,lineHeight:1}}>×</button>
+            </div>
+            <div style={{flex:1,overflowY:'auto',padding:'6px 12px',fontFamily:"'DM Mono',monospace",fontSize:12,color:ORG,lineHeight:1.7}}>
+              {termHistory.map((l,i)=><div key={i} style={{color:l.startsWith('$')?ORG:l.startsWith('>')&&!l.includes('vite')?'rgba(255,255,255,0.4)':l.includes('VITE')?ORG:l.includes('➜')&&l.includes('Local')?'#58a6ff':l.includes('➜')?'rgba(255,255,255,0.5)':'rgba(255,255,255,0.65)'}}>{l}</div>)}
+            </div>
+            <div style={{display:'flex',alignItems:'center',padding:'4px 12px',borderTop:'1px solid #3c3c3c',gap:6}}>
+              <span style={{color:ORG,fontFamily:"'DM Mono',monospace",fontSize:12}}>$</span>
+              <input value={termInput} onChange={e=>setTermInput(e.target.value)} onKeyDown={e=>{if(e.key==='Enter')runCmd();}} style={{flex:1,background:'none',border:'none',outline:'none',color:'#cccccc',fontFamily:"'DM Mono',monospace",fontSize:12}} placeholder="Type a command…"/>
+              <span style={{width:2,height:14,background:'#cccccc',display:'inline-block',animation:'blink 1s step-end infinite'}}></span>
+            </div>
+          </div>}
+          {/* Status bar — Hearthwork navy */}
+          <div style={{height:22,background:NAV,display:'flex',alignItems:'center',padding:'0 12px',gap:14,flexShrink:0}}>
+            {[['git-branch','hearthwork-ds'],['check','0 errors'],['alert-circle','0 warnings']].map(([icon,label])=>(
+              <div key={label} style={{display:'flex',alignItems:'center',gap:4,fontSize:11,color:'rgba(255,255,255,0.85)',fontFamily:"'DM Sans',sans-serif"}}>
+                <i data-lucide={icon} style={{width:11,height:11}}></i>{label}
+              </div>
+            ))}
+            <div style={{flex:1}}></div>
+            <span style={{fontSize:11,color:'rgba(255,255,255,0.7)',fontFamily:"'DM Mono',monospace"}}>{activeFile.split('.').pop().toUpperCase()}</span>
+            <button onClick={()=>setTerminalOpen(t=>!t)} style={{background:'none',border:'none',cursor:'pointer',color:'rgba(255,255,255,0.8)',fontSize:11,fontFamily:"'DM Sans',sans-serif",display:'flex',alignItems:'center',gap:3}}><i data-lucide="terminal" style={{width:12,height:12}}></i>Terminal</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// ── Lifestyle Blog Desktop ────────────────────────────────
+const LifestyleDesktop=()=>{
+  React.useEffect(()=>{lucide.createIcons();});
+  const posts=[
+    {img:img.wildflowers,title:'Wildflowers at Dusk',cat:'Nature',time:'5 min read',featured:true},
+    {img:img.daisy,title:'The Detail in the Drop',cat:'Macro',time:'3 min read'},
+    {img:img.children,title:'Golden Hour Chasing',cat:'Life',time:'7 min read'},
+    {img:img.hyacinth,title:'Grape Hyacinth Close-Up',cat:'Nature',time:'4 min read'},
+  ];
+  const trending=[
+    {title:'Morning Light Over the Valley',views:'12.4k'},
+    {title:'The Detail in the Drop',views:'9.8k'},
+    {title:'Wildflowers at Dusk',views:'8.2k'},
+    {title:'Children in Golden Fields',views:'6.5k'},
+    {title:'Underwater Green World',views:'4.9k'},
+  ];
+  const tags=['Nature','Macro','Life','Abstract','Travel','Food','Architecture','Portraits'];
+  return(
+    <div style={{flex:1,overflow:'auto',background:BG}}>
+      <TopBar title="Lifestyle Blog" subtitle="Content publishing and editorial"/>
+      <div style={{padding:'24px 28px',display:'grid',gridTemplateColumns:'1fr 300px',gap:20,alignItems:'start'}}>
+        {/* Left: content */}
+        <div>
+          {/* Hero featured post */}
+          <div style={{background:WH,borderRadius:4,boxShadow:'0 2px 8px rgba(0,0,0,0.08)',overflow:'hidden',marginBottom:20}}>
+            <div style={{position:'relative',height:280}}>
+              <img src={posts[0].img} alt="" style={{width:'100%',height:'100%',objectFit:'cover',display:'block'}}/>
+              <div style={{position:'absolute',inset:0,background:'linear-gradient(to top, rgba(13,40,71,0.85) 0%, transparent 55%)'}}></div>
+              <div style={{position:'absolute',bottom:0,left:0,right:0,padding:'24px'}}>
+                <span style={{display:'inline-block',background:ORG,color:WH,fontSize:10,fontWeight:700,padding:'3px 10px',borderRadius:999,marginBottom:10,textTransform:'uppercase',letterSpacing:'0.06em'}}>{posts[0].cat}</span>
+                <div style={{fontFamily:"'Nunito',sans-serif",fontWeight:900,fontSize:26,color:WH,lineHeight:1.2,marginBottom:14}}>{posts[0].title}</div>
+                <button style={{background:ORG,color:WH,border:'none',borderRadius:4,padding:'9px 22px',fontSize:13,fontWeight:700,cursor:'pointer',fontFamily:"'DM Sans',sans-serif"}}>Read article →</button>
+              </div>
+            </div>
+          </div>
+          {/* Post grid */}
+          <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:14}}>
+            {posts.slice(1).map((p,i)=>(
+              <div key={i} style={{background:WH,borderRadius:4,boxShadow:'0 2px 8px rgba(0,0,0,0.08)',overflow:'hidden',cursor:'pointer'}}>
+                <img src={p.img} alt="" style={{width:'100%',height:130,objectFit:'cover',display:'block'}}/>
+                <div style={{padding:'12px 14px'}}>
+                  <span style={{fontSize:10,fontWeight:700,color:ORG,textTransform:'uppercase',letterSpacing:'0.06em'}}>{p.cat}</span>
+                  <div style={{fontFamily:"'Nunito',sans-serif",fontWeight:900,fontSize:15,color:NAV,marginTop:4,marginBottom:6,lineHeight:1.3}}>{p.title}</div>
+                  <div style={{fontSize:11,color:'#828282'}}>{p.time}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        {/* Right: sidebar */}
+        <div style={{display:'flex',flexDirection:'column',gap:16}}>
+          {/* Trending */}
+          <div style={{background:WH,borderRadius:4,boxShadow:'0 2px 8px rgba(0,0,0,0.08)',padding:'16px 18px'}}>
+            <div style={{fontFamily:"'Nunito',sans-serif",fontWeight:900,fontSize:16,color:NAV,marginBottom:14}}>Trending</div>
+            {trending.map((t,i)=>(
+              <div key={i} style={{display:'flex',alignItems:'center',gap:12,padding:'8px 0',borderBottom:i<trending.length-1?'1px solid #F0EDE7':'none',cursor:'pointer'}}>
+                <div style={{width:22,height:22,borderRadius:'50%',background:i===0?ORG:NAV+'15',display:'flex',alignItems:'center',justifyContent:'center',fontSize:11,fontWeight:900,color:i===0?WH:NAV,flexShrink:0}}>{i+1}</div>
+                <div style={{flex:1,fontSize:13,fontWeight:500,color:'#333',lineHeight:1.3}}>{t.title}</div>
+                <div style={{fontSize:11,color:'#828282',flexShrink:0}}>{t.views}</div>
+              </div>
+            ))}
+          </div>
+          {/* Categories */}
+          <div style={{background:WH,borderRadius:4,boxShadow:'0 2px 8px rgba(0,0,0,0.08)',padding:'16px 18px'}}>
+            <div style={{fontFamily:"'Nunito',sans-serif",fontWeight:900,fontSize:16,color:NAV,marginBottom:12}}>Popular categories</div>
+            <div style={{display:'flex',flexWrap:'wrap',gap:8}}>
+              {tags.map(t=><span key={t} style={{fontSize:12,fontWeight:600,padding:'5px 12px',borderRadius:999,background:BG,color:NAV,cursor:'pointer',border:'1px solid #E0E0E0'}}>{t}</span>)}
+            </div>
+          </div>
+          {/* Newsletter */}
+          <div style={{background:NAV,borderRadius:4,padding:'18px'}}>
+            <div style={{fontFamily:"'Nunito',sans-serif",fontWeight:900,fontSize:17,color:WH,marginBottom:6}}>Stay inspired</div>
+            <div style={{fontSize:12,color:'rgba(255,255,255,0.6)',marginBottom:14,lineHeight:1.5}}>Get weekly stories and photography tips in your inbox.</div>
+            <input placeholder="your@email.com" style={{width:'100%',background:'rgba(255,255,255,0.1)',border:'1px solid rgba(255,255,255,0.2)',borderRadius:4,padding:'9px 12px',fontSize:13,color:WH,outline:'none',fontFamily:"'DM Sans',sans-serif",marginBottom:10}}/>
+            <button style={{width:'100%',background:ORG,color:WH,border:'none',borderRadius:4,padding:'9px',fontSize:13,fontWeight:700,cursor:'pointer',fontFamily:"'DM Sans',sans-serif"}}>Subscribe</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// ── E-Commerce Desktop ────────────────────────────────────
+const ShopDesktop=()=>{
+  const [cartOpen,setCartOpen]=React.useState(false);
+  const [cart,setCart]=React.useState([]);
+  const [filters,setFilters]=React.useState({All:true,Nature:false,Macro:false,Life:false,Abstract:false});
+  React.useEffect(()=>{lucide.createIcons();});
+  const products=[
+    {id:1,img:img.wildflowers,name:'Wildflowers Print',price:49,tag:'Bestseller',cat:'Nature'},
+    {id:2,img:img.daisy,name:'Daisy Droplet',price:39,tag:'New',cat:'Macro'},
+    {id:3,img:img.children,name:'Golden Hour',price:59,tag:'Sale',cat:'Life'},
+    {id:4,img:img.hyacinth,name:'Hyacinth Study',price:44,tag:'New',cat:'Nature'},
+    {id:5,img:img.underwater,name:'Underwater Green',price:52,tag:'Bestseller',cat:'Abstract'},
+    {id:6,img:img.wildflowers,name:'Dusk Collection',price:34,tag:'Sale',cat:'Nature'},
+  ];
+  const tagColor={New:'#27AE60',Bestseller:NAV,Sale:'#EB5757'};
+  const addToCart=(p)=>setCart(c=>{const ex=c.find(x=>x.id===p.id);return ex?c.map(x=>x.id===p.id?{...x,qty:x.qty+1}:x):[...c,{...p,qty:1}];});
+  const cartTotal=cart.reduce((s,x)=>s+x.price*x.qty,0);
+  return(
+    <div style={{flex:1,overflow:'auto',background:BG}}>
+      <div style={{height:58,background:WH,borderBottom:'1px solid #E0E0E0',display:'flex',alignItems:'center',padding:'0 28px',gap:16,flexShrink:0}}>
+        <div style={{flex:1}}><div style={{fontFamily:"'Nunito',sans-serif",fontSize:20,fontWeight:900,color:NAV}}>E-Commerce</div><div style={{fontSize:12,color:'#828282',marginTop:1}}>Photography print shop</div></div>
+        <button onClick={()=>setCartOpen(o=>!o)} style={{position:'relative',width:36,height:36,borderRadius:6,background:'#F8F6F2',border:'1px solid #E0E0E0',cursor:'pointer',display:'flex',alignItems:'center',justifyContent:'center'}}>
+          <i data-lucide="shopping-bag" style={{width:16,height:16,color:'#828282'}}></i>
+          {cart.length>0&&<span style={{position:'absolute',top:-5,right:-5,width:18,height:18,borderRadius:'50%',background:ORG,color:WH,fontSize:10,fontWeight:700,display:'flex',alignItems:'center',justifyContent:'center'}}>{cart.reduce((s,x)=>s+x.qty,0)}</span>}
+        </button>
+      </div>
+      <div style={{display:'flex',height:'calc(100vh - 58px)',overflow:'hidden'}}>
+        {/* Filters sidebar */}
+        <div style={{width:200,background:WH,borderRight:'1px solid #E0E0E0',padding:'20px 16px',overflowY:'auto',flexShrink:0}}>
+          <div style={{fontFamily:"'Nunito',sans-serif",fontWeight:900,fontSize:15,color:NAV,marginBottom:14}}>Filters</div>
+          <div style={{fontSize:12,fontWeight:700,color:'#828282',textTransform:'uppercase',letterSpacing:'0.06em',marginBottom:10}}>Category</div>
+          {Object.keys(filters).map(k=>(
+            <label key={k} style={{display:'flex',alignItems:'center',gap:8,marginBottom:8,cursor:'pointer',fontSize:13,color:'#333'}}>
+              <input type="checkbox" checked={filters[k]} onChange={()=>setFilters(f=>({...f,[k]:!f[k]}))} style={{accentColor:NAV,width:14,height:14}}/>{k}
+            </label>
+          ))}
+          <div style={{height:1,background:'#F0EDE7',margin:'16px 0'}}></div>
+          <div style={{fontSize:12,fontWeight:700,color:'#828282',textTransform:'uppercase',letterSpacing:'0.06em',marginBottom:10}}>Price Range</div>
+          <div style={{display:'flex',justifyContent:'space-between',fontSize:12,color:'#828282',marginBottom:6}}><span>$0</span><span>$100</span></div>
+          <div style={{height:4,background:'#F0EDE7',borderRadius:999,position:'relative'}}><div style={{height:'100%',width:'65%',background:ORG,borderRadius:999}}></div><div style={{position:'absolute',right:'35%',top:-4,width:12,height:12,borderRadius:'50%',background:ORG,boxShadow:'0 1px 4px rgba(0,0,0,0.2)',cursor:'pointer'}}></div></div>
+          <div style={{height:1,background:'#F0EDE7',margin:'16px 0'}}></div>
+          <div style={{fontSize:12,fontWeight:700,color:'#828282',textTransform:'uppercase',letterSpacing:'0.06em',marginBottom:10}}>Tags</div>
+          {['New','Bestseller','Sale'].map(t=><span key={t} style={{display:'inline-block',fontSize:11,fontWeight:700,padding:'4px 10px',borderRadius:999,background:tagColor[t]+'18',color:tagColor[t],marginRight:6,marginBottom:6,cursor:'pointer'}}>{t}</span>)}
+        </div>
+        {/* Product grid */}
+        <div style={{flex:1,overflowY:'auto',padding:'24px'}}>
+          <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:16}}>
+            {products.map(p=>(
+              <div key={p.id} style={{background:WH,borderRadius:4,boxShadow:'0 2px 8px rgba(0,0,0,0.08)',overflow:'hidden'}}>
+                <div style={{position:'relative'}}>
+                  <img src={p.img} alt="" style={{width:'100%',height:160,objectFit:'cover',display:'block'}}/>
+                  <span style={{position:'absolute',top:10,left:10,fontSize:10,fontWeight:700,padding:'3px 9px',borderRadius:999,background:tagColor[p.tag],color:WH}}>{p.tag}</span>
+                </div>
+                <div style={{padding:'14px 16px'}}>
+                  <div style={{fontSize:14,fontWeight:600,color:'#333',marginBottom:4}}>{p.name}</div>
+                  <div style={{fontFamily:"'Nunito',sans-serif",fontWeight:900,fontSize:18,color:ORG,marginBottom:12}}>${p.price}</div>
+                  <button onClick={()=>addToCart(p)} style={{width:'100%',background:NAV,color:WH,border:'none',borderRadius:4,padding:'8px',fontSize:13,fontWeight:700,cursor:'pointer',fontFamily:"'DM Sans',sans-serif"}}>Add to cart</button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        {/* Cart panel */}
+        {cartOpen&&<div style={{width:300,background:WH,borderLeft:'1px solid #E0E0E0',display:'flex',flexDirection:'column',flexShrink:0}}>
+          <div style={{padding:'16px 20px',borderBottom:'1px solid #E0E0E0',display:'flex',justifyContent:'space-between',alignItems:'center'}}>
+            <div style={{fontFamily:"'Nunito',sans-serif",fontWeight:900,fontSize:17,color:NAV}}>Cart ({cart.reduce((s,x)=>s+x.qty,0)})</div>
+            <button onClick={()=>setCartOpen(false)} style={{background:'none',border:'none',cursor:'pointer',fontSize:18,color:'#828282'}}>×</button>
+          </div>
+          <div style={{flex:1,overflowY:'auto',padding:'12px 20px'}}>
+            {cart.length===0?<div style={{textAlign:'center',color:'#828282',fontSize:13,marginTop:40}}>Cart is empty</div>:cart.map(item=>(
+              <div key={item.id} style={{display:'flex',gap:12,padding:'10px 0',borderBottom:'1px solid #F0EDE7',alignItems:'center'}}>
+                <img src={item.img} alt="" style={{width:48,height:36,objectFit:'cover',borderRadius:3,flexShrink:0}}/>
+                <div style={{flex:1}}><div style={{fontSize:13,fontWeight:600,color:'#333'}}>{item.name}</div><div style={{fontSize:12,color:ORG,fontWeight:700,marginTop:2}}>${item.price} × {item.qty}</div></div>
+                <button onClick={()=>setCart(c=>c.filter(x=>x.id!==item.id))} style={{background:'none',border:'none',cursor:'pointer',color:'#BDBDBD',fontSize:16}}>×</button>
+              </div>
+            ))}
+          </div>
+          {cart.length>0&&<div style={{padding:'16px 20px',borderTop:'1px solid #E0E0E0'}}>
+            <div style={{display:'flex',justifyContent:'space-between',marginBottom:14}}><span style={{fontSize:14,fontWeight:600,color:'#333'}}>Total</span><span style={{fontFamily:"'Nunito',sans-serif",fontWeight:900,fontSize:18,color:NAV}}>${cartTotal}</span></div>
+            <button style={{width:'100%',background:ORG,color:WH,border:'none',borderRadius:4,padding:'11px',fontSize:14,fontWeight:700,cursor:'pointer',fontFamily:"'DM Sans',sans-serif"}}>Checkout →</button>
+          </div>}
+        </div>}
+      </div>
+    </div>
+  );
+};
+
+// ── Social Feed Desktop ───────────────────────────────────
+const SocialDesktop=()=>{
+  const [liked,setLiked]=React.useState({});
+  const [animating,setAnimating]=React.useState({});
+  React.useEffect(()=>{lucide.createIcons();});
+  const posts=[
+    {id:1,user:'Amara K.',handle:'@amara_k',img:img.wildflowers,caption:'Golden hour magic in the fields. Nothing beats the late afternoon light when everything glows warm 🌅',likes:284,comments:32,time:'2h'},
+    {id:2,user:'Felix M.',handle:'@felixm',img:img.daisy,caption:'Found this perfect little droplet on a purple daisy this morning. Macro photography is pure patience.',likes:192,comments:18,time:'5h'},
+    {id:3,user:'Siona R.',handle:'@sionar',img:img.children,caption:'Kids running through the golden fields. These spontaneous moments are the ones you remember forever.',likes:341,comments:47,time:'1d'},
+  ];
+  const suggested=[
+    {name:'Lena V.',handle:'@lenav',initials:'LV'},
+    {name:'Omar H.',handle:'@omarh',initials:'OH'},
+    {name:'Priya S.',handle:'@priyas',initials:'PS'},
+  ];
+  const trending=['#goldenhour','#macrophotography','#naturephotography','#filmgrain','#analogvibes'];
+  const handleLike=(id)=>{
+    setAnimating(a=>({...a,[id]:true}));
+    setLiked(l=>({...l,[id]:!l[id]}));
+    setTimeout(()=>setAnimating(a=>({...a,[id]:false})),400);
+  };
+  return(
+    <div style={{flex:1,overflow:'auto',background:BG}}>
+      <TopBar title="Social Feed" subtitle="Connect, share and discover"/>
+      <div style={{padding:'24px 28px',display:'grid',gridTemplateColumns:'220px 1fr 220px',gap:20,alignItems:'start'}}>
+        {/* Left sidebar */}
+        <div style={{display:'flex',flexDirection:'column',gap:14}}>
+          <div style={{background:WH,borderRadius:4,boxShadow:'0 2px 8px rgba(0,0,0,0.08)',padding:'20px',textAlign:'center'}}>
+            <div style={{width:56,height:56,borderRadius:'50%',background:ORG,display:'flex',alignItems:'center',justifyContent:'center',fontSize:20,fontWeight:900,color:WH,margin:'0 auto 10px',fontFamily:"'Nunito',sans-serif"}}>YA</div>
+            <div style={{fontFamily:"'Nunito',sans-serif",fontWeight:900,fontSize:16,color:NAV}}>Yahya A.</div>
+            <div style={{fontSize:12,color:'#828282',marginBottom:14}}>@yahya_a</div>
+            <div style={{display:'flex',justifyContent:'center',gap:20,marginBottom:14}}>
+              <div style={{textAlign:'center'}}><div style={{fontFamily:"'Nunito',sans-serif",fontWeight:900,fontSize:16,color:NAV}}>142</div><div style={{fontSize:11,color:'#828282'}}>Following</div></div>
+              <div style={{width:1,background:'#F0EDE7'}}></div>
+              <div style={{textAlign:'center'}}><div style={{fontFamily:"'Nunito',sans-serif",fontWeight:900,fontSize:16,color:NAV}}>3.2k</div><div style={{fontSize:11,color:'#828282'}}>Followers</div></div>
+            </div>
+            <button style={{width:'100%',background:NAV,color:WH,border:'none',borderRadius:4,padding:'9px',fontSize:13,fontWeight:700,cursor:'pointer',fontFamily:"'DM Sans',sans-serif"}}>+ Create Post</button>
+          </div>
+        </div>
+        {/* Center feed */}
+        <div style={{display:'flex',flexDirection:'column',gap:16}}>
+          {posts.map(p=>(
+            <div key={p.id} style={{background:WH,borderRadius:4,boxShadow:'0 2px 8px rgba(0,0,0,0.08)',overflow:'hidden'}}>
+              <div style={{padding:'14px 16px',display:'flex',alignItems:'center',gap:10}}>
+                <div style={{width:36,height:36,borderRadius:'50%',background:ORG+'25',display:'flex',alignItems:'center',justifyContent:'center',fontSize:13,fontWeight:700,color:ORG,flexShrink:0}}>{p.user.split(' ').map(x=>x[0]).join('')}</div>
+                <div><div style={{fontSize:14,fontWeight:700,color:NAV}}>{p.user}</div><div style={{fontSize:11,color:'#828282'}}>{p.handle} · {p.time}</div></div>
+              </div>
+              <img src={p.img} alt="" style={{width:'100%',height:300,objectFit:'cover',display:'block'}}/>
+              <div style={{padding:'14px 16px'}}>
+                <div style={{fontSize:13,color:'#4F4F4F',lineHeight:1.6,marginBottom:12}}>{p.caption}</div>
+                <div style={{display:'flex',gap:16,alignItems:'center'}}>
+                  <button onClick={()=>handleLike(p.id)} style={{background:'none',border:'none',cursor:'pointer',display:'flex',alignItems:'center',gap:5,fontSize:13,fontWeight:600,color:liked[p.id]?'#EB5757':'#828282',transform:animating[p.id]?'scale(1.3)':'scale(1)',transition:'transform 400ms cubic-bezier(0.34,1.56,0.64,1)'}}>
+                    <i data-lucide="heart" style={{width:16,height:16,fill:liked[p.id]?'#EB5757':'none'}}></i>{p.likes+(liked[p.id]?1:0)}
+                  </button>
+                  <button style={{background:'none',border:'none',cursor:'pointer',display:'flex',alignItems:'center',gap:5,fontSize:13,fontWeight:600,color:'#828282'}}>
+                    <i data-lucide="message-circle" style={{width:16,height:16}}></i>{p.comments}
+                  </button>
+                  <button style={{background:'none',border:'none',cursor:'pointer',display:'flex',alignItems:'center',gap:5,fontSize:13,fontWeight:600,color:'#828282',marginLeft:'auto'}}>
+                    <i data-lucide="share-2" style={{width:16,height:16}}></i>Share
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+        {/* Right sidebar */}
+        <div style={{display:'flex',flexDirection:'column',gap:14}}>
+          <div style={{background:WH,borderRadius:4,boxShadow:'0 2px 8px rgba(0,0,0,0.08)',padding:'16px 18px'}}>
+            <div style={{fontFamily:"'Nunito',sans-serif",fontWeight:900,fontSize:15,color:NAV,marginBottom:12}}>Suggested</div>
+            {suggested.map((u,i)=>(
+              <div key={i} style={{display:'flex',alignItems:'center',gap:10,marginBottom:12}}>
+                <div style={{width:34,height:34,borderRadius:'50%',background:NAV,display:'flex',alignItems:'center',justifyContent:'center',fontSize:12,fontWeight:700,color:WH,flexShrink:0}}>{u.initials}</div>
+                <div style={{flex:1}}><div style={{fontSize:13,fontWeight:600,color:'#333'}}>{u.name}</div><div style={{fontSize:11,color:'#828282'}}>{u.handle}</div></div>
+                <button style={{background:NAV,color:WH,border:'none',borderRadius:4,padding:'5px 12px',fontSize:12,fontWeight:700,cursor:'pointer',fontFamily:"'DM Sans',sans-serif"}}>Follow</button>
+              </div>
+            ))}
+          </div>
+          <div style={{background:WH,borderRadius:4,boxShadow:'0 2px 8px rgba(0,0,0,0.08)',padding:'16px 18px'}}>
+            <div style={{fontFamily:"'Nunito',sans-serif",fontWeight:900,fontSize:15,color:NAV,marginBottom:12}}>Trending Topics</div>
+            {trending.map((t,i)=>(
+              <div key={i} style={{display:'flex',alignItems:'center',justifyContent:'space-between',padding:'7px 0',borderBottom:i<trending.length-1?'1px solid #F0EDE7':'none',cursor:'pointer'}}>
+                <span style={{fontSize:13,fontWeight:500,color:NAV}}>{t}</span>
+                <i data-lucide="trending-up" style={{width:13,height:13,color:'#BDBDBD'}}></i>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// ── Repositories Desktop ──────────────────────────────────
+const ReposDesktop=()=>{
+  const [activeRepo,setActiveRepo]=React.useState('hearthwork');
+  const [starred,setStarred]=React.useState({});
+  const [starAnim,setStarAnim]=React.useState({});
+  const [search,setSearch]=React.useState('');
+  React.useEffect(()=>{lucide.createIcons();});
+  const repos=[
+    {name:'hearthwork',desc:'Design system UI tokens and component library for multi-platform apps.',stars:142,lang:'CSS',topics:['design-system','tokens','open-source']},
+    {name:'portfolio-site',desc:'Personal photography portfolio built with React and Vite.',stars:38,lang:'JSX',topics:['react','photography','portfolio']},
+    {name:'macro-tools',desc:'CLI utilities for batch processing and exporting macro photography.',stars:27,lang:'JS',topics:['cli','photography','automation']},
+    {name:'color-tokens',desc:'Extracted design token set compatible with Figma, CSS, and Tailwind.',stars:91,lang:'JSON',topics:['design','tokens','figma']},
+    {name:'ui-kit-mobile',desc:'React Native components built on top of the Hearthwork design system.',stars:63,lang:'JSX',topics:['react-native','mobile','ui-kit']},
+  ];
+  const fileTree=['README.md','assets/','preview/','ui_kits/','tokens.json','SKILL.md','package.json'];
+  const langColor={CSS:'#563d7c',JSX:'#61dafb',JS:'#f7df1e',JSON:'#f4d03f'};
+  const active=repos.find(r=>r.name===activeRepo)||repos[0];
+  const filtered=repos.filter(r=>r.name.toLowerCase().includes(search.toLowerCase())||r.desc.toLowerCase().includes(search.toLowerCase()));
+  const handleStar=(name)=>{
+    setStarAnim(a=>({...a,[name]:true}));
+    setStarred(s=>({...s,[name]:!s[name]}));
+    setTimeout(()=>setStarAnim(a=>({...a,[name]:false})),400);
+  };
+  return(
+    <div style={{flex:1,overflow:'hidden',background:BG,display:'flex',flexDirection:'column'}}>
+      <TopBar title="Repositories" subtitle="Browse and explore code repositories"/>
+      <div style={{flex:1,display:'flex',overflow:'hidden'}}>
+        {/* Left panel */}
+        <div style={{width:280,background:WH,borderRight:'1px solid #E0E0E0',display:'flex',flexDirection:'column',flexShrink:0}}>
+          <div style={{padding:'14px 16px',borderBottom:'1px solid #F0EDE7'}}>
+            <div style={{position:'relative'}}><input value={search} onChange={e=>setSearch(e.target.value)} placeholder="Search repos…" style={{width:'100%',background:BG,border:'1px solid #E0E0E0',borderRadius:6,padding:'7px 10px 7px 30px',fontSize:13,outline:'none',fontFamily:"'DM Sans',sans-serif"}}/><i data-lucide="search" style={{position:'absolute',left:9,top:'50%',transform:'translateY(-50%)',width:13,height:13,color:'#BDBDBD'}}></i></div>
+          </div>
+          <div style={{flex:1,overflowY:'auto'}}>
+            {filtered.map(r=>(
+              <div key={r.name} onClick={()=>setActiveRepo(r.name)} style={{padding:'12px 16px',cursor:'pointer',borderBottom:'1px solid #F0EDE7',borderLeft:activeRepo===r.name?`3px solid ${ORG}`:'3px solid transparent',background:activeRepo===r.name?'rgba(242,153,74,0.07)':'transparent'}}>
+                <div style={{display:'flex',alignItems:'center',gap:8,marginBottom:3}}>
+                  <span style={{width:8,height:8,borderRadius:'50%',background:ORG,flexShrink:0}}></span>
+                  <span style={{fontFamily:"'DM Mono',monospace",fontSize:13,fontWeight:500,color:NAV}}>{r.name}</span>
+                </div>
+                <div style={{fontSize:12,color:'#828282',marginBottom:5,paddingLeft:16,whiteSpace:'nowrap',overflow:'hidden',textOverflow:'ellipsis'}}>{r.desc}</div>
+                <div style={{display:'flex',alignItems:'center',gap:10,paddingLeft:16}}>
+                  <span style={{width:8,height:8,borderRadius:'50%',background:langColor[r.lang]||'#828282',display:'inline-block'}}></span>
+                  <span style={{fontSize:11,color:'#828282'}}>{r.lang}</span>
+                  <i data-lucide="star" style={{width:12,height:12,color:'#828282'}}></i>
+                  <span style={{fontSize:11,color:'#828282'}}>{r.stars+(starred[r.name]?1:0)}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        {/* Right panel */}
+        <div style={{flex:1,overflowY:'auto',padding:'24px'}}>
+          {/* Repo header */}
+          <div style={{background:WH,borderRadius:4,boxShadow:'0 2px 8px rgba(0,0,0,0.08)',padding:'20px 24px',marginBottom:16}}>
+            <div style={{display:'flex',alignItems:'flex-start',justifyContent:'space-between',marginBottom:10}}>
+              <div>
+                <div style={{fontFamily:"'Nunito',sans-serif",fontWeight:900,fontSize:24,color:NAV,marginBottom:4}}>{active.name}</div>
+                <div style={{fontSize:14,color:'#4F4F4F',lineHeight:1.5,marginBottom:12}}>{active.desc}</div>
+                <div style={{display:'flex',flexWrap:'wrap',gap:6}}>
+                  {active.topics.map(t=><span key={t} style={{fontSize:11,fontWeight:600,padding:'3px 10px',borderRadius:999,background:ORG+'18',color:ORG}}>{t}</span>)}
+                </div>
+              </div>
+              <button onClick={()=>handleStar(active.name)} style={{display:'flex',alignItems:'center',gap:6,background:starred[active.name]?ORG+'18':BG,border:`1px solid ${starred[active.name]?ORG:'#E0E0E0'}`,borderRadius:4,padding:'8px 16px',cursor:'pointer',fontSize:13,fontWeight:600,color:starred[active.name]?ORG:'#828282',transform:starAnim[active.name]?'scale(1.15)':'scale(1)',transition:'transform 400ms cubic-bezier(0.34,1.56,0.64,1)',fontFamily:"'DM Sans',sans-serif"}}>
+                <i data-lucide="star" style={{width:14,height:14,fill:starred[active.name]?ORG:'none'}}></i>Star {active.stars+(starred[active.name]?1:0)}
+              </button>
+            </div>
+          </div>
+          {/* File tree */}
+          <div style={{background:WH,borderRadius:4,boxShadow:'0 2px 8px rgba(0,0,0,0.08)',marginBottom:16,overflow:'hidden'}}>
+            <div style={{padding:'10px 16px',borderBottom:'1px solid #F0EDE7',display:'flex',alignItems:'center',gap:8}}>
+              <i data-lucide="git-branch" style={{width:14,height:14,color:ORG}}></i>
+              <span style={{fontFamily:"'DM Mono',monospace",fontSize:12,fontWeight:500,color:'#828282'}}>main</span>
+            </div>
+            {fileTree.map((f,i)=>(
+              <div key={i} style={{display:'flex',alignItems:'center',gap:10,padding:'8px 16px',borderBottom:i<fileTree.length-1?'1px solid #F0EDE7':'none',cursor:'pointer'}}>
+                <i data-lucide={f.endsWith('/')?'folder':'file-text'} style={{width:14,height:14,color:f.endsWith('/')?'#dcb67a':'#BDBDBD'}}></i>
+                <span style={{fontFamily:"'DM Mono',monospace",fontSize:13,color:NAV}}>{f}</span>
+              </div>
+            ))}
+          </div>
+          {/* README preview */}
+          <div style={{background:WH,borderRadius:4,boxShadow:'0 2px 8px rgba(0,0,0,0.08)',padding:'24px'}}>
+            <div style={{display:'flex',alignItems:'center',gap:8,marginBottom:20,paddingBottom:14,borderBottom:'1px solid #F0EDE7'}}>
+              <i data-lucide="file-text" style={{width:15,height:15,color:'#BDBDBD'}}></i>
+              <span style={{fontSize:13,fontWeight:600,color:'#828282'}}>README.md</span>
+            </div>
+            <div style={{fontFamily:"'Nunito',sans-serif",fontWeight:900,fontSize:28,color:NAV,marginBottom:8}}>Hearthwork Design System</div>
+            <div style={{fontSize:13,color:'#828282',marginBottom:20,lineHeight:1.6,fontStyle:'italic',borderLeft:`3px solid ${ORG}`,paddingLeft:14}}>Source: UI Style Guidelines by Yahya Amirudin</div>
+            <div style={{fontFamily:"'Nunito',sans-serif",fontWeight:900,fontSize:18,color:NAV,marginBottom:10}}>Brand Colors</div>
+            <div style={{background:'#F8F6F2',borderRadius:4,padding:'12px 16px',marginBottom:16,fontFamily:"'DM Mono',monospace",fontSize:12,lineHeight:1.8,color:'#4F4F4F'}}>
+              <div>--color-primary: <span style={{color:NAV,fontWeight:700}}>#0D2847</span> — deep navy</div>
+              <div>--color-secondary: <span style={{color:ORG,fontWeight:700}}>#F2994A</span> — warm orange</div>
+              <div>--color-bg: <span style={{color:'#828282'}}>#F8F6F2</span> — off-white</div>
+            </div>
+            <div style={{fontFamily:"'Nunito',sans-serif",fontWeight:900,fontSize:18,color:NAV,marginBottom:10}}>Typography</div>
+            <div style={{fontSize:13,color:'#4F4F4F',lineHeight:1.8}}>
+              <div><strong>Display:</strong> Nunito 900 — headlines and wordmark</div>
+              <div><strong>UI/Body:</strong> DM Sans — interface and body copy</div>
+              <div><strong>Mono:</strong> DM Mono — code and technical labels</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// ── Chat Support Desktop ──────────────────────────────────
+const ChatDesktop=()=>{
+  const [activeConv,setActiveConv]=React.useState(0);
+  const [input,setInput]=React.useState('');
+  const [typing,setTyping]=React.useState(false);
+  const [messages,setMessages]=React.useState([
+    {from:'cc',text:'Hi! I\'m your CC assistant. How can I help you today?'},
+    {from:'user',text:'I need help setting up the design tokens in my project.'},
+    {from:'cc',text:'Sure! The Hearthwork tokens are available as CSS custom properties. You just need to import the tokens.json file and reference the variables in your CSS.'},
+    {from:'user',text:'Is there a Figma integration?'},
+    {from:'cc',text:'Yes! There\'s a Figma plugin available. You can find it in the Hearthwork repo under /figma-tokens. It auto-syncs variables from your token file.'},
+  ]);
+  React.useEffect(()=>{lucide.createIcons();});
+  const conversations=[
+    {name:'Yahya A.',last:'Is there a Figma integration?',time:'now',unread:0,initials:'YA'},
+    {name:'Lena V.',last:'How do I export tokens to Tailwind?',time:'2h',unread:2,initials:'LV'},
+    {name:'Omar H.',last:'Thanks for the help!',time:'5h',unread:0,initials:'OH'},
+    {name:'Priya S.',last:'Can I use this with Next.js?',time:'1d',unread:0,initials:'PS'},
+  ];
+  const messagesEndRef=React.useRef(null);
+  React.useEffect(()=>{if(messagesEndRef.current)messagesEndRef.current.scrollIntoView({behavior:'smooth'});},[messages]);
+  const sendMsg=()=>{
+    if(!input.trim())return;
+    const userMsg={from:'user',text:input};
+    setMessages(m=>[...m,userMsg]);
+    setInput('');
+    setTyping(true);
+    setTimeout(()=>{
+      setTyping(false);
+      setMessages(m=>[...m,{from:'cc',text:'Thanks for reaching out! Let me look into that for you and get back with a detailed answer.'}]);
+    },2000);
+  };
+  return(
+    <div style={{flex:1,display:'flex',overflow:'hidden',background:BG}}>
+      {/* Conversation list */}
+      <div style={{width:280,background:WH,borderRight:'1px solid #E0E0E0',display:'flex',flexDirection:'column',flexShrink:0}}>
+        <div style={{padding:'14px 16px',borderBottom:'1px solid #F0EDE7'}}>
+          <div style={{fontFamily:"'Nunito',sans-serif",fontWeight:900,fontSize:17,color:NAV,marginBottom:10}}>Chat Support</div>
+          <div style={{position:'relative'}}><input placeholder="Search conversations…" style={{width:'100%',background:BG,border:'1px solid #E0E0E0',borderRadius:6,padding:'7px 10px 7px 30px',fontSize:13,outline:'none',fontFamily:"'DM Sans',sans-serif"}}/><i data-lucide="search" style={{position:'absolute',left:9,top:'50%',transform:'translateY(-50%)',width:13,height:13,color:'#BDBDBD'}}></i></div>
+        </div>
+        <div style={{flex:1,overflowY:'auto'}}>
+          {conversations.map((c,i)=>(
+            <div key={i} onClick={()=>setActiveConv(i)} style={{display:'flex',gap:12,padding:'12px 16px',cursor:'pointer',background:activeConv===i?BG:'transparent',borderBottom:'1px solid #F0EDE7',transition:'background 150ms'}}>
+              <div style={{width:38,height:38,borderRadius:'50%',background:ORG,display:'flex',alignItems:'center',justifyContent:'center',fontSize:13,fontWeight:700,color:WH,flexShrink:0}}>{c.initials}</div>
+              <div style={{flex:1,minWidth:0}}>
+                <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:2}}>
+                  <span style={{fontSize:14,fontWeight:600,color:'#333'}}>{c.name}</span>
+                  <span style={{fontSize:11,color:'#BDBDBD'}}>{c.time}</span>
+                </div>
+                <div style={{fontSize:12,color:'#828282',whiteSpace:'nowrap',overflow:'hidden',textOverflow:'ellipsis'}}>{c.last}</div>
+              </div>
+              {c.unread>0&&<div style={{width:18,height:18,borderRadius:'50%',background:ORG,display:'flex',alignItems:'center',justifyContent:'center',fontSize:10,fontWeight:700,color:WH,flexShrink:0,alignSelf:'center'}}>{c.unread}</div>}
+            </div>
+          ))}
+        </div>
+      </div>
+      {/* Chat panel */}
+      <div style={{flex:1,display:'flex',flexDirection:'column',overflow:'hidden'}}>
+        {/* Chat header */}
+        <div style={{height:58,background:WH,borderBottom:'1px solid #E0E0E0',display:'flex',alignItems:'center',padding:'0 20px',gap:12,flexShrink:0}}>
+          <div style={{width:34,height:34,borderRadius:'50%',background:ORG,display:'flex',alignItems:'center',justifyContent:'center',fontSize:13,fontWeight:700,color:WH,flexShrink:0}}>{conversations[activeConv].initials}</div>
+          <div>
+            <div style={{fontSize:14,fontWeight:700,color:NAV}}>{conversations[activeConv].name}</div>
+            <div style={{display:'flex',alignItems:'center',gap:5,fontSize:11,color:'#828282'}}><span style={{width:6,height:6,borderRadius:'50%',background:'#27AE60',display:'inline-block'}}></span>Online</div>
+          </div>
+        </div>
+        {/* Messages */}
+        <div style={{flex:1,overflowY:'auto',padding:'20px',display:'flex',flexDirection:'column',gap:14,background:BG}}>
+          {messages.map((m,i)=>(
+            <div key={i} style={{display:'flex',gap:10,justifyContent:m.from==='user'?'flex-end':'flex-start',alignItems:'flex-end'}}>
+              {m.from==='cc'&&<div style={{width:30,height:30,borderRadius:'50%',background:NAV,display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0}}><span style={{fontFamily:"'Nunito',sans-serif",fontWeight:900,fontSize:11,color:ORG}}>CC</span></div>}
+              <div style={{maxWidth:'60%',background:m.from==='user'?NAV:WH,borderRadius:m.from==='user'?'12px 12px 4px 12px':'12px 12px 12px 4px',padding:'10px 14px',boxShadow:'0 1px 4px rgba(0,0,0,0.08)'}}>
+                <div style={{fontSize:13,lineHeight:1.55,color:m.from==='user'?WH:'#333'}}>{m.text}</div>
+              </div>
+            </div>
+          ))}
+          {typing&&<div style={{display:'flex',gap:10,alignItems:'flex-end'}}>
+            <div style={{width:30,height:30,borderRadius:'50%',background:NAV,display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0}}><span style={{fontFamily:"'Nunito',sans-serif",fontWeight:900,fontSize:11,color:ORG}}>CC</span></div>
+            <div style={{background:WH,borderRadius:'12px 12px 12px 4px',padding:'10px 16px',boxShadow:'0 1px 4px rgba(0,0,0,0.08)',display:'flex',gap:4,alignItems:'center'}}>
+              {[0,1,2].map(i=><div key={i} style={{width:6,height:6,borderRadius:'50%',background:'#BDBDBD',animation:`blink 1.2s ${i*0.2}s ease-in-out infinite`}}></div>)}
+            </div>
+          </div>}
+          <div ref={messagesEndRef}></div>
+        </div>
+        {/* Input bar */}
+        <div style={{background:WH,borderTop:'1px solid #E0E0E0',padding:'12px 20px',display:'flex',gap:10,alignItems:'center',flexShrink:0}}>
+          <input value={input} onChange={e=>setInput(e.target.value)} onKeyDown={e=>{if(e.key==='Enter')sendMsg();}} placeholder="Type a message…" style={{flex:1,background:BG,border:'1px solid #E0E0E0',borderRadius:8,padding:'10px 14px',fontSize:13,outline:'none',fontFamily:"'DM Sans',sans-serif"}}/>
+          <button onClick={sendMsg} style={{width:38,height:38,borderRadius:8,background:input.trim()?ORG:'#E0E0E0',border:'none',cursor:input.trim()?'pointer':'default',display:'flex',alignItems:'center',justifyContent:'center',transition:'background 200ms',flexShrink:0}}>
+            <i data-lucide="send" style={{width:15,height:15,color:WH}}></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// ── App root ──────────────────────────────────────────────
+const App=()=>{
+  const [page,setPage]=React.useState('dashboard');
+  React.useEffect(()=>{lucide.createIcons();});
+  const screens={
+    dashboard:<DashboardScreen/>,
+    content:<ContentScreen/>,
+    analytics:<AnalyticsScreen/>,
+    llm:<LLMScreen/>,
+    ide:<IDEScreen/>,
+    settings:<SettingsScreen/>,
+    lifestyle:<LifestyleDesktop/>,
+    shop:<ShopDesktop/>,
+    social:<SocialDesktop/>,
+    repos:<ReposDesktop/>,
+    chat:<ChatDesktop/>,
+  };
+  return(
+    <div style={{display:'flex',height:'100vh',overflow:'hidden'}}>
+      <Sidebar active={page} onNav={setPage}/>
+      {screens[page]||screens.dashboard}
+    </div>
+  );
+};
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body>
+</html>
