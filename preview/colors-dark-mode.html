@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Dark Mode Tokens</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&family=Nunito:wght@900&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: #0D2847; padding: 22px 28px; }
+  .section-label { font-size: 10px; font-weight: 700; color: rgba(248,246,242,0.4); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px; }
+  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 16px; }
+  .swatch { border-radius: 4px; padding: 12px 12px 8px; }
+  .swatch-block { height: 44px; border-radius: 3px; margin-bottom: 8px; }
+  .swatch-name { font-size: 11px; font-weight: 700; color: rgba(248,246,242,0.9); }
+  .swatch-val { font-size: 10px; color: rgba(248,246,242,0.45); margin-top: 2px; font-family: 'DM Mono', monospace; }
+
+  /* Component demos */
+  .demo-row { display: flex; gap: 12px; align-items: flex-start; flex-wrap: wrap; }
+  .demo-card { background: #122f55; border-radius: 4px; padding: 14px 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.3); flex: 1; min-width: 140px; }
+  .demo-card-raised { background: #1a3a65; border-radius: 4px; padding: 14px 16px; box-shadow: 0 4px 16px rgba(0,0,0,0.4); flex: 1; min-width: 140px; }
+  .dc-label { font-size: 10px; font-weight: 700; color: rgba(248,246,242,0.4); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+  .dc-title { font-size: 14px; font-weight: 700; color: #F8F6F2; margin-bottom: 4px; }
+  .dc-body { font-size: 12px; color: rgba(248,246,242,0.65); line-height: 1.55; }
+  .dc-btn { margin-top: 10px; display: inline-block; background: #F2994A; color: #fff; font-size: 12px; font-weight: 700; padding: 6px 14px; border-radius: 4px; }
+  .dc-input { background: #0a2038; border: 1px solid rgba(255,255,255,0.15); border-radius: 4px; padding: 7px 10px; font-size: 13px; color: rgba(248,246,242,0.8); font-family: 'DM Sans', sans-serif; width: 100%; margin-top: 8px; outline: none; }
+  .tag-row { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+  .d-tag { padding: 3px 10px; border-radius: 4px; font-size: 11px; font-weight: 700; }
+</style>
+</head>
+<body>
+  <div class="section-label">Surface Tokens — Dark Mode</div>
+  <div class="grid">
+    <div class="swatch">
+      <div class="swatch-block" style="background:#0D2847; border: 1px solid rgba(255,255,255,0.1);"></div>
+      <div class="swatch-name">Page</div>
+      <div class="swatch-val">#0D2847</div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-block" style="background:#122f55;"></div>
+      <div class="swatch-name">Surface</div>
+      <div class="swatch-val">#122f55</div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-block" style="background:#1a3a65;"></div>
+      <div class="swatch-name">Raised</div>
+      <div class="swatch-val">#1a3a65</div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-block" style="background:#0a2038; border: 1px solid rgba(255,255,255,0.08);"></div>
+      <div class="swatch-name">Muted</div>
+      <div class="swatch-val">#0a2038</div>
+    </div>
+  </div>
+
+  <div class="section-label" style="margin-bottom:10px;">Foreground Tokens</div>
+  <div class="grid" style="margin-bottom:16px;">
+    <div class="swatch">
+      <div class="swatch-block" style="background:#F8F6F2;"></div>
+      <div class="swatch-name">Primary</div>
+      <div class="swatch-val">#F8F6F2</div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-block" style="background:rgba(248,246,242,0.75);"></div>
+      <div class="swatch-name">Secondary</div>
+      <div class="swatch-val">rgba 75%</div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-block" style="background:rgba(248,246,242,0.45);"></div>
+      <div class="swatch-name">Muted</div>
+      <div class="swatch-val">rgba 45%</div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-block" style="background:#F2994A;"></div>
+      <div class="swatch-name">Brand accent</div>
+      <div class="swatch-val">#F2994A</div>
+    </div>
+  </div>
+
+  <div class="section-label">Components in Dark Mode</div>
+  <div class="demo-row">
+    <div class="demo-card">
+      <div class="dc-label">Default card</div>
+      <div class="dc-title">Card title</div>
+      <div class="dc-body">Body text at rgba 65% opacity, readable and calm.</div>
+      <div class="dc-btn">Learn more</div>
+    </div>
+    <div class="demo-card-raised">
+      <div class="dc-label">Raised card</div>
+      <div class="dc-title">Elevated surface</div>
+      <div class="dc-body">Deeper shadows; lighter bg surface. Dropdowns, modals.</div>
+      <div class="tag-row">
+        <span class="d-tag" style="background:rgba(242,153,74,0.2);color:#F2994A;">Featured</span>
+        <span class="d-tag" style="background:rgba(39,174,96,0.2);color:#27AE60;">Active</span>
+      </div>
+    </div>
+    <div class="demo-card" style="flex:0.8;">
+      <div class="dc-label">Input</div>
+      <input class="dc-input" placeholder="Input text…">
+    </div>
+  </div>
+</body>
+</html>

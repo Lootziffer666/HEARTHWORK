@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Selectors</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', sans-serif; background: #fff; padding: 20px 24px; }
+  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  .section-label { font-size: 10px; font-weight: 700; color: #BDBDBD; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
+
+  /* Dropdown */
+  .dropdown { position: relative; }
+  select {
+    font-family: 'Inter', sans-serif; font-size: 14px; color: #333;
+    border: 1px solid #E0E0E0; border-radius: 4px; padding: 8px 32px 8px 12px;
+    appearance: none; -webkit-appearance: none; background: #fff; width: 100%; cursor: pointer;
+  }
+  .dropdown::after { content: '▾'; position: absolute; right: 10px; top: 50%; transform: translateY(-50%); color: #828282; pointer-events: none; font-size: 12px; }
+
+  /* Checkbox */
+  .check-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; cursor: pointer; }
+  .check-box { width: 16px; height: 16px; border: 2px solid #0D2847; border-radius: 3px; background: #0D2847; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .check-box-empty { width: 16px; height: 16px; border: 2px solid #BDBDBD; border-radius: 3px; flex-shrink: 0; }
+  .check-mark { color: #fff; font-size: 10px; font-weight: 700; }
+  .check-label { font-size: 14px; color: #333; }
+
+  /* Radio */
+  .radio-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+  .radio-outer { width: 16px; height: 16px; border-radius: 50%; border: 2px solid #0D2847; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .radio-inner { width: 8px; height: 8px; border-radius: 50%; background: #0D2847; }
+  .radio-outer-empty { width: 16px; height: 16px; border-radius: 50%; border: 2px solid #BDBDBD; flex-shrink: 0; }
+  .radio-label { font-size: 14px; color: #333; }
+
+  /* Toggle */
+  .toggle-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .toggle { width: 40px; height: 22px; border-radius: 999px; position: relative; flex-shrink: 0; }
+  .toggle-on  { background: #0D2847; }
+  .toggle-off { background: #E0E0E0; }
+  .toggle-knob { width: 16px; height: 16px; border-radius: 50%; background: #fff; position: absolute; top: 3px; box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
+  .toggle-on  .toggle-knob { right: 3px; }
+  .toggle-off .toggle-knob { left: 3px; }
+  .toggle-label { font-size: 13px; color: #333; }
+
+  /* Tabs */
+  .tabs { display: flex; border-bottom: 2px solid #E0E0E0; }
+  .tab { padding: 6px 12px; font-size: 13px; font-weight: 700; color: #828282; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -2px; }
+  .tab-active { color: #0D2847; border-bottom-color: #0D2847; }
+
+  /* Pagination */
+  .pagination { display: flex; gap: 4px; align-items: center; }
+  .page-btn { width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; border: 1px solid #E0E0E0; border-radius: 4px; font-size: 13px; color: #333; cursor: pointer; }
+  .page-btn-active { background: #0D2847; color: #fff; border-color: #0D2847; font-weight: 700; }
+</style>
+</head>
+<body>
+  <div class="grid">
+    <div>
+      <div class="section-label">Dropdown</div>
+      <div class="dropdown"><select><option>Option 1</option><option selected>Option 2</option><option>Option 3</option></select></div>
+    </div>
+    <div>
+      <div class="section-label">Checkbox</div>
+      <div class="check-row"><div class="check-box"><span class="check-mark">✓</span></div><span class="check-label">Checkbox</span></div>
+      <div class="check-row"><div class="check-box-empty"></div><span class="check-label">Checkbox</span></div>
+      <div class="check-row"><div class="check-box-empty" style="opacity:0.4;"></div><span class="check-label" style="color:#BDBDBD;">Disabled</span></div>
+    </div>
+    <div>
+      <div class="section-label">Radio Button</div>
+      <div class="radio-row"><div class="radio-outer"><div class="radio-inner"></div></div><span class="radio-label">Selected</span></div>
+      <div class="radio-row"><div class="radio-outer-empty"></div><span class="radio-label">Radio Button</span></div>
+      <div class="radio-row"><div class="radio-outer-empty" style="opacity:0.4;"></div><span class="radio-label" style="color:#BDBDBD;">Disabled</span></div>
+    </div>
+    <div>
+      <div class="section-label">Toggle</div>
+      <div class="toggle-row"><div class="toggle toggle-on"><div class="toggle-knob"></div></div><span class="toggle-label">Toggle ON</span></div>
+      <div class="toggle-row"><div class="toggle toggle-off"><div class="toggle-knob"></div></div><span class="toggle-label">Toggle OFF</span></div>
+    </div>
+    <div style="grid-column: span 2;">
+      <div class="section-label">Tabs</div>
+      <div class="tabs">
+        <div class="tab tab-active">Section 1</div>
+        <div class="tab">Section 2</div>
+        <div class="tab">Section 3</div>
+      </div>
+    </div>
+    <div style="grid-column: span 2;">
+      <div class="section-label">Pagination</div>
+      <div class="pagination">
+        <div class="page-btn page-btn-active">1</div>
+        <div class="page-btn">2</div>
+        <div class="page-btn">3</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

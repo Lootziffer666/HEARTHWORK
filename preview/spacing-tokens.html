@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Spacing Tokens</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', sans-serif; background: #fff; padding: 24px 28px; }
+  .track { display: flex; align-items: flex-end; gap: 12px; }
+  .step { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  .box { background: #0D2847; border-radius: 3px; width: 100%; }
+  .label { font-size: 10px; color: #828282; text-align: center; white-space: nowrap; }
+  .value { font-size: 11px; font-weight: 700; color: #333; text-align: center; }
+</style>
+</head>
+<body>
+  <div class="track">
+    <div class="step" style="flex:1"><div class="box" style="height:8px;"></div><div class="value">8</div><div class="label">--space-1</div></div>
+    <div class="step" style="flex:1"><div class="box" style="height:16px;"></div><div class="value">16</div><div class="label">--space-2</div></div>
+    <div class="step" style="flex:1"><div class="box" style="height:24px;"></div><div class="value">24</div><div class="label">--space-3</div></div>
+    <div class="step" style="flex:1"><div class="box" style="height:32px;"></div><div class="value">32</div><div class="label">--space-4</div></div>
+    <div class="step" style="flex:1"><div class="box" style="height:40px;"></div><div class="value">40</div><div class="label">--space-5</div></div>
+    <div class="step" style="flex:1"><div class="box" style="height:56px;"></div><div class="value">56</div><div class="label">--space-6</div></div>
+    <div class="step" style="flex:1"><div class="box" style="height:72px;"></div><div class="value">72</div><div class="label">--space-7</div></div>
+    <div class="step" style="flex:1"><div class="box" style="height:80px;"></div><div class="value">80</div><div class="label">--space-8</div></div>
+    <div class="step" style="flex:1"><div class="box" style="height:96px;"></div><div class="value">96</div><div class="label">--space-9</div></div>
+    <div class="step" style="flex:1"><div class="box" style="height:110px;"></div><div class="value">120</div><div class="label">--space-10</div></div>
+  </div>
+</body>
+</html>

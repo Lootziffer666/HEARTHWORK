@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Component States</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: #F8F6F2; padding: 20px 24px; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+  .section-label { font-size: 10px; font-weight: 700; color: #BDBDBD; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px; }
+  .card { background: #fff; border-radius: 4px; padding: 14px 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); }
+
+  /* Skeleton */
+  @keyframes shimmer { 0%{background-position:-400px 0} 100%{background-position:400px 0} }
+  .skel { border-radius: 3px; background: linear-gradient(90deg, #E0E0E0 25%, #F0EDE7 50%, #E0E0E0 75%); background-size: 400px 100%; animation: shimmer 1.4s ease-in-out infinite; }
+
+  /* Toast */
+  .toast { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 4px; font-size: 13px; font-weight: 500; margin-bottom: 8px; }
+
+  /* Focus ring */
+  .focus-demo { padding: 8px 12px; border-radius: 4px; font-size: 13px; border: 1px solid #E0E0E0; outline: none; font-family: 'DM Sans', sans-serif; width: 100%; }
+  .focus-demo:focus { border-color: #0D2847; box-shadow: 0 0 0 3px rgba(13,40,71,0.2); }
+
+  /* Empty state */
+  .empty { text-align: center; padding: 20px 12px; }
+  .empty-icon { width: 40px; height: 40px; border-radius: 50%; background: #F0EDE7; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; }
+
+  /* Loading spinner */
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .spinner { width: 24px; height: 24px; border: 2.5px solid #E0E0E0; border-top-color: #0D2847; border-radius: 50%; animation: spin 0.7s linear infinite; }
+</style>
+</head>
+<body>
+  <div class="grid">
+    <!-- Skeleton loading -->
+    <div class="card">
+      <div class="section-label">Skeleton loading</div>
+      <div class="skel" style="height:80px; border-radius:4px; margin-bottom:10px;"></div>
+      <div class="skel" style="height:13px; width:70%; margin-bottom:6px;"></div>
+      <div class="skel" style="height:13px; width:50%; margin-bottom:6px;"></div>
+      <div class="skel" style="height:13px; width:85%;"></div>
+    </div>
+
+    <!-- Toast notifications -->
+    <div class="card">
+      <div class="section-label">Toasts</div>
+      <div class="toast" style="background:#E8F8EF; color:#1a7a44;">
+        <span style="font-size:16px;">✓</span> Changes saved successfully
+      </div>
+      <div class="toast" style="background:#FDEBEB; color:#c0392b;">
+        <span style="font-size:16px;">✕</span> Something went wrong
+      </div>
+      <div class="toast" style="background:#FDF6E3; color:#a07b1e;">
+        <span style="font-size:16px;">!</span> Session expires soon
+      </div>
+    </div>
+
+    <!-- Empty state -->
+    <div class="card">
+      <div class="section-label">Empty state</div>
+      <div class="empty">
+        <div class="empty-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#BDBDBD" stroke-width="2"><path d="M3 7h18M3 12h18M3 17h18"/></svg>
+        </div>
+        <div style="font-size:13px; font-weight:700; color:#333; margin-bottom:4px;">Nothing here yet</div>
+        <div style="font-size:11px; color:#828282; line-height:1.5; margin-bottom:10px;">Add your first item to get started.</div>
+        <button style="background:#0D2847; color:#fff; border:none; border-radius:4px; padding:6px 16px; font-size:12px; font-weight:700; cursor:pointer; font-family:'DM Sans',sans-serif;">Get started</button>
+      </div>
+    </div>
+
+    <!-- Focus states -->
+    <div class="card">
+      <div class="section-label">Focus rings (click to activate)</div>
+      <div style="display:flex; flex-direction:column; gap:8px;">
+        <input class="focus-demo" placeholder="Click to see focus ring" />
+        <button style="background:#0D2847; color:#fff; border:none; border-radius:4px; padding:8px 16px; font-size:13px; font-weight:700; cursor:pointer; font-family:'DM Sans',sans-serif; outline:none; transition:box-shadow 150ms;" onfocus="this.style.boxShadow='0 0 0 3px rgba(13,40,71,0.25)'" onblur="this.style.boxShadow='none'">Focusable button</button>
+        <button style="background:transparent; color:#0D2847; border:1.5px solid #0D2847; border-radius:4px; padding:8px 16px; font-size:13px; font-weight:700; cursor:pointer; font-family:'DM Sans',sans-serif; outline:none; transition:box-shadow 150ms;" onfocus="this.style.boxShadow='0 0 0 3px rgba(13,40,71,0.2)'" onblur="this.style.boxShadow='none'">Outline focusable</button>
+      </div>
+    </div>
+
+    <!-- Disabled states -->
+    <div class="card">
+      <div class="section-label">Disabled states</div>
+      <div style="display:flex; flex-direction:column; gap:8px;">
+        <button style="background:#BDBDBD; color:#fff; border:none; border-radius:4px; padding:8px 16px; font-size:13px; font-weight:700; cursor:not-allowed; font-family:'DM Sans',sans-serif; opacity:0.6;">Disabled button</button>
+        <input style="border:1px solid #E0E0E0; border-radius:4px; padding:8px 12px; font-size:13px; color:#BDBDBD; font-family:'DM Sans',sans-serif; background:#F8F6F2; cursor:not-allowed;" value="Disabled input" disabled />
+        <div style="display:flex; align-items:center; gap:8px; opacity:0.5;">
+          <div style="width:16px; height:16px; border:2px solid #BDBDBD; border-radius:3px;"></div>
+          <span style="font-size:13px; color:#BDBDBD;">Disabled checkbox</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Loading spinner -->
+    <div class="card">
+      <div class="section-label">Loading indicators</div>
+      <div style="display:flex; gap:16px; align-items:center; flex-wrap:wrap; margin-bottom:10px;">
+        <div class="spinner"></div>
+        <div class="spinner" style="border-top-color:#F2994A; width:32px; height:32px; border-width:3px;"></div>
+        <div class="spinner" style="border-top-color:#27AE60; width:40px; height:40px; border-width:3.5px;"></div>
+      </div>
+      <div style="height:6px; background:#E0E0E0; border-radius:999px; overflow:hidden;">
+        <div style="height:100%; background:#0D2847; border-radius:999px; width:60%; animation:progress 2s ease-in-out infinite alternate;"></div>
+      </div>
+      <style>@keyframes progress { from{width:20%} to{width:85%} }</style>
+      <div style="font-size:11px; color:#828282; margin-top:4px;">Loading… 60%</div>
+    </div>
+  </div>
+</body>
+</html>

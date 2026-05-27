@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Data Visualization Palette</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:#F8F6F2;padding:18px 22px;}
+  .section-label{font-size:10px;font-weight:700;color:#BDBDBD;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:10px;}
+  .palette-row{display:flex;gap:8px;margin-bottom:14px;}
+  .swatch{flex:1;border-radius:4px;overflow:hidden;}
+  .swatch-color{height:48px;}
+  .swatch-meta{background:#fff;padding:6px 8px;}
+  .swatch-name{font-size:11px;font-weight:700;color:#333;}
+  .swatch-hex{font-size:10px;color:#828282;font-family:'DM Mono',monospace;}
+  /* Simulated chart */
+  .chart{background:#fff;border-radius:4px;padding:14px 16px;box-shadow:0 2px 8px rgba(0,0,0,0.06);}
+  .bar-chart{display:flex;align-items:flex-end;gap:8px;height:80px;margin-bottom:8px;}
+  .bar{flex:1;border-radius:3px 3px 0 0;position:relative;}
+  .bar-label{font-size:9px;text-align:center;color:#828282;margin-top:4px;}
+  .donut-row{display:flex;gap:12px;align-items:center;}
+  .legend{display:flex;flex-direction:column;gap:5px;}
+  .legend-item{display:flex;align-items:center;gap:6px;font-size:11px;color:#4F4F4F;}
+  .legend-dot{width:10px;height:10px;border-radius:2px;flex-shrink:0;}
+  svg text{font-family:'DM Sans',sans-serif;}
+</style>
+</head>
+<body>
+  <div class="section-label">Sequential palette — 8 accessible, perceptually distinct series colors</div>
+  <div class="palette-row">
+    <div class="swatch"><div class="swatch-color" style="background:#0D2847;"></div><div class="swatch-meta"><div class="swatch-name">Seq 1</div><div class="swatch-hex">#0D2847</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#F2994A;"></div><div class="swatch-meta"><div class="swatch-name">Seq 2</div><div class="swatch-hex">#F2994A</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#2F80ED;"></div><div class="swatch-meta"><div class="swatch-name">Seq 3</div><div class="swatch-hex">#2F80ED</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#27AE60;"></div><div class="swatch-meta"><div class="swatch-name">Seq 4</div><div class="swatch-hex">#27AE60</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#9B59B6;"></div><div class="swatch-meta"><div class="swatch-name">Seq 5</div><div class="swatch-hex">#9B59B6</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#E2B93B;"></div><div class="swatch-meta"><div class="swatch-name">Seq 6</div><div class="swatch-hex">#E2B93B</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#EB5757;"></div><div class="swatch-meta"><div class="swatch-name">Seq 7</div><div class="swatch-hex">#EB5757</div></div></div>
+    <div class="swatch"><div class="swatch-color" style="background:#828282;"></div><div class="swatch-meta"><div class="swatch-name">Seq 8</div><div class="swatch-hex">#828282</div></div></div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+    <div class="chart">
+      <div style="font-size:11px;font-weight:700;color:#0D2847;margin-bottom:10px;">Bar chart</div>
+      <div class="bar-chart">
+        <div style="display:flex;flex-direction:column;align-items:center;flex:1;">
+          <div class="bar" style="background:#0D2847;height:72px;width:100%;"></div>
+          <div class="bar-label">Jan</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;flex:1;">
+          <div class="bar" style="background:#F2994A;height:55px;width:100%;"></div>
+          <div class="bar-label">Feb</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;flex:1;">
+          <div class="bar" style="background:#2F80ED;height:40px;width:100%;"></div>
+          <div class="bar-label">Mar</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;flex:1;">
+          <div class="bar" style="background:#27AE60;height:65px;width:100%;"></div>
+          <div class="bar-label">Apr</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;flex:1;">
+          <div class="bar" style="background:#9B59B6;height:48px;width:100%;"></div>
+          <div class="bar-label">May</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;flex:1;">
+          <div class="bar" style="background:#E2B93B;height:58px;width:100%;"></div>
+          <div class="bar-label">Jun</div>
+        </div>
+      </div>
+      <div style="font-size:10px;color:#BDBDBD;">Each series gets one palette color. Never reuse within a chart.</div>
+    </div>
+    <div class="chart">
+      <div style="font-size:11px;font-weight:700;color:#0D2847;margin-bottom:10px;">Donut chart</div>
+      <div class="donut-row">
+        <svg width="80" height="80" viewBox="0 0 80 80">
+          <circle cx="40" cy="40" r="30" fill="none" stroke="#0D2847" stroke-width="16" stroke-dasharray="85 104" stroke-dashoffset="26" transform="rotate(-90 40 40)"/>
+          <circle cx="40" cy="40" r="30" fill="none" stroke="#F2994A" stroke-width="16" stroke-dasharray="44 145" stroke-dashoffset="-59" transform="rotate(-90 40 40)"/>
+          <circle cx="40" cy="40" r="30" fill="none" stroke="#2F80ED" stroke-width="16" stroke-dasharray="29 160" stroke-dashoffset="-103" transform="rotate(-90 40 40)"/>
+          <circle cx="40" cy="40" r="30" fill="none" stroke="#27AE60" stroke-width="16" stroke-dasharray="31 158" stroke-dashoffset="-132" transform="rotate(-90 40 40)"/>
+        </svg>
+        <div class="legend">
+          <div class="legend-item"><div class="legend-dot" style="background:#0D2847;"></div>Nature — 45%</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#F2994A;"></div>Macro — 23%</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#2F80ED;"></div>Life — 15%</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#27AE60;"></div>Other — 17%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

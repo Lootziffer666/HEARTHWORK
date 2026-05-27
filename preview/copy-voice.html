@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Copywriting Voice Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@900&family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:#F8F6F2;padding:18px 22px;}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .card{background:#fff;border-radius:4px;padding:13px 15px;box-shadow:0 2px 8px rgba(0,0,0,0.06);}
+  .card-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:10px;}
+  .do-label{color:#1a7a44;}
+  .dont-label{color:#c0392b;}
+  .row{display:flex;gap:10px;margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid #F0EDE7;}
+  .row:last-child{margin-bottom:0;padding-bottom:0;border-bottom:none;}
+  .pill{display:inline-block;padding:2px 8px;border-radius:999px;font-size:10px;font-weight:700;flex-shrink:0;}
+  .pill-do{background:#E8F8EF;color:#1a7a44;}
+  .pill-dont{background:#FDEBEB;color:#c0392b;}
+  .copy{font-size:13px;line-height:1.5;}
+  .copy-note{font-size:10px;color:#BDBDBD;margin-top:2px;}
+  .attr-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:10px;}
+  .attr{background:#0D2847;color:#fff;border-radius:4px;padding:10px 12px;}
+  .attr-word{font-family:'Nunito',sans-serif;font-size:16px;font-weight:900;}
+  .attr-desc{font-size:10px;color:rgba(255,255,255,0.55);margin-top:2px;line-height:1.4;}
+</style>
+</head>
+<body>
+  <!-- Voice attributes -->
+  <div class="attr-grid">
+    <div class="attr"><div class="attr-word">Playful</div><div class="attr-desc">Light touches of warmth. A ":)" instead of "😊". Confident but not stiff.</div></div>
+    <div class="attr"><div class="attr-word">Quirky</div><div class="attr-desc">Slight unexpectedness. A smiley face at the end. Never weird for weird's sake.</div></div>
+    <div class="attr"><div class="attr-word" style="color:#F2994A;">Professional</div><div class="attr-desc">Clarity first. No jargon. No filler. Every word earns its place.</div></div>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <div class="card-label do-label">✓ DO — Voice in UI</div>
+      <div class="row"><span class="pill pill-do">CTA</span><div><div class="copy">Get started</div><div class="copy-note">Verb-first, sentence case, no exclamation</div></div></div>
+      <div class="row"><span class="pill pill-do">Empty</span><div><div class="copy">Nothing here yet. Add your first item to get going.</div><div class="copy-note">Human, direct, actionable</div></div></div>
+      <div class="row"><span class="pill pill-do">Success</span><div><div class="copy">Message sent! We'll get back to you soon :)</div><div class="copy-note">Warm confirmation, emoticon OK here</div></div></div>
+      <div class="row"><span class="pill pill-do">Error</span><div><div class="copy">Something went wrong. Try again or contact us.</div><div class="copy-note">Honest, not apologetic, gives next step</div></div></div>
+      <div class="row"><span class="pill pill-do">Loading</span><div><div class="copy">Loading…</div><div class="copy-note">Three dots, no capital L, no "please"</div></div></div>
+    </div>
+    <div class="card">
+      <div class="card-label dont-label">✕ DON'T — Common mistakes</div>
+      <div class="row"><span class="pill pill-dont">CTA</span><div><div class="copy">Click Here Now!</div><div class="copy-note">Imperative + exclamation = pushy. Never.</div></div></div>
+      <div class="row"><span class="pill pill-dont">Empty</span><div><div class="copy">No results found for your search query.</div><div class="copy-note">Robotic, no personality, no next step</div></div></div>
+      <div class="row"><span class="pill pill-dont">Error</span><div><div class="copy">Oops! An unexpected error has occurred. Please try again later.</div><div class="copy-note">"Oops" is infantile. "Unexpected" is vague. "Please" is weak.</div></div></div>
+      <div class="row"><span class="pill pill-dont">Label</span><div><div class="copy">Click the button below to Submit Your Form</div><div class="copy-note">Title Case For Random Words is jarring</div></div></div>
+      <div class="row"><span class="pill pill-dont">Emoji</span><div><div class="copy">Great choice! 🎉 Your order is confirmed 🛒✅</div><div class="copy-note">Emoji in UI copy = amateur. Use emoticons (:) sparingly instead.</div></div></div>
+    </div>
+  </div>
+
+  <!-- Casing + rules quick ref -->
+  <div style="display:flex;gap:8px;margin-top:10px;">
+    <div style="background:#fff;border-radius:4px;padding:10px 12px;box-shadow:0 2px 8px rgba(0,0,0,0.06);flex:1;font-size:11px;color:#4F4F4F;line-height:1.7;"><strong style="color:#0D2847;">Casing:</strong> Sentence case everywhere. Never ALL CAPS except abbreviations (e.g. API, HTML). Never title case for UI copy.</div>
+    <div style="background:#fff;border-radius:4px;padding:10px 12px;box-shadow:0 2px 8px rgba(0,0,0,0.06);flex:1;font-size:11px;color:#4F4F4F;line-height:1.7;"><strong style="color:#0D2847;">Person:</strong> "We" for brand voice. "You" when addressing the user directly. Never "I" for the product.</div>
+    <div style="background:#fff;border-radius:4px;padding:10px 12px;box-shadow:0 2px 8px rgba(0,0,0,0.06);flex:1;font-size:11px;color:#4F4F4F;line-height:1.7;"><strong style="color:#0D2847;">Length:</strong> UI copy max 8 words per line. Descriptions max 2 lines. Tooltips: 1 sentence. Toast: 6 words.</div>
+  </div>
+</body>
+</html>

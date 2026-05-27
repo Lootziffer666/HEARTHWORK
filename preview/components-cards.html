@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Cards</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', sans-serif; background: #f5f5f5; padding: 20px 24px; }
+  .row { display: flex; gap: 16px; }
+  .card { background: #fff; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); overflow: hidden; flex: 1; }
+  .card-img { height: 80px; object-fit: cover; width: 100%; display: block; }
+  .card-img-placeholder { height: 80px; display: flex; align-items: center; justify-content: center; font-size: 12px; color: #BDBDBD; font-style: italic; }
+  .card-body { padding: 12px; }
+  .card-title { font-size: 14px; font-weight: 700; color: #333; margin-bottom: 4px; }
+  .card-text { font-size: 12px; color: #828282; line-height: 1.5; margin-bottom: 10px; }
+  .card-btn { display: inline-block; background: #0D2847; color: #fff; font-size: 12px; font-weight: 700; padding: 6px 16px; border-radius: 4px; }
+  .card-btn-orange { background: #F2994A; }
+  /* Header card */
+  .card-header-card .card-header { background: #0D2847; color: #fff; padding: 10px 12px; }
+  .card-header-card .card-header-label { font-size: 10px; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 2px; }
+  .card-header-card .card-header-title { font-size: 14px; font-weight: 700; }
+  .card-header-card .card-header-text { font-size: 12px; color: #828282; line-height: 1.5; padding: 12px; }
+  /* Outline card */
+  .card-outline { background: #fff; border: 1px solid #E0E0E0; border-radius: 4px; flex: 1; overflow: hidden; }
+  .card-outline .card-header { background: #fff; color: #333; padding: 8px 12px; border-bottom: 1px solid #E0E0E0; }
+  .card-outline .card-header-title { font-size: 14px; font-weight: 700; color: #333; }
+</style>
+</head>
+<body>
+  <div class="row">
+    <!-- Plain image card -->
+    <div class="card">
+      <div class="card-img-placeholder" style="background: linear-gradient(135deg,#b8d4e8,#7ba8c4);">[ image ]</div>
+      <div class="card-body">
+        <div class="card-title">Card Title</div>
+        <div class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</div>
+      </div>
+    </div>
+    <!-- Card with navy button -->
+    <div class="card">
+      <div class="card-img-placeholder" style="background: linear-gradient(135deg,#2d1b69,#8360c3);">[ image ]</div>
+      <div class="card-body">
+        <div class="card-title">Card Title</div>
+        <div class="card-text">Some quick example text to build on the card title.</div>
+        <span class="card-btn">Link</span>
+      </div>
+    </div>
+    <!-- Card with orange CTA -->
+    <div class="card">
+      <div class="card-img-placeholder" style="background: linear-gradient(135deg,#c8d8e8,#9ab0c4);">[ image ]</div>
+      <div class="card-body">
+        <div class="card-title">Card Title</div>
+        <div class="card-text">Some quick example text to build on the card title.</div>
+        <span class="card-btn card-btn-orange">Read more</span>
+      </div>
+    </div>
+    <!-- Header card — navy -->
+    <div class="card card-header-card">
+      <div class="card-header">
+        <div class="card-header-label">Header</div>
+        <div class="card-header-title">Primary Card Title</div>
+      </div>
+      <div class="card-header-text">Some quick example text to build on the card title and make up the bulk of the card's content.</div>
+    </div>
+    <!-- Outline card -->
+    <div class="card-outline">
+      <div class="card-header">
+        <div class="card-header-label" style="font-size:10px;color:#BDBDBD;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:2px;">Header</div>
+        <div class="card-header-title">Primary Card Title</div>
+      </div>
+      <div style="padding:12px;font-size:12px;color:#828282;line-height:1.5;">Some quick example text to build on the card title and make up the bulk of the card's content.</div>
+    </div>
+  </div>
+</body>
+</html>

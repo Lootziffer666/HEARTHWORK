@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Motion Grammar</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Nunito:wght@700;900&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: #F8F6F2; padding: 22px 28px; }
+  .section { margin-bottom: 24px; }
+  .section-label { font-size: 10px; font-weight: 700; color: #BDBDBD; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px; }
+
+  /* Duration scale */
+  .dur-row { display: flex; gap: 10px; align-items: flex-end; }
+  .dur-item { display: flex; flex-direction: column; align-items: center; gap: 6px; flex: 1; }
+  .dur-bar { background: #0D2847; border-radius: 3px; width: 100%; }
+  .dur-name { font-size: 11px; font-weight: 700; color: #333; }
+  .dur-value { font-size: 10px; color: #828282; }
+
+  /* Easing curves */
+  .ease-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .ease-card { background: #fff; border-radius: 4px; padding: 12px 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); }
+  .ease-name { font-size: 12px; font-weight: 700; color: #0D2847; margin-bottom: 3px; }
+  .ease-curve { font-size: 10px; color: #828282; font-family: 'DM Mono', monospace; margin-bottom: 8px; word-break: break-all; }
+  .ease-use { font-size: 10px; color: #4F4F4F; line-height: 1.5; }
+  .ease-badge { display: inline-block; background: #F2994A; color: #fff; font-size: 9px; font-weight: 700; padding: 2px 6px; border-radius: 999px; margin-top: 4px; letter-spacing: 0.04em; }
+
+  /* Live demo */
+  .demo-row { display: flex; gap: 12px; align-items: center; }
+  .demo-dot {
+    width: 18px; height: 18px; border-radius: 50%; background: #0D2847; flex-shrink: 0;
+    cursor: pointer; transition: transform 300ms;
+  }
+  .demo-label { font-size: 11px; color: #828282; }
+  .demo-dot:hover { transform: scale(1.4); }
+  .demo-dot.spring { transition-timing-function: cubic-bezier(0.34,1.56,0.64,1); }
+  .demo-dot.sharp  { transition-timing-function: cubic-bezier(0.4,0,0.6,1); }
+  .demo-dot.decel  { transition-timing-function: cubic-bezier(0,0,0.2,1); }
+  .demo-dot.std    { transition-timing-function: cubic-bezier(0.4,0,0.2,1); }
+</style>
+</head>
+<body>
+  <div class="section">
+    <div class="section-label">Duration Scale — hover dots to feel the difference</div>
+    <div class="dur-row">
+      <div class="dur-item"><div class="dur-bar" style="height:6px;"></div><div class="dur-name">Nano</div><div class="dur-value">100ms</div></div>
+      <div class="dur-item"><div class="dur-bar" style="height:10px;"></div><div class="dur-name">Micro</div><div class="dur-value">150ms</div></div>
+      <div class="dur-item"><div class="dur-bar" style="height:14px;"></div><div class="dur-name">Short</div><div class="dur-value">200ms</div></div>
+      <div class="dur-item"><div class="dur-bar" style="height:22px;"></div><div class="dur-name">Medium</div><div class="dur-value">300ms</div></div>
+      <div class="dur-item"><div class="dur-bar" style="height:36px;"></div><div class="dur-name">Long</div><div class="dur-value">500ms</div></div>
+      <div class="dur-item"><div class="dur-bar" style="height:56px;"></div><div class="dur-name">Slow</div><div class="dur-value">800ms</div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Easing Library</div>
+    <div class="ease-grid">
+      <div class="ease-card">
+        <div class="ease-name">Standard</div>
+        <div class="ease-curve">cubic-bezier(0.4, 0, 0.2, 1)</div>
+        <div class="ease-use">Default UI transitions — color, opacity, most state changes</div>
+        <div class="demo-dot std" style="margin-top:8px;"></div>
+      </div>
+      <div class="ease-card">
+        <div class="ease-name">Decelerate</div>
+        <div class="ease-curve">cubic-bezier(0, 0, 0.2, 1)</div>
+        <div class="ease-use">Elements entering the screen — modals, drawers, tooltips</div>
+        <div class="demo-dot decel" style="margin-top:8px;"></div>
+      </div>
+      <div class="ease-card">
+        <div class="ease-name">Accelerate</div>
+        <div class="ease-curve">cubic-bezier(0.4, 0, 1, 1)</div>
+        <div class="ease-use">Elements leaving the screen — dismiss, close, exit</div>
+        <div class="demo-dot" style="margin-top:8px; transition-timing-function:cubic-bezier(0.4,0,1,1);"></div>
+      </div>
+      <div class="ease-card" style="border: 1.5px solid #F2994A;">
+        <div class="ease-name" style="color:#F2994A;">Spring ✦ COZY-COOL</div>
+        <div class="ease-curve">cubic-bezier(0.34, 1.56, 0.64, 1)</div>
+        <div class="ease-use">Playful moments — badge pop, button press, notification</div>
+        <span class="ease-badge">Brand signature</span>
+        <div class="demo-dot spring" style="margin-top:8px; background:#F2994A;"></div>
+      </div>
+      <div class="ease-card">
+        <div class="ease-name">Sharp</div>
+        <div class="ease-curve">cubic-bezier(0.4, 0, 0.6, 1)</div>
+        <div class="ease-use">Quick snappy changes — toggles, checkbox, tab switch</div>
+        <div class="demo-dot sharp" style="margin-top:8px;"></div>
+      </div>
+      <div class="ease-card">
+        <div class="ease-name">Linear</div>
+        <div class="ease-curve">linear</div>
+        <div class="ease-use">Progress bars, loading spinners, continuous motion</div>
+        <div class="demo-dot" style="margin-top:8px; transition-timing-function:linear;"></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

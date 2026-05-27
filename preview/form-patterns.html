@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Form Patterns</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:#F8F6F2;padding:18px 22px;}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+  .card{background:#fff;border-radius:4px;padding:14px 15px;box-shadow:0 2px 8px rgba(0,0,0,0.06);}
+  .card-title{font-size:11px;font-weight:700;color:#0D2847;margin-bottom:10px;text-transform:uppercase;letter-spacing:0.06em;}
+  .field{display:flex;flex-direction:column;gap:3px;margin-bottom:9px;}
+  .field:last-child{margin-bottom:0;}
+  label{font-size:11px;font-weight:700;color:#333;}
+  input,textarea,select{font-family:'DM Sans',sans-serif;font-size:13px;border:1px solid #E0E0E0;border-radius:4px;padding:7px 10px;outline:none;width:100%;transition:border-color 150ms;background:#fff;color:#333;}
+  input:focus,textarea:focus,select:focus{border-color:#0D2847;box-shadow:0 0 0 3px rgba(13,40,71,0.12);}
+  .hint{font-size:10px;color:#828282;margin-top:2px;}
+  .error-msg{font-size:10px;font-weight:700;color:#EB5757;margin-top:2px;}
+  .success-msg{font-size:10px;font-weight:700;color:#27AE60;margin-top:2px;}
+  .btn{background:#0D2847;color:#fff;border:none;border-radius:4px;padding:9px 18px;font-size:13px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;width:100%;}
+  .btn-sec{background:transparent;color:#0D2847;border:1.5px solid #0D2847;border-radius:4px;padding:9px 18px;font-size:13px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;}
+  /* Step wizard */
+  .steps{display:flex;align-items:center;gap:0;margin-bottom:14px;}
+  .step-item{display:flex;flex-direction:column;align-items:center;flex:1;}
+  .step-circle{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;}
+  .step-done{background:#0D2847;color:#fff;}
+  .step-active{background:#F2994A;color:#fff;}
+  .step-todo{background:#E0E0E0;color:#828282;}
+  .step-label{font-size:9px;color:#828282;margin-top:3px;text-align:center;}
+  .step-line{flex:1;height:2px;background:#E0E0E0;margin-top:-12px;}
+  .step-line-done{background:#0D2847;}
+  /* Inline validation */
+  .input-success{border-color:#27AE60 !important;}
+  .input-error{border-color:#EB5757 !important;}
+  .input-warning{border-color:#E2B93B !important;}
+  /* Char count */
+  .char-count-wrap{position:relative;}
+  .char-count{position:absolute;right:8px;bottom:6px;font-size:10px;color:#BDBDBD;}
+  /* Search */
+  .search-wrap{position:relative;}
+  .search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:#BDBDBD;font-size:14px;}
+  .search-input{padding-left:30px !important;}
+  .search-results{border:1px solid #E0E0E0;border-radius:4px;background:#fff;margin-top:2px;box-shadow:0 4px 16px rgba(0,0,0,0.1);}
+  .search-result{padding:8px 10px;font-size:12px;color:#333;border-bottom:1px solid #F0EDE7;cursor:pointer;}
+  .search-result:last-child{border-bottom:none;}
+  .search-result:hover{background:#F8F6F2;}
+  /* Tag input */
+  .tag-input-wrap{display:flex;flex-wrap:wrap;gap:4px;border:1px solid #E0E0E0;border-radius:4px;padding:6px 8px;background:#fff;cursor:text;}
+  .input-tag{background:#0D2847;color:#fff;font-size:11px;font-weight:700;padding:3px 8px;border-radius:3px;display:flex;align-items:center;gap:4px;}
+  .input-tag button{background:none;border:none;color:rgba(255,255,255,0.7);cursor:pointer;font-size:13px;line-height:1;padding:0;}
+  .tag-ghost-input{border:none;outline:none;font-size:12px;color:#333;font-family:'DM Sans',sans-serif;min-width:60px;flex:1;}
+  /* Toggle row */
+  .toggle-row{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid #F0EDE7;}
+  .toggle-row:last-child{border-bottom:none;}
+  .toggle{width:36px;height:20px;border-radius:999px;position:relative;cursor:pointer;border:none;transition:background 200ms;flex-shrink:0;}
+  .toggle-knob{width:14px;height:14px;border-radius:50%;background:#fff;position:absolute;top:3px;transition:transform 200ms cubic-bezier(0.34,1.56,0.64,1);box-shadow:0 1px 2px rgba(0,0,0,0.2);}
+</style>
+</head>
+<body>
+  <div class="grid">
+    <!-- Multi-step form -->
+    <div class="card">
+      <div class="card-title">Multi-step wizard</div>
+      <div class="steps">
+        <div class="step-item"><div class="step-circle step-done">✓</div><div class="step-label">Account</div></div>
+        <div class="step-line step-line-done"></div>
+        <div class="step-item"><div class="step-circle step-active">2</div><div class="step-label">Profile</div></div>
+        <div class="step-line"></div>
+        <div class="step-item"><div class="step-circle step-todo">3</div><div class="step-label">Confirm</div></div>
+      </div>
+      <div class="field">
+        <label>Display name</label>
+        <input type="text" placeholder="Yahya Amirudin" value="Yahya Amirudin">
+      </div>
+      <div class="field">
+        <label>Bio</label>
+        <div class="char-count-wrap">
+          <textarea rows="2" maxlength="120" style="resize:none;padding-right:36px;">Designer and builder of COZY-COOL :)</textarea>
+          <span class="char-count">42/120</span>
+        </div>
+      </div>
+      <div style="display:flex;gap:8px;margin-top:4px;">
+        <button class="btn-sec" style="flex:1;">← Back</button>
+        <button class="btn" style="flex:2;">Next →</button>
+      </div>
+    </div>
+
+    <!-- Inline validation -->
+    <div class="card">
+      <div class="card-title">Inline validation</div>
+      <div class="field">
+        <label>Email address</label>
+        <input class="input-success" type="email" value="yahya@cozycool.co">
+        <div class="success-msg">✓ Valid email address</div>
+      </div>
+      <div class="field">
+        <label>Password</label>
+        <input class="input-error" type="password" value="short">
+        <div class="error-msg">✕ Minimum 8 characters required</div>
+      </div>
+      <div class="field">
+        <label>Username</label>
+        <input class="input-warning" type="text" value="yahya123">
+        <div style="font-size:10px;font-weight:700;color:#c07d00;margin-top:2px;">⚠ Username taken — try yahya_a or yahya.design</div>
+      </div>
+      <div class="field">
+        <label>Website <span style="color:#BDBDBD;font-weight:400;">(optional)</span></label>
+        <input type="url" placeholder="https://cozycool.co">
+        <div class="hint">Include https:// for external links</div>
+      </div>
+    </div>
+
+    <!-- Advanced inputs -->
+    <div class="card">
+      <div class="card-title">Advanced patterns</div>
+      <div class="field" style="margin-bottom:10px;">
+        <label>Search</label>
+        <div class="search-wrap">
+          <span class="search-icon">⌕</span>
+          <input class="search-input" type="text" placeholder="Search…" value="wildfl">
+        </div>
+        <div class="search-results">
+          <div class="search-result">🌸 Wildflowers at Dusk</div>
+          <div class="search-result" style="background:#F8F6F2;">🌷 Wildflower Mist — product</div>
+        </div>
+      </div>
+      <div class="field" style="margin-bottom:10px;">
+        <label>Tags</label>
+        <div class="tag-input-wrap">
+          <span class="input-tag">Nature <button>×</button></span>
+          <span class="input-tag">Macro <button>×</button></span>
+          <input class="tag-ghost-input" placeholder="Add tag…">
+        </div>
+      </div>
+      <div style="margin-top:4px;">
+        <div class="toggle-row">
+          <span style="font-size:12px;color:#333;">Email notifications</span>
+          <button class="toggle" style="background:#0D2847;" onclick="var k=this.querySelector('div');k.style.transform=k.style.transform?'':'translateX(16px)'"><div class="toggle-knob" style="transform:translateX(16px);"></div></button>
+        </div>
+        <div class="toggle-row">
+          <span style="font-size:12px;color:#333;">Auto-save drafts</span>
+          <button class="toggle" style="background:#E0E0E0;" onclick="var k=this.querySelector('div');k.style.transform=k.style.transform==='translateX(16px)'?'':'translateX(16px)';this.style.background=this.style.background==='rgb(13, 40, 71)'?'#E0E0E0':'#0D2847'"><div class="toggle-knob"></div></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Elevation System</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: #F0EDE7; padding: 28px 32px; }
+  .row { display: flex; gap: 16px; align-items: flex-end; justify-content: center; }
+  .level { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+  .card {
+    background: #fff; border-radius: 4px; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 4px;
+    padding: 14px 10px; width: 100px;
+  }
+  .level-num { font-size: 20px; font-weight: 700; color: #0D2847; }
+  .level-name { font-size: 10px; font-weight: 700; color: #828282; text-transform: uppercase; letter-spacing: 0.08em; text-align: center; }
+  .level-shadow { font-size: 9px; color: #BDBDBD; text-align: center; line-height: 1.5; margin-top: 2px; }
+  .level-use { font-size: 10px; color: #4F4F4F; text-align: center; line-height: 1.5; max-width: 90px; }
+  .divider { width: 1px; height: 120px; background: #E0E0E0; align-self: center; }
+</style>
+</head>
+<body>
+  <div class="row">
+    <div class="level">
+      <div class="card" style="box-shadow: none; border: 1px solid #E0E0E0;">
+        <div class="level-num">0</div>
+        <div class="level-name">Flat</div>
+        <div class="level-shadow">none</div>
+      </div>
+      <div class="level-use">Inline elements, disabled states, backgrounds</div>
+    </div>
+    <div class="level">
+      <div class="card" style="box-shadow: 0 1px 3px rgba(0,0,0,0.06);">
+        <div class="level-num">1</div>
+        <div class="level-name">Resting</div>
+        <div class="level-shadow">0 1px 3px<br>α 6%</div>
+      </div>
+      <div class="level-use">Chips, pills, subtle raised elements</div>
+    </div>
+    <div class="level">
+      <div class="card" style="box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+        <div class="level-num">2</div>
+        <div class="level-name">Card</div>
+        <div class="level-shadow">0 2px 8px<br>α 8%</div>
+      </div>
+      <div class="level-use">Default cards, content surfaces</div>
+    </div>
+    <div class="level">
+      <div class="card" style="box-shadow: 0 4px 16px rgba(0,0,0,0.10);">
+        <div class="level-num">3</div>
+        <div class="level-name">Raised</div>
+        <div class="level-shadow">0 4px 16px<br>α 10%</div>
+      </div>
+      <div class="level-use">Hovered cards, focused inputs</div>
+    </div>
+    <div class="level">
+      <div class="card" style="box-shadow: 0 8px 24px rgba(0,0,0,0.12);">
+        <div class="level-num">4</div>
+        <div class="level-name">Floating</div>
+        <div class="level-shadow">0 8px 24px<br>α 12%</div>
+      </div>
+      <div class="level-use">Dropdowns, popovers, tooltips</div>
+    </div>
+    <div class="level">
+      <div class="card" style="box-shadow: 0 16px 48px rgba(0,0,0,0.16);">
+        <div class="level-num">5</div>
+        <div class="level-name">Elevated</div>
+        <div class="level-shadow">0 16px 48px<br>α 16%</div>
+      </div>
+      <div class="level-use">Modals, side drawers, sheets</div>
+    </div>
+    <div class="level">
+      <div class="card" style="box-shadow: 0 32px 80px rgba(0,0,0,0.20);">
+        <div class="level-num">6</div>
+        <div class="level-name">Maximum</div>
+        <div class="level-shadow">0 32px 80px<br>α 20%</div>
+      </div>
+      <div class="level-use">Fullscreen overlays, deep context</div>
+    </div>
+  </div>
+</body>
+</html>

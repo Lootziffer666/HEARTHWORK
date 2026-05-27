@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Tags & Badges</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', sans-serif; background: #fff; padding: 20px 24px; }
+  .section { margin-bottom: 18px; }
+  .section-label { font-size: 10px; font-weight: 700; color: #BDBDBD; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; }
+  .row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .tag {
+    display: inline-flex; align-items: center; padding: 4px 12px;
+    border-radius: 4px; font-size: 13px; font-weight: 700;
+  }
+  .badge {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 20px; height: 20px; border-radius: 50%; font-size: 11px; font-weight: 700;
+  }
+  .badge-pill {
+    display: inline-flex; align-items: center; padding: 2px 8px;
+    border-radius: 999px; font-size: 11px; font-weight: 700;
+  }
+  .avatar-wrap { position: relative; display: inline-block; }
+  .avatar { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; color: #fff; }
+  .avatar-badge { position: absolute; top: -2px; right: -2px; width: 12px; height: 12px; border-radius: 50%; border: 2px solid #fff; }
+</style>
+</head>
+<body>
+  <div class="section">
+    <div class="section-label">Tags</div>
+    <div class="row">
+      <span class="tag" style="background:#0D2847; color:#fff;">Primary</span>
+      <span class="tag" style="background:#F2994A; color:#fff;">Secondary</span>
+      <span class="tag" style="background:#27AE60; color:#fff;">Success</span>
+      <span class="tag" style="background:#2F80ED; color:#fff;">Info</span>
+      <span class="tag" style="background:#EB5757; color:#fff;">Danger</span>
+      <span class="tag" style="background:#E2B93B; color:#333;">Warning</span>
+      <span class="tag" style="background:#E0E0E0; color:#333;">Light</span>
+      <span class="tag" style="background:#333; color:#fff;">Dark</span>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Badges</div>
+    <div class="row">
+      <span class="badge" style="background:#F2994A; color:#fff;">3</span>
+      <span class="badge" style="background:#27AE60; color:#fff;">✓</span>
+      <span class="badge" style="background:#EB5757; color:#fff;">!</span>
+      <span class="badge" style="background:#0D2847; color:#fff;">9</span>
+      <span class="badge-pill" style="background:#F2994A; color:#fff;">New</span>
+      <span class="badge-pill" style="background:#E0E0E0; color:#333;">Draft</span>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Avatars</div>
+    <div class="row">
+      <div class="avatar-wrap">
+        <div class="avatar" style="background:#0D2847;">YA</div>
+        <div class="avatar-badge" style="background:#27AE60;"></div>
+      </div>
+      <div class="avatar-wrap">
+        <div class="avatar" style="background:#F2994A;">CC</div>
+        <div class="avatar-badge" style="background:#BDBDBD;"></div>
+      </div>
+      <div class="avatar-wrap">
+        <div class="avatar" style="background:#2F80ED;">AB</div>
+        <div class="avatar-badge" style="background:#EB5757;"></div>
+      </div>
+      <div class="avatar-wrap">
+        <div class="avatar" style="background:#828282;">?</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Tooltips</div>
+    <div class="row">
+      <span style="background:#0D2847; color:#fff; font-size:12px; padding:4px 10px; border-radius:4px;">Example Tooltip</span>
+      <span style="background:#0D2847; color:#fff; font-size:12px; padding:4px 10px; border-radius:4px;">Example Tooltip</span>
+      <span style="background:#F2994A; color:#fff; font-size:12px; padding:4px 10px; border-radius:4px;">Example Tooltip</span>
+    </div>
+  </div>
+</body>
+</html>

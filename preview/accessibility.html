@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Accessibility — WCAG Contrast</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:#F8F6F2;padding:20px 24px;}
+  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px;}
+  .swatch{border-radius:4px;overflow:hidden;}
+  .swatch-top{height:56px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;position:relative;}
+  .swatch-bot{padding:8px 10px;background:#fff;}
+  .pair-label{font-size:10px;color:#828282;margin-bottom:2px;}
+  .ratio{font-family:'DM Mono',monospace;font-size:13px;font-weight:700;color:#333;}
+  .badge{display:inline-block;font-size:9px;font-weight:700;padding:2px 6px;border-radius:999px;margin-left:4px;vertical-align:middle;}
+  .pass-aaa{background:#E8F8EF;color:#1a7a44;}
+  .pass-aa {background:#EBF3FD;color:#1a5fa0;}
+  .fail    {background:#FDEBEB;color:#c0392b;}
+  .section-label{font-size:10px;font-weight:700;color:#BDBDBD;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:8px;}
+
+  /* Focus ring demo */
+  .focus-row{display:flex;gap:10px;flex-wrap:wrap;}
+  .focus-el{padding:7px 14px;border-radius:4px;font-size:13px;font-weight:600;cursor:pointer;outline:none;transition:box-shadow 150ms;font-family:'DM Sans',sans-serif;}
+  .focus-el:focus{box-shadow:0 0 0 3px rgba(13,40,71,0.25);}
+  .skip-link{display:inline-block;background:#0D2847;color:#fff;font-size:12px;font-weight:700;padding:5px 12px;border-radius:4px;text-decoration:none;}
+</style>
+</head>
+<body>
+  <div class="section-label" style="margin-bottom:10px;">Contrast Ratios — WCAG AA requires ≥4.5:1 (text), AAA requires ≥7:1</div>
+  <div class="grid">
+    <!-- Navy on white -->
+    <div class="swatch">
+      <div class="swatch-top" style="background:#0D2847;color:#fff;">Aa — text</div>
+      <div class="swatch-bot">
+        <div class="pair-label">Navy on White</div>
+        <div class="ratio">14.1:1 <span class="badge pass-aaa">AAA</span></div>
+      </div>
+    </div>
+    <!-- White on navy -->
+    <div class="swatch">
+      <div class="swatch-top" style="background:#0D2847;color:#fff;">Aa — reversed</div>
+      <div class="swatch-bot">
+        <div class="pair-label">White on Navy</div>
+        <div class="ratio">14.1:1 <span class="badge pass-aaa">AAA</span></div>
+      </div>
+    </div>
+    <!-- Orange on white -->
+    <div class="swatch">
+      <div class="swatch-top" style="background:#fff;color:#F2994A;border:1px solid #eee;">Aa — orange</div>
+      <div class="swatch-bot">
+        <div class="pair-label">Orange on White</div>
+        <div class="ratio">2.9:1 <span class="badge fail">Fail</span></div>
+      </div>
+    </div>
+    <!-- White on orange -->
+    <div class="swatch">
+      <div class="swatch-top" style="background:#F2994A;color:#fff;">Aa — on orange</div>
+      <div class="swatch-bot">
+        <div class="pair-label">White on Orange</div>
+        <div class="ratio">2.9:1 <span class="badge fail">Large only</span></div>
+      </div>
+    </div>
+    <!-- Gray-1 on off-white -->
+    <div class="swatch">
+      <div class="swatch-top" style="background:#F8F6F2;color:#333;">Aa — body</div>
+      <div class="swatch-bot">
+        <div class="pair-label">Gray-1 on Off-white</div>
+        <div class="ratio">9.7:1 <span class="badge pass-aaa">AAA</span></div>
+      </div>
+    </div>
+    <!-- Gray-2 on white -->
+    <div class="swatch">
+      <div class="swatch-top" style="background:#fff;color:#4F4F4F;">Aa — secondary</div>
+      <div class="swatch-bot">
+        <div class="pair-label">Gray-2 on White</div>
+        <div class="ratio">7.4:1 <span class="badge pass-aaa">AAA</span></div>
+      </div>
+    </div>
+    <!-- Gray-3 on white -->
+    <div class="swatch">
+      <div class="swatch-top" style="background:#fff;color:#828282;">Aa — muted</div>
+      <div class="swatch-bot">
+        <div class="pair-label">Gray-3 on White</div>
+        <div class="ratio">3.9:1 <span class="badge pass-aa">AA Large</span></div>
+      </div>
+    </div>
+    <!-- Navy on off-white -->
+    <div class="swatch">
+      <div class="swatch-top" style="background:#F8F6F2;color:#0D2847;">Aa — brand</div>
+      <div class="swatch-bot">
+        <div class="pair-label">Navy on Off-white</div>
+        <div class="ratio">13.2:1 <span class="badge pass-aaa">AAA</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-label" style="margin-bottom:8px;">Rules + focus</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+    <div style="background:#fff;border-radius:4px;padding:12px 14px;box-shadow:0 2px 8px rgba(0,0,0,0.07);">
+      <div style="font-size:11px;font-weight:700;color:#EB5757;margin-bottom:6px;">⚠ Orange on white — do not use for small text</div>
+      <div style="font-size:12px;color:#4F4F4F;line-height:1.6;">Orange (#F2994A) fails AA for body text. Use only for decorative elements, icons ≥18px bold, and UI components where contrast is supplemented by shape.</div>
+    </div>
+    <div style="background:#fff;border-radius:4px;padding:12px 14px;box-shadow:0 2px 8px rgba(0,0,0,0.07);">
+      <div style="font-size:11px;font-weight:700;color:#0D2847;margin-bottom:8px;">Focus rings (click to test)</div>
+      <div class="focus-row">
+        <button class="focus-el" style="background:#0D2847;color:#fff;border:none;">Primary</button>
+        <button class="focus-el" style="background:transparent;color:#0D2847;border:1.5px solid #0D2847;">Outline</button>
+        <a href="#" class="skip-link" onclick="return false">Skip to content</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

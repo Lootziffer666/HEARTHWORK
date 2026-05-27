@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Transition Grammar</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: #F8F6F2; padding: 22px 28px; }
+  .section-label { font-size: 10px; font-weight: 700; color: #BDBDBD; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+  .rule-card { background: #fff; border-radius: 4px; padding: 13px 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); }
+  .rule-element { font-size: 12px; font-weight: 700; color: #0D2847; margin-bottom: 4px; display: flex; align-items: center; gap: 8px; }
+  .rule-badge { font-size: 9px; background: #E0E0E0; color: #4F4F4F; padding: 2px 7px; border-radius: 999px; font-weight: 700; }
+  .rule-badge-orange { background: #FEF0E3; color: #F2994A; }
+  .rule-spec { font-size: 11px; color: #828282; font-family: 'DM Mono', monospace; margin-bottom: 4px; line-height: 1.6; }
+  .rule-note { font-size: 10px; color: #BDBDBD; line-height: 1.5; }
+
+  /* Live demos */
+  .demo-section { margin-bottom: 16px; }
+  .demos { display: flex; gap: 10px; flex-wrap: wrap; }
+  .demo-btn {
+    background: #0D2847; color: #fff; border: none; border-radius: 4px;
+    font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 700;
+    padding: 9px 20px; cursor: pointer;
+    transition: background-color 150ms cubic-bezier(0.4,0,0.2,1),
+                transform 100ms cubic-bezier(0.4,0,0.2,1),
+                box-shadow 150ms cubic-bezier(0.4,0,0.2,1);
+  }
+  .demo-btn:hover { background: #0a2038; box-shadow: 0 4px 12px rgba(13,40,71,0.25); }
+  .demo-btn:active { transform: scale(0.97); background: #071628; }
+
+  .demo-btn-spring {
+    background: #F2994A; color: #fff; border: none; border-radius: 4px;
+    font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 700;
+    padding: 9px 20px; cursor: pointer;
+    transition: transform 300ms cubic-bezier(0.34,1.56,0.64,1),
+                background-color 150ms cubic-bezier(0.4,0,0.2,1);
+  }
+  .demo-btn-spring:hover { transform: scale(1.04); }
+  .demo-btn-spring:active { transform: scale(0.96); }
+
+  .demo-card {
+    background: #fff; border-radius: 4px; padding: 12px 16px; font-size: 12px;
+    color: #333; box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    transition: transform 200ms cubic-bezier(0.4,0,0.2,1),
+                box-shadow 200ms cubic-bezier(0.4,0,0.2,1);
+    cursor: pointer;
+  }
+  .demo-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
+
+  .demo-toggle-wrap { display: flex; align-items: center; gap: 8px; }
+  .demo-toggle {
+    width: 40px; height: 22px; border-radius: 999px; background: #0D2847;
+    position: relative; cursor: pointer; border: none;
+    transition: background 150ms cubic-bezier(0.4,0,0.6,1);
+  }
+  .demo-toggle-knob {
+    width: 16px; height: 16px; border-radius: 50%; background: #fff;
+    position: absolute; top: 3px; right: 3px;
+    transition: transform 150ms cubic-bezier(0.34,1.56,0.64,1);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  }
+  .demo-toggle.off { background: #E0E0E0; }
+  .demo-toggle.off .demo-toggle-knob { transform: translateX(-18px); }
+  .demo-label { font-size: 12px; color: #4F4F4F; }
+</style>
+</head>
+<body>
+  <div class="section-label">Transition Rules by Element</div>
+  <div class="grid">
+    <div class="rule-card">
+      <div class="rule-element">Button <span class="rule-badge">Hover</span></div>
+      <div class="rule-spec">background 150ms standard<br>box-shadow 150ms standard</div>
+      <div class="rule-note">No transform on hover — only on press</div>
+    </div>
+    <div class="rule-card">
+      <div class="rule-element">Button <span class="rule-badge">Press / Active</span></div>
+      <div class="rule-spec">transform scale(0.97) 100ms standard</div>
+      <div class="rule-note">Nano duration — feels instant, tactile</div>
+    </div>
+    <div class="rule-card">
+      <div class="rule-element">Button CTA <span class="rule-badge rule-badge-orange">Spring</span></div>
+      <div class="rule-spec">transform scale(1.04) 300ms spring<br>on hover — secondary/orange only</div>
+      <div class="rule-note">The "COZY-COOL quirk" — used sparingly</div>
+    </div>
+    <div class="rule-card">
+      <div class="rule-element">Card <span class="rule-badge">Hover</span></div>
+      <div class="rule-spec">translateY(-2px) 200ms standard<br>box-shadow 2→3 200ms standard</div>
+      <div class="rule-note">Lift only — no scale, no color change</div>
+    </div>
+    <div class="rule-card">
+      <div class="rule-element">Modal <span class="rule-badge">Enter</span></div>
+      <div class="rule-spec">opacity 0→1 300ms decelerate<br>scale 0.95→1 300ms decelerate</div>
+      <div class="rule-note">Backdrop: opacity 0→0.5 200ms standard</div>
+    </div>
+    <div class="rule-card">
+      <div class="rule-element">Modal <span class="rule-badge">Exit</span></div>
+      <div class="rule-spec">opacity 1→0 200ms accelerate<br>scale 1→0.95 200ms accelerate</div>
+      <div class="rule-note">Exits faster than they enter</div>
+    </div>
+    <div class="rule-card">
+      <div class="rule-element">Toggle <span class="rule-badge">Switch</span></div>
+      <div class="rule-spec">background 150ms sharp<br>knob: translateX spring 150ms</div>
+      <div class="rule-note">Track changes sharply; knob bounces</div>
+    </div>
+    <div class="rule-card">
+      <div class="rule-element">Input <span class="rule-badge">Focus</span></div>
+      <div class="rule-spec">border-color 150ms standard<br>box-shadow (focus ring) 150ms standard</div>
+      <div class="rule-note">Never animate placeholder or label position</div>
+    </div>
+  </div>
+
+  <div class="section-label">Live Demos — interact to feel transitions</div>
+  <div class="demos">
+    <button class="demo-btn">Primary button</button>
+    <button class="demo-btn-spring">CTA spring</button>
+    <div class="demo-card">Hover to lift card</div>
+    <div class="demo-toggle-wrap">
+      <button class="demo-toggle" id="tog" onclick="this.classList.toggle('off')">
+        <div class="demo-toggle-knob"></div>
+      </button>
+      <span class="demo-label">Toggle</span>
+    </div>
+  </div>
+</body>
+</html>

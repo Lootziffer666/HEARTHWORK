@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Responsive Behavior</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@900&family=DM+Sans:wght@400;700&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:#F8F6F2;padding:18px 22px;}
+  .section-label{font-size:10px;font-weight:700;color:#BDBDBD;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:8px;}
+  .bp-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px;}
+  .bp-card{background:#fff;border-radius:4px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.06);}
+  .bp-header{background:#0D2847;color:#fff;padding:8px 12px;}
+  .bp-name{font-family:'Nunito',sans-serif;font-weight:900;font-size:15px;}
+  .bp-width{font-size:10px;color:rgba(255,255,255,0.55);font-family:'DM Mono',monospace;}
+  .bp-body{padding:10px 12px;}
+  .bp-rule{font-size:11px;color:#4F4F4F;line-height:1.6;margin-bottom:6px;display:flex;gap:6px;}
+  .bp-rule::before{content:'→';color:#F2994A;flex-shrink:0;}
+  /* Device silhouettes */
+  .device-row{display:flex;gap:16px;align-items:flex-end;justify-content:center;margin-bottom:14px;}
+  .device{display:flex;flex-direction:column;align-items:center;gap:5px;}
+  .device-label{font-size:10px;color:#828282;text-align:center;}
+  .screen{background:#0D2847;border-radius:2px;display:flex;align-items:center;justify-content:center;}
+  /* Behavior table */
+  table{width:100%;border-collapse:collapse;background:#fff;border-radius:4px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.06);font-size:12px;}
+  thead tr{background:#0D2847;}
+  thead th{color:#fff;font-weight:700;padding:8px 12px;text-align:left;font-size:11px;}
+  tbody tr{border-bottom:1px solid #F0EDE7;}
+  tbody tr:last-child{border-bottom:none;}
+  tbody td{padding:8px 12px;color:#4F4F4F;vertical-align:top;line-height:1.5;}
+  tbody td:first-child{font-weight:600;color:#333;white-space:nowrap;}
+  .tag-show{background:#E8F8EF;color:#1a7a44;font-size:9px;font-weight:700;padding:1px 6px;border-radius:999px;}
+  .tag-hide{background:#FDEBEB;color:#c0392b;font-size:9px;font-weight:700;padding:1px 6px;border-radius:999px;}
+  .tag-change{background:#EBF3FD;color:#1a5fa0;font-size:9px;font-weight:700;padding:1px 6px;border-radius:999px;}
+</style>
+</head>
+<body>
+  <div class="section-label">Breakpoints</div>
+  <div class="bp-row">
+    <div class="bp-card">
+      <div class="bp-header"><div class="bp-name">Mobile</div><div class="bp-width">320px · 2 cols · 130px · 30px gutter</div></div>
+      <div class="bp-body">
+        <div class="bp-rule">Full-width single-column layout</div>
+        <div class="bp-rule">Nav collapses to hamburger</div>
+        <div class="bp-rule">Cards stack vertically</div>
+        <div class="bp-rule">Font scale reduced ~10%</div>
+        <div class="bp-rule">Tap targets ≥ 44px</div>
+      </div>
+    </div>
+    <div class="bp-card">
+      <div class="bp-header" style="background:#1a3a65;"><div class="bp-name">Tablet</div><div class="bp-width">768px · 6 cols · 88px · 30px gutter</div></div>
+      <div class="bp-body">
+        <div class="bp-rule">2-column card grid</div>
+        <div class="bp-rule">Side nav partial (icon + label)</div>
+        <div class="bp-rule">Modals at 80% width</div>
+        <div class="bp-rule">Hero reduced to 360px height</div>
+        <div class="bp-rule">Tables scroll horizontally</div>
+      </div>
+    </div>
+    <div class="bp-card">
+      <div class="bp-header" style="background:#2d5a8e;"><div class="bp-name">Desktop</div><div class="bp-width">1024px · 12 cols · 50px · 30px gutter</div></div>
+      <div class="bp-body">
+        <div class="bp-rule">3-column card grid</div>
+        <div class="bp-rule">Full side nav visible</div>
+        <div class="bp-rule">Sticky header 64px</div>
+        <div class="bp-rule">Hover states enabled</div>
+        <div class="bp-rule">Max content width 1200px</div>
+      </div>
+    </div>
+    <div class="bp-card">
+      <div class="bp-header" style="background:#F2994A;"><div class="bp-name">HD</div><div class="bp-width">1440px · 12 cols · 65px · 30px gutter</div></div>
+      <div class="bp-body">
+        <div class="bp-rule">Content centered, max-width capped</div>
+        <div class="bp-rule">Wider gutters, more breathing room</div>
+        <div class="bp-rule">Hero up to 560px height</div>
+        <div class="bp-rule">4-column grids where appropriate</div>
+        <div class="bp-rule">Footer expands to 4 columns</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-label">Component adaptation rules</div>
+  <table>
+    <thead><tr><th>Component</th><th>Mobile (320)</th><th>Tablet (768)</th><th>Desktop (1024+)</th></tr></thead>
+    <tbody>
+      <tr><td>Navigation</td><td>Hamburger menu <span class="tag-hide">links hidden</span></td><td>Icon-only sidebar <span class="tag-change">condensed</span></td><td>Full sidebar or top nav <span class="tag-show">all links</span></td></tr>
+      <tr><td>Card grid</td><td>1 column <span class="tag-change">stacked</span></td><td>2 columns</td><td>3 columns</td></tr>
+      <tr><td>Hero carousel</td><td>320px height, text 28px</td><td>360px height, text 36px</td><td>520px height, text 54px</td></tr>
+      <tr><td>Data table</td><td>Horizontal scroll <span class="tag-change">2 cols pinned</span></td><td>Horizontal scroll</td><td>Full table visible</td></tr>
+      <tr><td>Modal</td><td>Full screen bottom sheet</td><td>80% width centered</td><td>520px fixed width centered</td></tr>
+      <tr><td>Form layout</td><td>Single column stacked</td><td>Single column stacked</td><td>2-column grid for short fields</td></tr>
+      <tr><td>Footer</td><td>1 column stacked</td><td>2 columns</td><td>4 columns</td></tr>
+    </tbody>
+  </table>
+</body>
+</html>

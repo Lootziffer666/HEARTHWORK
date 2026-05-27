@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Icon Showcase</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:#F8F6F2;padding:18px 22px;}
+  .section-label{font-size:10px;font-weight:700;color:#BDBDBD;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:10px;}
+  .icon-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:4px;margin-bottom:16px;}
+  .icon-cell{background:#fff;border-radius:4px;padding:10px 6px 7px;display:flex;flex-direction:column;align-items:center;gap:5px;box-shadow:0 1px 3px rgba(0,0,0,0.06);}
+  .icon-cell:hover{background:#F0EDE7;}
+  .icon-name{font-size:8px;color:#BDBDBD;text-align:center;font-family:'DM Mono',monospace;line-height:1.2;overflow:hidden;max-width:56px;}
+  .size-row{display:flex;gap:16px;align-items:flex-end;flex-wrap:wrap;}
+  .size-item{display:flex;flex-direction:column;align-items:center;gap:6px;}
+  .size-label{font-size:10px;color:#828282;}
+  .state-row{display:flex;gap:20px;align-items:center;flex-wrap:wrap;}
+  .state-item{display:flex;flex-direction:column;align-items:center;gap:6px;font-size:10px;color:#828282;}
+</style>
+</head>
+<body>
+  <div class="section-label">Icon set — Lucide (outline, 1.5px stroke, 24×24 full area / 20×20 live area)</div>
+  <div class="icon-grid" id="grid"></div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+    <div style="background:#fff;border-radius:4px;padding:12px 14px;box-shadow:0 2px 8px rgba(0,0,0,0.06);">
+      <div class="section-label" style="margin-bottom:8px;">Sizes</div>
+      <div class="size-row">
+        <div class="size-item"><i data-lucide="star" style="width:16px;height:16px;color:#0D2847;"></i><span class="size-label">16 xs</span></div>
+        <div class="size-item"><i data-lucide="star" style="width:20px;height:20px;color:#0D2847;"></i><span class="size-label">20 sm</span></div>
+        <div class="size-item"><i data-lucide="star" style="width:24px;height:24px;color:#0D2847;"></i><span class="size-label">24 md ✦</span></div>
+        <div class="size-item"><i data-lucide="star" style="width:32px;height:32px;color:#0D2847;"></i><span class="size-label">32 lg</span></div>
+        <div class="size-item"><i data-lucide="star" style="width:48px;height:48px;color:#0D2847;"></i><span class="size-label">48 xl</span></div>
+      </div>
+    </div>
+    <div style="background:#fff;border-radius:4px;padding:12px 14px;box-shadow:0 2px 8px rgba(0,0,0,0.06);">
+      <div class="section-label" style="margin-bottom:8px;">States</div>
+      <div class="state-row">
+        <div class="state-item"><i data-lucide="heart" style="width:24px;height:24px;color:#333;"></i>Default</div>
+        <div class="state-item"><i data-lucide="heart" style="width:24px;height:24px;color:#0D2847;"></i>Active</div>
+        <div class="state-item"><i data-lucide="heart" style="width:24px;height:24px;color:#F2994A;"></i>Accent</div>
+        <div class="state-item"><i data-lucide="heart" style="width:24px;height:24px;color:#BDBDBD;"></i>Disabled</div>
+        <div class="state-item"><i data-lucide="heart" style="width:24px;height:24px;color:#fff;background:#0D2847;padding:4px;border-radius:4px;"></i>On dark</div>
+        <div class="state-item"><i data-lucide="heart" style="width:24px;height:24px;fill:#EB5757;color:#EB5757;"></i>Filled</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const icons = [
+      'home','search','menu','x','chevron-right','chevron-left','chevron-down','chevron-up',
+      'arrow-left','arrow-right','plus','minus','check','alert-circle','info','star',
+      'heart','bookmark','share-2','send','mail','bell','settings','user',
+      'users','eye','eye-off','lock','unlock','key','shield','globe',
+      'image','camera','video','mic','volume-2','play','pause','stop-circle',
+      'upload','download','file-text','folder','trash-2','edit-3','copy','link',
+      'external-link','log-in','log-out','refresh-cw','loader','clock','calendar','map-pin',
+      'phone','message-circle','at-sign','hash','tag','filter','sort-asc','list',
+      'grid','layout-dashboard','bar-chart-2','pie-chart','trending-up','zap','cpu','code-2',
+      'terminal','github','git-branch','git-fork','package','layers','compass','navigation',
+      'sun','moon','cloud','wind','droplets','leaf','flower-2','sparkles',
+      'shopping-bag','shopping-cart','credit-card','dollar-sign','percent','award','gift','flag'
+    ];
+    const grid = document.getElementById('grid');
+    icons.forEach(name => {
+      const cell = document.createElement('div');
+      cell.className = 'icon-cell';
+      cell.title = name;
+      cell.innerHTML = `<i data-lucide="${name}" style="width:20px;height:20px;color:#0D2847;flex-shrink:0;"></i><span class="icon-name">${name}</span>`;
+      grid.appendChild(cell);
+    });
+    lucide.createIcons();
+  </script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brand Colors</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', sans-serif; background: #fff; padding: 24px; }
+  .row { display: flex; gap: 16px; }
+  .swatch-group { flex: 1; }
+  .swatch { height: 100px; border-radius: 6px; margin-bottom: 10px; }
+  .swatch-label { font-size: 12px; font-weight: 700; color: #333; letter-spacing: 0.04em; text-transform: uppercase; }
+  .swatch-hex { font-size: 13px; color: #828282; margin-top: 2px; font-weight: 400; }
+  .swatch-desc { font-size: 11px; color: #BDBDBD; margin-top: 2px; }
+</style>
+</head>
+<body>
+  <div class="row">
+    <div class="swatch-group">
+      <div class="swatch" style="background:#0D2847;"></div>
+      <div class="swatch-label">Primary</div>
+      <div class="swatch-hex">#0D2847</div>
+      <div class="swatch-desc">CTAs, headers, nav, primary buttons</div>
+    </div>
+    <div class="swatch-group">
+      <div class="swatch" style="background:#F2994A;"></div>
+      <div class="swatch-label">Secondary</div>
+      <div class="swatch-hex">#F2994A</div>
+      <div class="swatch-desc">Highlights, secondary buttons, banners</div>
+    </div>
+    <div class="swatch-group">
+      <div class="swatch" style="background:#0a2038; border: 1px solid #e0e0e0;"></div>
+      <div class="swatch-label">Primary Hover</div>
+      <div class="swatch-hex">#0a2038</div>
+      <div class="swatch-desc">Button/link hover state</div>
+    </div>
+    <div class="swatch-group">
+      <div class="swatch" style="background:#e08936;"></div>
+      <div class="swatch-label">Secondary Hover</div>
+      <div class="swatch-hex">#e08936</div>
+      <div class="swatch-desc">Orange hover state</div>
+    </div>
+  </div>
+</body>
+</html>

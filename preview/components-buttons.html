@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Buttons</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', sans-serif; background: #fff; padding: 20px 24px; }
+  .section { margin-bottom: 18px; }
+  .section-label { font-size: 10px; font-weight: 700; color: #BDBDBD; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; }
+  .row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    border: none; cursor: pointer; font-family: 'Inter', sans-serif; font-weight: 700;
+    border-radius: 4px; transition: all 150ms ease-in-out; white-space: nowrap;
+  }
+  /* Colors */
+  .btn-primary { background: #0D2847; color: #fff; padding: 10px 48px; font-size: 14px; }
+  .btn-secondary { background: #F2994A; color: #fff; padding: 10px 48px; font-size: 14px; }
+  /* Sizes */
+  .btn-sm   { background: #0D2847; color: #fff; padding: 7px 40px;  font-size: 12px; }
+  .btn-nm   { background: #0D2847; color: #fff; padding: 9px 48px;  font-size: 14px; }
+  .btn-md   { background: #0D2847; color: #fff; padding: 11px 56px; font-size: 16px; }
+  .btn-lg   { background: #0D2847; color: #fff; padding: 14px 72px; font-size: 18px; }
+  /* States */
+  .btn-hover   { background: #0a2038; color: #fff; padding: 10px 48px; font-size: 14px; }
+  .btn-active  { background: #071628; color: #fff; padding: 10px 48px; font-size: 14px; }
+  .btn-disabled{ background: #BDBDBD; color: #fff; padding: 10px 48px; font-size: 14px; cursor: not-allowed; }
+  /* Variants */
+  .btn-outline { background: transparent; color: #0D2847; padding: 9px 40px; font-size: 14px; border: 2px solid #0D2847; }
+  .btn-icon-text { background: #0D2847; color: #fff; padding: 9px 24px; font-size: 14px; gap: 8px; }
+  .btn-icon-only { background: #0D2847; color: #fff; width: 36px; height: 36px; padding: 0; font-size: 18px; border-radius: 4px; }
+</style>
+</head>
+<body>
+  <div class="section">
+    <div class="section-label">Color</div>
+    <div class="row">
+      <button class="btn btn-primary">Primary</button>
+      <button class="btn btn-secondary">Secondary</button>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-label">Sizes</div>
+    <div class="row">
+      <button class="btn btn-sm">Small</button>
+      <button class="btn btn-nm">Normal</button>
+      <button class="btn btn-md">Medium</button>
+      <button class="btn btn-lg">Large</button>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-label">States</div>
+    <div class="row">
+      <button class="btn btn-primary">Default</button>
+      <button class="btn btn-hover">Hover</button>
+      <button class="btn btn-active">Active</button>
+      <button class="btn btn-disabled" disabled>Disabled</button>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-label">Variants</div>
+    <div class="row">
+      <button class="btn btn-primary">Normal</button>
+      <button class="btn btn-outline">Outline</button>
+      <button class="btn btn-icon-text">
+        <span style="font-size:16px; line-height:1;">+</span> Icon Text
+      </button>
+      <button class="btn btn-icon-only">+</button>
+    </div>
+  </div>
+</body>
+</html>

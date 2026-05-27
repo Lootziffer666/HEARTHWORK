@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Inputs / Textfields</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', sans-serif; background: #fff; padding: 20px 24px; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .field { display: flex; flex-direction: column; gap: 4px; }
+  .field-label { font-size: 11px; font-weight: 700; color: #333; }
+  .field-status { font-size: 10px; font-weight: 700; letter-spacing: 0.04em; }
+  input, textarea {
+    font-family: 'Inter', sans-serif; font-size: 14px; color: #333;
+    border: 1px solid #E0E0E0; border-radius: 4px;
+    padding: 8px 12px; outline: none; width: 100%;
+    transition: border-color 150ms;
+  }
+  input::placeholder, textarea::placeholder { color: #BDBDBD; }
+  .input-default {}
+  .input-focus  { border-color: #0D2847; }
+  .input-success{ border-color: #27AE60; }
+  .input-warning{ border-color: #E2B93B; }
+  .input-error  { border-color: #EB5757; }
+  .status-success { color: #27AE60; }
+  .status-warning { color: #E2B93B; }
+  .status-error   { color: #EB5757; }
+  .input-icon-wrap { position: relative; }
+  .input-icon-wrap input { padding-right: 36px; }
+  .input-icon { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); color: #BDBDBD; font-size: 14px; }
+  textarea { resize: none; height: 72px; }
+</style>
+</head>
+<body>
+  <div class="grid">
+    <div class="field">
+      <div class="field-label">Default (no label)</div>
+      <input class="input-default" type="text" placeholder="Input text">
+    </div>
+    <div class="field">
+      <div class="field-label">Focused</div>
+      <input class="input-focus" type="text" value="Input text">
+    </div>
+    <div class="field">
+      <div class="field-label">With Label</div>
+      <input class="input-default" type="text" placeholder="Input text">
+    </div>
+
+    <div class="field">
+      <div class="field-label">Success</div>
+      <input class="input-success" type="text" value="Input text">
+      <div class="field-status status-success">Success ✓</div>
+    </div>
+    <div class="field">
+      <div class="field-label">Warning</div>
+      <input class="input-warning" type="text" value="Input text">
+      <div class="field-status status-warning">Warning !</div>
+    </div>
+    <div class="field">
+      <div class="field-label">Error</div>
+      <input class="input-error" type="text" value="Input text">
+      <div class="field-status status-error">Error ×</div>
+    </div>
+
+    <div class="field">
+      <div class="field-label">With Icon</div>
+      <div class="input-icon-wrap">
+        <input class="input-default" type="text" placeholder="Input text icon">
+        <span class="input-icon">⊞</span>
+      </div>
+    </div>
+    <div class="field" style="grid-column: span 2;">
+      <div class="field-label">Text Area</div>
+      <textarea placeholder="Enter text here"></textarea>
+    </div>
+  </div>
+</body>
+</html>
