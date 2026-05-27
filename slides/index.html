@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HEARTHWORK — Slide Deck Template</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+<script src="deck-stage.js"></script>
+<style>
+  :root {
+    --navy:    #0D2847;
+    --orange:  #F2994A;
+    --offwhite:#F8F6F2;
+    --warm:    #F0EDE7;
+    --gray:    #828282;
+    --display: 'Nunito', sans-serif;
+    --body:    'DM Sans', sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  /* ── Shared slide base ── */
+  section {
+    width: 1920px; height: 1080px;
+    font-family: var(--body);
+    position: relative; overflow: hidden;
+    background: var(--offwhite);
+  }
+
+  /* ── Utility ── */
+  .display    { font-family: var(--display); }
+  .navy       { color: var(--navy); }
+  .orange     { color: var(--orange); }
+  .white      { color: #fff; }
+  .muted      { color: var(--gray); }
+  .tag        { display: inline-block; background: var(--orange); color: #fff; font-size: 18px; font-weight: 700; padding: 6px 20px; border-radius: 999px; letter-spacing: 0.06em; text-transform: uppercase; }
+  .tag-light  { background: rgba(255,255,255,0.15); }
+  .divider    { width: 60px; height: 4px; background: var(--orange); border-radius: 2px; margin: 24px 0; }
+
+  /* ── Slide: Title ── */
+  .slide-title { background: var(--navy); }
+  .slide-title .bg-photo { position: absolute; right: 0; top: 0; width: 55%; height: 100%; object-fit: cover; object-position: center; }
+  .slide-title .photo-fade { position: absolute; right: 0; top: 0; width: 55%; height: 100%; background: linear-gradient(to right, var(--navy) 0%, transparent 40%); }
+  .slide-title .content { position: absolute; left: 120px; top: 50%; transform: translateY(-50%); max-width: 820px; }
+  .slide-title h1 { font-family: var(--display); font-size: 96px; font-weight: 900; color: #fff; line-height: 1.02; letter-spacing: -0.02em; margin-bottom: 28px; }
+  .slide-title h1 em { color: var(--orange); font-style: normal; }
+  .slide-title .subtitle { font-size: 28px; color: rgba(255,255,255,0.7); line-height: 1.55; max-width: 560px; margin-bottom: 48px; }
+  .slide-title .meta { display: flex; align-items: center; gap: 20px; }
+  .slide-title .meta-text { font-size: 18px; color: rgba(255,255,255,0.45); }
+  .slide-title .wordmark { font-family: var(--display); font-size: 26px; font-weight: 900; color: #fff; letter-spacing: -0.02em; }
+  .slide-title .wordmark span { color: var(--orange); }
+  .slide-title .accent-bar { position: absolute; left: 0; top: 0; bottom: 0; width: 6px; background: var(--orange); }
+
+  /* ── Slide: Section Header ── */
+  .slide-section { background: var(--orange); }
+  .slide-section .num { font-family: var(--display); font-size: 200px; font-weight: 900; color: rgba(255,255,255,0.12); position: absolute; right: 100px; bottom: -20px; line-height: 1; }
+  .slide-section .content { position: absolute; left: 120px; bottom: 120px; }
+  .slide-section .eyebrow { font-size: 20px; font-weight: 700; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 16px; }
+  .slide-section h2 { font-family: var(--display); font-size: 96px; font-weight: 900; color: #fff; line-height: 1.0; letter-spacing: -0.02em; }
+  .slide-section .logo { position: absolute; top: 56px; left: 120px; font-family: var(--display); font-size: 24px; font-weight: 900; color: rgba(255,255,255,0.5); }
+  .slide-section .logo span { color: rgba(255,255,255,0.8); }
+
+  /* ── Slide: Content (2-col) ── */
+  .slide-content .inner { display: grid; grid-template-columns: 1fr 1fr; height: 100%; }
+  .slide-content .left { padding: 120px 80px 120px 120px; display: flex; flex-direction: column; justify-content: center; }
+  .slide-content .right { background: var(--warm); display: flex; align-items: center; justify-content: center; padding: 80px; }
+  .slide-content h2 { font-family: var(--display); font-size: 64px; font-weight: 900; color: var(--navy); line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 8px; }
+  .slide-content p  { font-size: 24px; color: #4F4F4F; line-height: 1.7; max-width: 680px; }
+  .slide-content .points { display: flex; flex-direction: column; gap: 20px; margin-top: 40px; }
+  .slide-content .point { display: flex; gap: 18px; align-items: flex-start; }
+  .slide-content .point-num { width: 36px; height: 36px; border-radius: 50%; background: var(--orange); color: #fff; font-size: 16px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 3px; }
+  .slide-content .point-text { font-size: 22px; color: #4F4F4F; line-height: 1.5; }
+
+  /* ── Slide: Full-bleed image ── */
+  .slide-image { background: var(--navy); }
+  .slide-image img { width: 100%; height: 100%; object-fit: cover; opacity: 0.6; position: absolute; inset: 0; }
+  .slide-image .overlay { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(13,40,71,0.9) 0%, rgba(13,40,71,0.3) 100%); }
+  .slide-image .content { position: absolute; left: 120px; top: 50%; transform: translateY(-50%); max-width: 900px; }
+  .slide-image blockquote { font-family: var(--display); font-size: 72px; font-weight: 900; color: #fff; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 40px; }
+  .slide-image blockquote em { color: var(--orange); font-style: normal; }
+  .slide-image .attribution { font-size: 22px; color: rgba(255,255,255,0.6); }
+
+  /* ── Slide: Stats ── */
+  .slide-stats .header { background: var(--navy); padding: 80px 120px 60px; }
+  .slide-stats .header h2 { font-family: var(--display); font-size: 56px; font-weight: 900; color: #fff; }
+  .slide-stats .header p { font-size: 22px; color: rgba(255,255,255,0.6); margin-top: 8px; }
+  .slide-stats .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; flex: 1; height: 620px; }
+  .slide-stats .stat { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 60px 40px; border-right: 1px solid var(--warm); }
+  .slide-stats .stat:last-child { border-right: none; }
+  .slide-stats .stat-num { font-family: var(--display); font-size: 96px; font-weight: 900; color: var(--navy); line-height: 1; margin-bottom: 12px; }
+  .slide-stats .stat-num span { color: var(--orange); }
+  .slide-stats .stat-label { font-size: 22px; color: var(--gray); font-weight: 500; }
+
+  /* ── Slide: Comparison ── */
+  .slide-compare .inner { display: grid; grid-template-columns: 1fr 1fr; height: 100%; }
+  .slide-compare .col { padding: 100px 80px; display: flex; flex-direction: column; }
+  .slide-compare .col-left { background: var(--offwhite); }
+  .slide-compare .col-right { background: var(--navy); }
+  .slide-compare .col-tag { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 32px; padding: 6px 16px; border-radius: 999px; display: inline-block; }
+  .slide-compare .col-tag-a { background: var(--warm); color: var(--navy); }
+  .slide-compare .col-tag-b { background: var(--orange); color: #fff; }
+  .slide-compare h3 { font-family: var(--display); font-size: 56px; font-weight: 900; line-height: 1.1; margin-bottom: 40px; }
+  .slide-compare .items { display: flex; flex-direction: column; gap: 18px; }
+  .slide-compare .item { display: flex; gap: 14px; align-items: flex-start; }
+  .slide-compare .item-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; margin-top: 7px; }
+  .slide-compare .item-dot-a { background: var(--orange); }
+  .slide-compare .item-dot-b { background: rgba(255,255,255,0.5); }
+  .slide-compare .item-text { font-size: 22px; line-height: 1.5; }
+
+  /* ── Slide: Closing ── */
+  .slide-closing { background: var(--navy); display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .slide-closing .bg-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.2; }
+  .slide-closing .content { position: relative; text-align: center; }
+  .slide-closing h1 { font-family: var(--display); font-size: 108px; font-weight: 900; color: #fff; line-height: 1.0; letter-spacing: -0.02em; margin-bottom: 24px; }
+  .slide-closing h1 em { color: var(--orange); font-style: normal; }
+  .slide-closing p { font-size: 28px; color: rgba(255,255,255,0.65); margin-bottom: 56px; }
+  .slide-closing .cta-btn { display: inline-block; background: var(--orange); color: #fff; font-size: 22px; font-weight: 700; padding: 20px 52px; border-radius: 4px; letter-spacing: 0.02em; }
+  .slide-closing .wordmark { position: absolute; bottom: 56px; left: 50%; transform: translateX(-50%); font-family: var(--display); font-size: 22px; font-weight: 900; color: rgba(255,255,255,0.35); }
+  .slide-closing .wordmark em { color: rgba(242,153,74,0.5); font-style: normal; }
+
+  /* ── Slide: Agenda ── */
+  .slide-agenda { background: var(--offwhite); }
+  .slide-agenda .accent { position: absolute; left: 0; top: 0; bottom: 0; width: 6px; background: var(--orange); }
+  .slide-agenda .left { position: absolute; left: 120px; top: 50%; transform: translateY(-50%); }
+  .slide-agenda .eyebrow { font-size: 18px; font-weight: 700; color: var(--gray); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 20px; }
+  .slide-agenda .left h2 { font-family: var(--display); font-size: 80px; font-weight: 900; color: var(--navy); line-height: 1; letter-spacing: -0.02em; margin-bottom: 24px; }
+  .slide-agenda .right { position: absolute; right: 120px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 40px; }
+  .slide-agenda .agenda-item { display: flex; gap: 28px; align-items: flex-start; cursor: default; transition: opacity 0.2s; }
+  .slide-agenda .agenda-item:hover { opacity: 0.75; }
+  .slide-agenda .agenda-num { font-family: var(--display); font-size: 64px; font-weight: 900; color: var(--orange); line-height: 1; min-width: 56px; }
+  .slide-agenda .agenda-title { font-family: var(--display); font-size: 28px; font-weight: 900; color: var(--navy); line-height: 1.2; margin-bottom: 4px; }
+  .slide-agenda .agenda-sub { font-size: 18px; color: var(--gray); }
+  .slide-agenda .wordmark { position: absolute; bottom: 56px; left: 120px; font-family: var(--display); font-size: 22px; font-weight: 900; color: var(--navy); opacity: 0.25; letter-spacing: -0.01em; }
+  .slide-agenda .wordmark em { color: var(--orange); font-style: normal; opacity: 1; }
+
+  /* ── Slide: Team ── */
+  .slide-team { background: var(--navy); display: flex; flex-direction: column; }
+  .slide-team .header { padding: 100px 120px 60px; }
+  .slide-team .eyebrow { font-size: 18px; font-weight: 700; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 16px; }
+  .slide-team h2 { font-family: var(--display); font-size: 72px; font-weight: 900; color: #fff; line-height: 1; letter-spacing: -0.02em; }
+  .slide-team .cards { display: flex; gap: 32px; justify-content: center; padding: 0 120px; flex: 1; align-items: center; }
+  .slide-team .card { background: #fff; border-radius: 8px; padding: 40px 32px; text-align: center; flex: 1; }
+  .slide-team .avatar { width: 100px; height: 100px; border-radius: 50%; background: var(--orange); display: flex; align-items: center; justify-content: center; font-family: var(--display); font-size: 40px; font-weight: 900; color: #fff; margin: 0 auto 20px; }
+  .slide-team .name { font-family: var(--display); font-size: 24px; font-weight: 900; color: var(--navy); margin-bottom: 4px; }
+  .slide-team .role { font-size: 15px; color: var(--orange); font-weight: 700; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.06em; }
+  .slide-team .desc { font-size: 14px; color: var(--gray); line-height: 1.6; font-style: italic; }
+  .slide-team .bottom { padding: 40px 120px 56px; display: flex; align-items: center; gap: 32px; }
+  .slide-team .bottom-line { flex: 1; height: 1px; background: var(--orange); opacity: 0.4; }
+  .slide-team .wordmark { font-family: var(--display); font-size: 22px; font-weight: 900; color: rgba(255,255,255,0.3); }
+  .slide-team .wordmark em { color: rgba(242,153,74,0.5); font-style: normal; }
+
+  /* ── Slide: Timeline ── */
+  .slide-timeline { background: var(--offwhite); display: flex; flex-direction: column; }
+  .slide-timeline .header { padding: 80px 120px 60px; }
+  .slide-timeline .eyebrow { font-size: 16px; font-weight: 700; color: var(--gray); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 12px; }
+  .slide-timeline h2 { font-family: var(--display); font-size: 64px; font-weight: 900; color: var(--navy); line-height: 1; letter-spacing: -0.02em; }
+  .slide-timeline .track { flex: 1; position: relative; padding: 0 120px; display: flex; align-items: center; }
+  .slide-timeline .line { position: absolute; left: 120px; right: 120px; height: 3px; background: linear-gradient(to right, var(--navy), var(--orange)); top: 50%; transform: translateY(-50%); }
+  .slide-timeline .milestones { position: relative; width: 100%; display: flex; justify-content: space-between; }
+  .slide-timeline .milestone { display: flex; flex-direction: column; align-items: center; position: relative; }
+  .slide-timeline .dot { width: 20px; height: 20px; border-radius: 50%; background: var(--orange); border: 3px solid var(--offwhite); z-index: 1; }
+  .slide-timeline .connector { width: 2px; height: 80px; background: var(--orange); }
+  .slide-timeline .above { flex-direction: column-reverse; }
+  .slide-timeline .badge { font-family: var(--display); font-size: 18px; font-weight: 900; color: var(--orange); margin-bottom: 8px; }
+  .slide-timeline .above .badge { margin-bottom: 0; margin-top: 8px; }
+  .slide-timeline .title { font-family: var(--display); font-size: 20px; font-weight: 900; color: var(--navy); margin-bottom: 4px; text-align: center; }
+  .slide-timeline .desc { font-size: 15px; color: var(--gray); text-align: center; max-width: 180px; line-height: 1.4; }
+  .slide-timeline .above .ms-text { display: flex; flex-direction: column-reverse; }
+  .slide-timeline .above .badge { order: 1; }
+
+  /* ── Slide: Big Quote ── */
+  .slide-bigquote { background: var(--orange); display: flex; align-items: center; justify-content: center; text-align: center; }
+  .slide-bigquote .mark { font-family: var(--display); font-size: 300px; font-weight: 900; color: rgba(255,255,255,0.15); position: absolute; top: -60px; left: 80px; line-height: 1; }
+  .slide-bigquote .content { position: relative; max-width: 1400px; padding: 0 120px; }
+  .slide-bigquote blockquote { font-family: var(--display); font-size: 80px; font-weight: 900; color: #fff; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 48px; }
+  .slide-bigquote .attr { font-size: 24px; color: rgba(255,255,255,0.7); }
+  .slide-bigquote .wordmark { position: absolute; bottom: 56px; right: 120px; font-family: var(--display); font-size: 24px; font-weight: 900; color: rgba(255,255,255,0.35); }
+
+  /* ── Slide: Three Pillars ── */
+  .slide-3col { background: var(--offwhite); display: flex; flex-direction: column; }
+  .slide-3col .header { padding: 80px 120px 60px; }
+  .slide-3col .eyebrow { font-size: 16px; font-weight: 700; color: var(--gray); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 12px; }
+  .slide-3col h2 { font-family: var(--display); font-size: 64px; font-weight: 900; color: var(--navy); letter-spacing: -0.02em; }
+  .slide-3col .cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px; padding: 0 120px 80px; flex: 1; align-items: start; }
+  .slide-3col .col { background: #fff; border-radius: 8px; padding: 48px 40px; box-shadow: 0 2px 12px rgba(0,0,0,0.07); }
+  .slide-3col .icon { width: 64px; height: 64px; border-radius: 50%; background: var(--orange); display: flex; align-items: center; justify-content: center; font-family: var(--display); font-size: 28px; font-weight: 900; color: #fff; margin-bottom: 28px; }
+  .slide-3col .col-title { font-family: var(--display); font-size: 36px; font-weight: 900; color: var(--navy); margin-bottom: 16px; }
+  .slide-3col .divider { width: 40px; height: 3px; background: var(--orange); margin-bottom: 24px; }
+  .slide-3col .bullets { display: flex; flex-direction: column; gap: 14px; }
+  .slide-3col .bullet { display: flex; gap: 12px; align-items: flex-start; font-size: 20px; color: #4F4F4F; line-height: 1.5; }
+  .slide-3col .bullet::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--orange); flex-shrink: 0; margin-top: 8px; }
+
+  /* ── Slide: Q&A ── */
+  .slide-qa { background: var(--navy); display: flex; align-items: center; justify-content: center; text-align: center; }
+  .slide-qa .bg-q { position: absolute; font-family: var(--display); font-size: 600px; font-weight: 900; color: rgba(255,255,255,0.04); line-height: 1; top: -80px; left: 50%; transform: translateX(-50%); pointer-events: none; }
+  .slide-qa .content { position: relative; }
+  .slide-qa h1 { font-family: var(--display); font-size: 96px; font-weight: 900; color: #fff; margin-bottom: 20px; letter-spacing: -0.02em; }
+  .slide-qa .sub { font-size: 28px; color: rgba(255,255,255,0.55); margin-bottom: 64px; }
+  .slide-qa .contacts { display: flex; gap: 48px; justify-content: center; }
+  .slide-qa .contact { display: flex; align-items: center; gap: 14px; }
+  .slide-qa .contact-dot { width: 14px; height: 14px; border-radius: 50%; background: var(--orange); flex-shrink: 0; }
+  .slide-qa .contact-text { font-size: 22px; color: rgba(255,255,255,0.75); }
+  .slide-qa .wordmark { position: absolute; bottom: 56px; left: 50%; transform: translateX(-50%); font-family: var(--display); font-size: 22px; font-weight: 900; color: rgba(255,255,255,0.3); }
+  .slide-qa .wordmark em { color: rgba(242,153,74,0.5); font-style: normal; }
+
+  /* ── Animations ── */
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+</style>
+</head>
+<body>
+<deck-stage>
+
+  <!-- 01 Title -->
+  <section class="slide-title" data-screen-label="01 Title">
+    <div class="accent-bar"></div>
+    <img class="bg-photo" src="../assets/images/wildflowers-sunset.png" alt="">
+    <div class="photo-fade"></div>
+    <div class="content">
+      <span class="tag" style="margin-bottom:32px;">Presentation title</span>
+      <h1>Design that <em>feels</em> as good as it looks</h1>
+      <div class="subtitle">A brand built on the belief that you shouldn't have to choose between feeling at home and feeling sharp.</div>
+      <div class="meta">
+        <div class="wordmark">COZY<span>-</span>COOL</div>
+        <div class="meta-text">·</div>
+        <div class="meta-text">May 2026</div>
+        <div class="meta-text">·</div>
+        <div class="meta-text">Speaker Name</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 Section header -->
+  <section class="slide-section" data-screen-label="02 Section">
+    <div class="logo">COZY<span>-COOL</span></div>
+    <div class="num">01</div>
+    <div class="content">
+      <div class="eyebrow">Chapter one</div>
+      <h2>The<br>Opportunity</h2>
+    </div>
+  </section>
+
+  <!-- 03 Content -->
+  <section class="slide-content" data-screen-label="03 Content">
+    <div class="inner">
+      <div class="left">
+        <span class="tag" style="margin-bottom:24px; font-size:14px;">Our approach</span>
+        <h2>Precision meets warmth</h2>
+        <div class="divider"></div>
+        <p>Every detail is intentional. Every interaction is warm. The Hearthwork design system makes both possible simultaneously.</p>
+        <div class="points">
+          <div class="point"><div class="point-num">1</div><div class="point-text">Deep navy primary — anchoring, trustworthy, calm</div></div>
+          <div class="point"><div class="point-num">2</div><div class="point-text">Warm orange accent — energy, approachability, life</div></div>
+          <div class="point"><div class="point-num">3</div><div class="point-text">Nunito + DM Sans — cozy display with a cool UI voice</div></div>
+        </div>
+      </div>
+      <div class="right">
+        <img src="../assets/images/purple-daisy-droplet.png" alt="" style="width:100%; height:100%; object-fit:cover; border-radius:4px;">
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 Full-bleed quote -->
+  <section class="slide-image" data-screen-label="04 Quote">
+    <img src="../assets/images/children-golden-field.png" alt="">
+    <div class="overlay"></div>
+    <div class="content">
+      <blockquote>"Good design shows up quietly, does exactly what it needs to, and makes you feel something without you quite knowing <em>why.</em>"</blockquote>
+      <div class="attribution">— The Hearthwork philosophy</div>
+    </div>
+  </section>
+
+  <!-- 05 Stats -->
+  <section class="slide-stats" data-screen-label="05 Stats">
+    <div class="header">
+      <h2>By the numbers</h2>
+      <p>Hearthwork in 2026 — the results of getting design right.</p>
+    </div>
+    <div class="stats-row">
+      <div class="stat">
+        <div class="stat-num">50<span>k+</span></div>
+        <div class="stat-label">Happy customers</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">4.<span>9</span></div>
+        <div class="stat-label">Average rating</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">99<span>%</span></div>
+        <div class="stat-label">Would recommend</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num" style="font-size:72px;">2020</div>
+        <div class="stat-label">Est. — still growing</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 Comparison -->
+  <section class="slide-compare" data-screen-label="06 Comparison">
+    <div class="inner">
+      <div class="col col-left">
+        <span class="col-tag col-tag-a">Before</span>
+        <h3 class="navy">Generic<br>product feel</h3>
+        <div class="items">
+          <div class="item"><div class="item-dot item-dot-a"></div><div class="item-text navy" style="color:#828282;">Cold, clinical typography</div></div>
+          <div class="item"><div class="item-dot item-dot-a"></div><div class="item-text navy" style="color:#828282;">One-size-fits-all component library</div></div>
+          <div class="item"><div class="item-dot item-dot-a"></div><div class="item-text navy" style="color:#828282;">No cohesive motion language</div></div>
+          <div class="item"><div class="item-dot item-dot-a"></div><div class="item-text navy" style="color:#828282;">Dark/light mode as an afterthought</div></div>
+        </div>
+      </div>
+      <div class="col col-right">
+        <span class="col-tag col-tag-b">After — Hearthwork</span>
+        <h3 style="color:#fff;">Brand-native<br>design system</h3>
+        <div class="items">
+          <div class="item"><div class="item-dot item-dot-b"></div><div class="item-text" style="color:rgba(255,255,255,0.8);">Nunito + DM Sans — warm and crisp together</div></div>
+          <div class="item"><div class="item-dot item-dot-b"></div><div class="item-text" style="color:rgba(255,255,255,0.8);">21 design system cards, fully documented</div></div>
+          <div class="item"><div class="item-dot item-dot-b"></div><div class="item-text" style="color:rgba(255,255,255,0.8);">Spring easing — the brand's signature quirk</div></div>
+          <div class="item"><div class="item-dot item-dot-b"></div><div class="item-text" style="color:rgba(255,255,255,0.8);">Token-based light/dark from day one</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 Closing -->
+  <section class="slide-closing" data-screen-label="07 Closing">
+    <img class="bg-img" src="../assets/images/grape-hyacinth.png" alt="">
+    <div class="content">
+      <h1>Thank you<br>for watching <em>:)</em></h1>
+      <p>Questions, feedback, or just want to say hi?</p>
+      <div class="cta-btn">Get in touch</div>
+    </div>
+    <div class="wordmark">COZY<em>-</em>COOL</div>
+  </section>
+
+  <!-- 08 Agenda -->
+  <section class="slide-agenda" data-screen-label="08 Agenda">
+    <div class="accent"></div>
+    <div class="left">
+      <div class="eyebrow">What we'll cover</div>
+      <h2>Agenda</h2>
+      <div class="divider"></div>
+      <div class="wordmark">COZY<em>-</em>COOL</div>
+    </div>
+    <div class="right">
+      <div class="agenda-item">
+        <div class="agenda-num">01</div>
+        <div>
+          <div class="agenda-title">The brand story</div>
+          <div class="agenda-sub">How Hearthwork came to be</div>
+        </div>
+      </div>
+      <div class="agenda-item">
+        <div class="agenda-num">02</div>
+        <div>
+          <div class="agenda-title">Visual foundations</div>
+          <div class="agenda-sub">Colors, type, and spacing system</div>
+        </div>
+      </div>
+      <div class="agenda-item">
+        <div class="agenda-num">03</div>
+        <div>
+          <div class="agenda-title">Component library</div>
+          <div class="agenda-sub">21 cards across 5 groups</div>
+        </div>
+      </div>
+      <div class="agenda-item">
+        <div class="agenda-num">04</div>
+        <div>
+          <div class="agenda-title">In the wild</div>
+          <div class="agenda-sub">UI kits for web, mobile, and desktop</div>
+        </div>
+      </div>
+      <div class="agenda-item">
+        <div class="agenda-num">05</div>
+        <div>
+          <div class="agenda-title">What's next</div>
+          <div class="agenda-sub">Roadmap and iteration</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 09 Team -->
+  <section class="slide-team" data-screen-label="09 Team">
+    <div class="header">
+      <div class="eyebrow">The people behind it</div>
+      <h2>Meet the team</h2>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <div class="avatar">YA</div>
+        <div class="name">Yahya A.</div>
+        <div class="role">Lead Designer</div>
+        <div class="desc">Obsessed with the tiny details that make interactions feel right</div>
+      </div>
+      <div class="card">
+        <div class="avatar">SM</div>
+        <div class="name">Sofia M.</div>
+        <div class="role">Design Systems</div>
+        <div class="desc">If it's not in the tokens file, it doesn't exist :)</div>
+      </div>
+      <div class="card">
+        <div class="avatar">CR</div>
+        <div class="name">Carlos R.</div>
+        <div class="role">Front-end</div>
+        <div class="desc">Makes the animations bounce exactly right</div>
+      </div>
+      <div class="card">
+        <div class="avatar">AT</div>
+        <div class="name">Amara T.</div>
+        <div class="role">Brand</div>
+        <div class="desc">Protects the orange. Vigorously.</div>
+      </div>
+    </div>
+    <div class="bottom">
+      <div class="bottom-line"></div>
+      <div class="wordmark">COZY<em>-</em>COOL</div>
+      <div class="bottom-line"></div>
+    </div>
+  </section>
+
+  <!-- 10 Timeline -->
+  <section class="slide-timeline" data-screen-label="10 Timeline">
+    <div class="header">
+      <div class="eyebrow">Since the beginning</div>
+      <h2>Our journey</h2>
+    </div>
+    <div class="track">
+      <div class="line"></div>
+      <div class="milestones">
+
+        <!-- Milestone 1: above -->
+        <div class="milestone above">
+          <div class="ms-content" style="display:flex; flex-direction:column-reverse; align-items:center;">
+            <div class="dot"></div>
+            <div class="connector"></div>
+            <div style="text-align:center; padding-bottom:16px;">
+              <div class="badge">Q1 2020</div>
+              <div class="title">Founded</div>
+              <div class="desc">Two designers with one shared vision</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Milestone 2: below -->
+        <div class="milestone">
+          <div style="display:flex; flex-direction:column; align-items:center;">
+            <div class="dot"></div>
+            <div class="connector"></div>
+            <div style="text-align:center; padding-top:16px;">
+              <div class="badge">Q3 2020</div>
+              <div class="title">First product</div>
+              <div class="desc">Hearthwork web UI shipped</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Milestone 3: above -->
+        <div class="milestone above">
+          <div class="ms-content" style="display:flex; flex-direction:column-reverse; align-items:center;">
+            <div class="dot"></div>
+            <div class="connector"></div>
+            <div style="text-align:center; padding-bottom:16px;">
+              <div class="badge">Q1 2022</div>
+              <div class="title">Design System v1</div>
+              <div class="desc">Tokens, motion, accessibility</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Milestone 4: below -->
+        <div class="milestone">
+          <div style="display:flex; flex-direction:column; align-items:center;">
+            <div class="dot"></div>
+            <div class="connector"></div>
+            <div style="text-align:center; padding-top:16px;">
+              <div class="badge">Q2 2024</div>
+              <div class="title">Mobile &amp; desktop kits</div>
+              <div class="desc">Three platforms, one system</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Milestone 5: above -->
+        <div class="milestone above">
+          <div class="ms-content" style="display:flex; flex-direction:column-reverse; align-items:center;">
+            <div class="dot"></div>
+            <div class="connector"></div>
+            <div style="text-align:center; padding-bottom:16px;">
+              <div class="badge">Q1 2026</div>
+              <div class="title">v2.0 Launch</div>
+              <div class="desc">Professional grade, ship-ready</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 11 Big Quote -->
+  <section class="slide-bigquote" data-screen-label="11 Big Quote">
+    <div class="mark">"</div>
+    <div class="content">
+      <blockquote>Design is not about making things look pretty. It's about making things work beautifully.</blockquote>
+      <div class="attr">— Hearthwork, 2026</div>
+    </div>
+    <div class="wordmark">HEARTHWORK</div>
+  </section>
+
+  <!-- 12 Three Pillars -->
+  <section class="slide-3col" data-screen-label="12 Three Pillars">
+    <div class="header">
+      <div class="eyebrow">What we stand for</div>
+      <h2>Three pillars</h2>
+    </div>
+    <div class="cols">
+
+      <div class="col">
+        <div class="icon">C</div>
+        <div class="col-title">Consistency</div>
+        <div class="divider"></div>
+        <div class="bullets">
+          <div class="bullet">Same tokens everywhere</div>
+          <div class="bullet">No style drift over time</div>
+          <div class="bullet">One source of truth</div>
+          <div class="bullet">Faster onboarding</div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="icon">A</div>
+        <div class="col-title">Accessibility</div>
+        <div class="divider"></div>
+        <div class="bullets">
+          <div class="bullet">WCAG AA contrast ratios</div>
+          <div class="bullet">Keyboard navigable</div>
+          <div class="bullet">Screen reader tested</div>
+          <div class="bullet">Motion-safe defaults</div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="icon">D</div>
+        <div class="col-title">Delight</div>
+        <div class="divider"></div>
+        <div class="bullets">
+          <div class="bullet">Spring easing signature</div>
+          <div class="bullet">Warm off-white background</div>
+          <div class="bullet">Playful copy voice</div>
+          <div class="bullet">Tiny moments of joy</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 13 Q&A -->
+  <section class="slide-qa" data-screen-label="13 Questions">
+    <div class="bg-q">?</div>
+    <div class="content">
+      <h1>Questions?</h1>
+      <div class="sub">We'd love to hear your thoughts.</div>
+      <div class="contacts">
+        <div class="contact">
+          <div class="contact-dot"></div>
+          <div class="contact-text">hello@cozycool.co</div>
+        </div>
+        <div class="contact">
+          <div class="contact-dot"></div>
+          <div class="contact-text">cozycool.co/design</div>
+        </div>
+      </div>
+    </div>
+    <div class="wordmark">COZY<em>-</em>COOL</div>
+  </section>
+
+</deck-stage>
+</body>
+</html>
