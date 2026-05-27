@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HEARTHWORK — Web UI Kit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  input, textarea, select, button { font-family: 'DM Sans', system-ui, sans-serif; }
+  input::placeholder, textarea::placeholder { color: #BDBDBD; }
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: #BDBDBD; border-radius: 3px; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel" src="Nav.jsx"></script>
+<script type="text/babel" src="Hero.jsx"></script>
+<script type="text/babel" src="Cards.jsx"></script>
+<script type="text/babel" src="Banner.jsx"></script>
+<script type="text/babel" src="Forms.jsx"></script>
+<script type="text/babel" src="Footer.jsx"></script>
+
+<script type="text/babel">
+// ─── Shared style helpers ──────────────────────────────────
+const dm = (d, v1, v2) => d ? v1 : v2;
+
+// ─── Stats strip ──────────────────────────────────────────
+const StatsStrip = ({ darkMode }) => {
+  const bg = dm(darkMode, '#0a2038', '#F0EDE7');
+  const fg = dm(darkMode, 'rgba(248,246,242,0.6)', '#828282');
+  const val = dm(darkMode, '#F8F6F2', '#0D2847');
+  const stats = [
+    { n: '50k+', label: 'Happy customers' },
+    { n: '4.9', label: 'Average rating' },
+    { n: '120+', label: 'Products' },
+    { n: '2020', label: 'Est.' },
+  ];
+  return (
+    <div style={{ background: bg, borderBottom: `1px solid ${dm(darkMode,'rgba(255,255,255,0.08)','#E0E0E0')}` }}>
+      <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 48px', display: 'flex' }}>
+        {stats.map(({ n, label }) => (
+          <div key={label} style={{ flex: 1, padding: '18px 0', textAlign: 'center', borderRight: `1px solid ${dm(darkMode,'rgba(255,255,255,0.08)','#E0E0E0')}` }}>
+            <div style={{ fontFamily: "'Nunito', sans-serif", fontWeight: 900, fontSize: 24, color: val, lineHeight: 1 }}>{n}</div>
+            <div style={{ fontSize: 12, color: fg, marginTop: 4 }}>{label}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+// ─── Page: Home ───────────────────────────────────────────
+const PageHome = ({ onNavigate, darkMode }) => (
+  <div>
+    <Hero onNavigate={onNavigate} />
+    <StatsStrip darkMode={darkMode} />
+    <Cards onNavigate={onNavigate} darkMode={darkMode} />
+    <Banner onNavigate={onNavigate} darkMode={darkMode} />
+  </div>
+);
+
+// ─── Page: Explore ────────────────────────────────────────
+const PageExplore = ({ onNavigate, darkMode }) => {
+  const bg = dm(darkMode, '#0D2847', '#F0EDE7');
+  const fg = dm(darkMode, '#F8F6F2', '#0D2847');
+  const fgSub = dm(darkMode, 'rgba(248,246,242,0.6)', '#828282');
+  const [activeFilter, setFilter] = React.useState('All');
+  const filters = ['All', 'Nature', 'Macro', 'Lifestyle', 'Abstract'];
+  return (
+    <div>
+      <div style={{ background: bg, borderBottom: `1px solid ${dm(darkMode,'rgba(255,255,255,0.08)','#E0E0E0')}` }}>
+        <div style={{ maxWidth: 1200, margin: '0 auto', padding: '40px 48px 28px' }}>
+          <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between' }}>
+            <div>
+              <div style={{ fontFamily: "'Nunito', sans-serif", fontWeight: 900, fontSize: 38, color: fg, letterSpacing: '-0.01em', marginBottom: 4 }}>Explore</div>
+              <div style={{ fontSize: 15, color: fgSub }}>All collections, all the time.</div>
+            </div>
+            <div style={{ display: 'flex', gap: 6 }}>
+              {filters.map(f => (
+                <button key={f} onClick={() => setFilter(f)} style={{
+                  padding: '7px 16px', borderRadius: 999, fontSize: 13, fontWeight: 600,
+                  background: activeFilter === f ? '#0D2847' : dm(darkMode,'rgba(255,255,255,0.08)','#fff'),
+                  color: activeFilter === f ? '#fff' : dm(darkMode,'rgba(248,246,242,0.7)','#333'),
+                  border: `1px solid ${activeFilter === f ? '#0D2847' : dm(darkMode,'rgba(255,255,255,0.15)','#E0E0E0')}`,
+                  cursor: 'pointer', transition: 'all 150ms',
+                }}>{f}</button>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+      <Cards onNavigate={onNavigate} darkMode={darkMode} title="All collections" subtitle="Every item, every category — browse at your pace." />
+      <Banner onNavigate={onNavigate} darkMode={darkMode} />
+    </div>
+  );
+};
+
+// ─── Page: Detail ─────────────────────────────────────────
+const PageDetail = ({ onNavigate, darkMode }) => {
+  const bg = dm(darkMode, '#0D2847', '#F8F6F2');
+  const surf = dm(darkMode, '#122f55', '#fff');
+  const fg = dm(darkMode, '#F8F6F2', '#333');
+  const fgSub = dm(darkMode, 'rgba(248,246,242,0.7)', '#4F4F4F');
+  const fgMut = dm(darkMode, 'rgba(248,246,242,0.45)', '#828282');
+  const border = dm(darkMode, 'rgba(255,255,255,0.1)', '#E0E0E0');
+  const shadow = dm(darkMode, '0 2px 8px rgba(0,0,0,0.3)', '0 2px 8px rgba(0,0,0,0.08)');
+
+  return (
+    <div style={{ background: bg, minHeight: '100vh' }}>
+      <div style={{ maxWidth: 1200, margin: '0 auto', padding: '48px 48px 80px' }}>
+        <button onClick={() => onNavigate('explore')} style={{
+          display: 'flex', alignItems: 'center', gap: 6, background: 'none', border: 'none',
+          cursor: 'pointer', color: fgMut, fontSize: 13, fontWeight: 600, marginBottom: 36,
+          fontFamily: "'DM Sans', sans-serif", transition: 'color 150ms',
+        }}>
+          <i data-lucide="arrow-left" style={{ width: 16, height: 16 }}></i> Back to explore
+        </button>
+        <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: 48 }}>
+          <div>
+            <div style={{ height: 400, borderRadius: 6, overflow: 'hidden', marginBottom: 32 }}>
+              <img src="../../assets/images/purple-daisy-droplet.png" alt="Purple daisy" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 14 }}>
+              <span style={{ background: '#F2994A', color: '#fff', fontSize: 11, fontWeight: 700, padding: '3px 12px', borderRadius: 999, letterSpacing: '0.06em', textTransform: 'uppercase' }}>Featured</span>
+              <span style={{ fontSize: 12, color: fgMut }}>May 2026</span>
+            </div>
+            <div style={{ fontFamily: "'Nunito', sans-serif", fontSize: 38, fontWeight: 900, color: fg, marginBottom: 16, lineHeight: 1.15, letterSpacing: '-0.01em' }}>The Detail in the Drop</div>
+            <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 16, color: fgSub, lineHeight: 1.8, marginBottom: 20 }}>
+              A single droplet holds an entire world. One perfect bead of water, balanced on a purple petal, catching the blurred warmth of everything around it.
+            </div>
+            <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 16, color: fgSub, lineHeight: 1.8, marginBottom: 32 }}>
+              This is what COZY-COOL is about — finding the moment inside the moment. Being close enough to see it. Slowing down enough to care.
+            </div>
+            <div style={{ display: 'flex', gap: 12 }}>
+              <button style={{ background: '#0D2847', color: '#fff', fontFamily: "'DM Sans', sans-serif", fontWeight: 700, fontSize: 14, padding: '11px 28px', borderRadius: 4, border: 'none', cursor: 'pointer' }}>Read more</button>
+              <button style={{ background: 'transparent', color: dm(darkMode,'#F8F6F2','#0D2847'), fontFamily: "'DM Sans', sans-serif", fontWeight: 700, fontSize: 14, padding: '11px 24px', borderRadius: 4, border: `1.5px solid ${dm(darkMode,'rgba(255,255,255,0.3)','#0D2847')}`, cursor: 'pointer' }}>Share</button>
+            </div>
+          </div>
+
+          <div>
+            <div style={{ background: surf, borderRadius: 4, padding: 20, marginBottom: 20, boxShadow: shadow }}>
+              <div style={{ fontSize: 11, fontWeight: 700, color: fgMut, textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 14 }}>Collection progress</div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
+                <span style={{ fontSize: 13, color: fg, fontWeight: 600 }}>Macro nature</span>
+                <span style={{ fontSize: 13, color: '#F2994A', fontWeight: 700 }}>75%</span>
+              </div>
+              <div style={{ height: 6, background: dm(darkMode,'rgba(255,255,255,0.1)','#E0E0E0'), borderRadius: 999 }}>
+                <div style={{ width: '75%', height: '100%', background: '#0D2847', borderRadius: 999 }}></div>
+              </div>
+              <div style={{ fontSize: 12, color: fgMut, marginTop: 8 }}>3 of 4 items explored</div>
+            </div>
+
+            <div style={{ background: surf, borderRadius: 4, padding: 20, marginBottom: 20, boxShadow: shadow }}>
+              <div style={{ fontSize: 11, fontWeight: 700, color: fgMut, textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 12 }}>Tags</div>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+                {['Macro', 'Purple', 'Water', 'Floral', 'Detail', 'Featured'].map(t => (
+                  <span key={t} style={{ background: dm(darkMode,'rgba(255,255,255,0.08)','#F0EDE7'), color: dm(darkMode,'rgba(248,246,242,0.8)','#333'), fontSize: 12, fontWeight: 600, padding: '4px 10px', borderRadius: 999 }}>{t}</span>
+                ))}
+              </div>
+            </div>
+
+            <div style={{ background: surf, borderRadius: 4, boxShadow: shadow, overflow: 'hidden' }}>
+              <div style={{ fontSize: 11, fontWeight: 700, color: fgMut, textTransform: 'uppercase', letterSpacing: '0.08em', padding: '16px 16px 8px' }}>Related</div>
+              {[
+                { title: 'Wildflowers at Dusk', img: '../../assets/images/wildflowers-sunset.png' },
+                { title: 'Golden Hour Chasing', img: '../../assets/images/children-golden-field.png' },
+                { title: 'Grape Hyacinth', img: '../../assets/images/grape-hyacinth.png' },
+              ].map(({ title, img }) => (
+                <div key={title} onClick={() => onNavigate('detail')} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 16px', borderTop: `1px solid ${border}`, cursor: 'pointer', transition: 'background 150ms' }}
+                  onMouseEnter={e => e.currentTarget.style.background = dm(darkMode,'rgba(255,255,255,0.04)','#F8F6F2')}
+                  onMouseLeave={e => e.currentTarget.style.background = 'transparent'}>
+                  <div style={{ width: 44, height: 36, borderRadius: 3, overflow: 'hidden', flexShrink: 0 }}>
+                    <img src={img} alt={title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  </div>
+                  <span style={{ fontSize: 13, fontWeight: 600, color: fg, flex: 1 }}>{title}</span>
+                  <i data-lucide="chevron-right" style={{ width: 14, height: 14, color: fgMut }}></i>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// ─── Page: Contact ────────────────────────────────────────
+const PageContact = ({ onNavigate, darkMode }) => {
+  const bg = dm(darkMode, '#0D2847', '#F8F6F2');
+  const surf = dm(darkMode, '#122f55', '#fff');
+  const fg = dm(darkMode, '#F8F6F2', '#0D2847');
+  const fgSub = dm(darkMode, 'rgba(248,246,242,0.65)', '#828282');
+  const border = dm(darkMode, 'rgba(255,255,255,0.1)', '#E0E0E0');
+  const shadow = dm(darkMode, '0 2px 8px rgba(0,0,0,0.3)', '0 2px 8px rgba(0,0,0,0.06)');
+  return (
+    <div style={{ background: bg, minHeight: '100vh' }}>
+      <div style={{ maxWidth: 680, margin: '0 auto', padding: '64px 32px 80px' }}>
+        <div style={{ marginBottom: 40 }}>
+          <div style={{ fontFamily: "'Nunito', sans-serif", fontSize: 38, fontWeight: 900, color: fg, marginBottom: 8, letterSpacing: '-0.01em' }}>Get in touch</div>
+          <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 15, color: fgSub, lineHeight: 1.65 }}>
+            We'd love to hear from you. Whether it's feedback, a question, or just to say hi — we're here :)
+          </div>
+        </div>
+        <div style={{ background: surf, border: `1px solid ${border}`, borderRadius: 6, padding: '36px 40px', boxShadow: shadow }}>
+          <ContactForm onSuccess={() => {}} darkMode={darkMode} />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// ─── Page: About ──────────────────────────────────────────
+const PageAbout = ({ onNavigate, darkMode }) => (
+  <div>
+    <div style={{ position: 'relative', height: 400, overflow: 'hidden' }}>
+      <img src="../../assets/images/children-golden-field.png" alt="Golden field" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+      <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, rgba(13,40,71,0.85) 0%, rgba(13,40,71,0.4) 70%, rgba(13,40,71,0.1) 100%)' }}></div>
+      <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center' }}>
+        <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 48px', width: '100%' }}>
+          <div style={{ fontFamily: "'Nunito', sans-serif", fontSize: 52, fontWeight: 900, color: '#fff', marginBottom: 16, lineHeight: 1.05, letterSpacing: '-0.02em' }}>
+            We are<br /><span style={{ color: '#F2994A' }}>HEARTHWORK</span>
+          </div>
+          <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 17, color: 'rgba(255,255,255,0.8)', maxWidth: 480, lineHeight: 1.7 }}>
+            A brand built on the belief that you shouldn't have to choose between feeling at home and feeling sharp.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style={{ background: dm(darkMode,'#0D2847','#F8F6F2') }}>
+      <div style={{ maxWidth: 1200, margin: '0 auto', padding: '64px 48px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 24, marginBottom: 64 }}>
+          {[{ stat: '2020', label: 'Founded' }, { stat: '50k+', label: 'Happy customers' }, { stat: '99%', label: 'Would recommend' }].map(({ stat, label }) => (
+            <div key={label} style={{ textAlign: 'center', padding: 32, background: dm(darkMode,'#122f55','#fff'), borderRadius: 4, boxShadow: dm(darkMode,'0 2px 8px rgba(0,0,0,0.3)','0 2px 8px rgba(0,0,0,0.06)') }}>
+              <div style={{ fontFamily: "'Nunito', sans-serif", fontWeight: 900, fontSize: 48, color: dm(darkMode,'#F2994A','#0D2847'), marginBottom: 4, letterSpacing: '-0.02em' }}>{stat}</div>
+              <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, color: dm(darkMode,'rgba(248,246,242,0.6)','#828282') }}>{label}</div>
+            </div>
+          ))}
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 56, alignItems: 'center' }}>
+          <div>
+            <div style={{ fontFamily: "'Nunito', sans-serif", fontSize: 32, fontWeight: 900, color: dm(darkMode,'#F8F6F2','#0D2847'), marginBottom: 18, letterSpacing: '-0.01em' }}>What we believe</div>
+            <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 16, color: dm(darkMode,'rgba(248,246,242,0.7)','#4F4F4F'), lineHeight: 1.8, marginBottom: 20 }}>
+              Good design doesn't shout. It shows up quietly, does exactly what it needs to, and makes you feel something without you quite knowing why.
+            </div>
+            <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 16, color: dm(darkMode,'rgba(248,246,242,0.7)','#4F4F4F'), lineHeight: 1.8 }}>
+              That's the COZY-COOL philosophy — precision and warmth working together, never against each other.
+            </div>
+          </div>
+          <div style={{ borderRadius: 6, overflow: 'hidden', height: 300 }}>
+            <img src="../../assets/images/grape-hyacinth.png" alt="Grape hyacinth" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          </div>
+        </div>
+      </div>
+    </div>
+    <Banner onNavigate={onNavigate} darkMode={darkMode} />
+  </div>
+);
+
+// ─── Root App ─────────────────────────────────────────────
+const App = () => {
+  const [page, setPage] = React.useState('home');
+  const [darkMode, setDarkMode] = React.useState(false);
+
+  const navigate = (p) => {
+    setPage(p);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  React.useEffect(() => {
+    lucide.createIcons();
+  });
+
+  const bgPage = darkMode ? '#0D2847' : '#F8F6F2';
+
+  const pages = {
+    home:    <PageHome    onNavigate={navigate} darkMode={darkMode} />,
+    explore: <PageExplore onNavigate={navigate} darkMode={darkMode} />,
+    detail:  <PageDetail  onNavigate={navigate} darkMode={darkMode} />,
+    contact: <PageContact onNavigate={navigate} darkMode={darkMode} />,
+    about:   <PageAbout   onNavigate={navigate} darkMode={darkMode} />,
+  };
+
+  return (
+    <div style={{ background: bgPage, minHeight: '100vh', transition: 'background 300ms cubic-bezier(0.4,0,0.2,1)' }}>
+      <Nav currentPage={page} onNavigate={navigate} darkMode={darkMode} onToggleDark={() => setDarkMode(d => !d)} />
+      <main>{pages[page] || pages.home}</main>
+      <Footer onNavigate={navigate} darkMode={darkMode} />
+    </div>
+  );
+};
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+</script>
+</body>
+</html>
