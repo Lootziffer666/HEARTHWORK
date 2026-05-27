@@ -1,0 +1,303 @@
+{
+  "source_zip": "/mnt/data/hearthworkdesignsystem.zip",
+  "root_strategy": "flattened project/ into repository root",
+  "file_count": 70,
+  "total_bytes": 35031718,
+  "files": [
+    {
+      "path": ".gitignore",
+      "bytes": 244,
+      "sha256": "4e87eca0addf688c525aa0a05bfa8c2d3601fbb7ff81f67a7c1e63d82a46fa4a"
+    },
+    {
+      "path": "CHANGELOG.md",
+      "bytes": 4085,
+      "sha256": "cd41b5c012debcdd4b2dab6ac241f6c970e9c97de7a6adfec49ba36b2247fc71"
+    },
+    {
+      "path": "COZY-COOL Web UI Kit.html",
+      "bytes": 13708595,
+      "sha256": "6a65d28e0e5f5fcecbcce9eaab76ee05a94801359d9df55117f110e6f06f030a"
+    },
+    {
+      "path": "README.md",
+      "bytes": 9053,
+      "sha256": "1630e6ed66c885e04cb865be9823b5b5b9e98b490c1782730b2e22e5a7090d94"
+    },
+    {
+      "path": "SKILL.md",
+      "bytes": 880,
+      "sha256": "4cae5518f118b83859cfd0a7f6424f233cc59bc38be52c9d3b4dac96499ee577"
+    },
+    {
+      "path": "assets/images/children-golden-field.png",
+      "bytes": 1942291,
+      "sha256": "4b3f17783c1f93fb7d064f051fda1a590866378b14c5638f6a0e8e96cebcfa29"
+    },
+    {
+      "path": "assets/images/grape-hyacinth.png",
+      "bytes": 1720367,
+      "sha256": "17bdcdacf4611eb47f8602f5ba7da2f03a4413eda22fdaeea7ab58ad30be4ee9"
+    },
+    {
+      "path": "assets/images/purple-daisy-droplet.png",
+      "bytes": 1526758,
+      "sha256": "7c4d4d9446b84e91b31ceb873b77cfe6670683673e34ea4ce26f265156d33629"
+    },
+    {
+      "path": "assets/images/underwater-green.png",
+      "bytes": 2074220,
+      "sha256": "0e73594a862f92242f6305e5d95c9de4b97c55eb07ab5b20806acfcbfac595a9"
+    },
+    {
+      "path": "assets/images/wildflowers-sunset.png",
+      "bytes": 1627469,
+      "sha256": "e0fd5b40c805b08ffeae2eaf0b06d15183b6535d35f9c3ecfd5311291050f8b0"
+    },
+    {
+      "path": "colors_and_type.css",
+      "bytes": 17846,
+      "sha256": "d945ff491e1c90853543417b0e53a138404a96352f013b3b8dec4f7e69f97eb0"
+    },
+    {
+      "path": "package.json",
+      "bytes": 1039,
+      "sha256": "cbdd9a2d6cd02b269bd22e23a6d5b13c5fe69ccc4415a9216e74328c62a3e5be"
+    },
+    {
+      "path": "preview/accessibility.html",
+      "bytes": 5818,
+      "sha256": "91bbb88360e1531e7c4ced876ab45aabe2faa79cafc4831e96566cb0e48dc3e3"
+    },
+    {
+      "path": "preview/brand-identity.html",
+      "bytes": 3589,
+      "sha256": "dd2a821cd8648af09efaba2f68c4f798115d751d193fd143eef68a4bc87e344e"
+    },
+    {
+      "path": "preview/brand-imagery.html",
+      "bytes": 2785,
+      "sha256": "7c783ab7dc52f19dd201c46304115add1e6093b7f9aa7ae6626bf376d4eaaefa"
+    },
+    {
+      "path": "preview/colors-brand.html",
+      "bytes": 2031,
+      "sha256": "3e8f2e6d9e4bac5cf4b43e8d399762737b0726c4b1eeb2481b1af07c9374a036"
+    },
+    {
+      "path": "preview/colors-dark-mode.html",
+      "bytes": 5157,
+      "sha256": "017d241379cf322f801caff0ca60f3284f8578c0fe59ff2d91b5b473dd77bc35"
+    },
+    {
+      "path": "preview/colors-neutral.html",
+      "bytes": 2904,
+      "sha256": "18b59b32ff4e60b6387d747dc1de16c930ef98cf513a6e88a1409b3ef0eb9b80"
+    },
+    {
+      "path": "preview/colors-state.html",
+      "bytes": 1976,
+      "sha256": "2d3b137b9d26fb5edea647354b8bb201d99185ce834b9c7a1c8a5003cb59e57d"
+    },
+    {
+      "path": "preview/components-big-elements.html",
+      "bytes": 4885,
+      "sha256": "ca3373cf09a5ed66f44d9c43f16d016c0388a821247ca4f2971b64194336c459"
+    },
+    {
+      "path": "preview/components-buttons.html",
+      "bytes": 3382,
+      "sha256": "18a4ea042fd71a0978692d707fbc5c6577f954839b05ce4e56891ddeca6e0fd8"
+    },
+    {
+      "path": "preview/components-cards.html",
+      "bytes": 4126,
+      "sha256": "39a7d2fd7dcdf7a2fb8d61c7aa7cd0d94d87f3898a2ea87a20cbdb657cd768ea"
+    },
+    {
+      "path": "preview/components-inputs.html",
+      "bytes": 3075,
+      "sha256": "1e47e65ed53876449d7ffe6601f48b052e3b4d7333f830907dea2cecdbab0ac8"
+    },
+    {
+      "path": "preview/components-selectors.html",
+      "bytes": 5473,
+      "sha256": "6d1754e4071b3264c56a638aefd7a737125b7f2468b61e6bc076ed3a3400d352"
+    },
+    {
+      "path": "preview/components-states.html",
+      "bytes": 6635,
+      "sha256": "fc7fa1eaf24256caf27df3d4eb3e09471d196e0d24ede10de1ce67606c6a26e1"
+    },
+    {
+      "path": "preview/components-tags-badges.html",
+      "bytes": 4024,
+      "sha256": "92b6dd06bfe21ecaa83f2cbd0df6d3e5034fb6785dfcee2f81828a4942315588"
+    },
+    {
+      "path": "preview/copy-voice.html",
+      "bytes": 5544,
+      "sha256": "e141edd486f18b01083e019f544fea21ce035fe693c10650a155177536b7dfab"
+    },
+    {
+      "path": "preview/data-viz.html",
+      "bytes": 6397,
+      "sha256": "e2ccb15e3eb9c556136a796df2f1c7b4f50c2fe961d1648e8ccdd5f0e4008a74"
+    },
+    {
+      "path": "preview/do-dont.html",
+      "bytes": 9034,
+      "sha256": "963cd25035ed5d50e80239ca3f0c107068544f096a7b09fe01def6af77e44104"
+    },
+    {
+      "path": "preview/form-patterns.html",
+      "bytes": 8497,
+      "sha256": "1461774631e9e257a9731e7ffa9c8de7301ed5b9e41cffcf9de33151261e1f82"
+    },
+    {
+      "path": "preview/icons.html",
+      "bytes": 5107,
+      "sha256": "2e34cf24b00876e7a9958c1f22dad723866082d0fc102de35c0eb7271ccd3cb5"
+    },
+    {
+      "path": "preview/motion-grammar.html",
+      "bytes": 5583,
+      "sha256": "b80e2731af934e2ffb2b22a5a74c6ab89e047562e741fdfd484664a09cdabebb"
+    },
+    {
+      "path": "preview/responsive.html",
+      "bytes": 5872,
+      "sha256": "a5385ee4c2036a4e0d81790c9ada90e6d4d0bb4762f067cb77a7e30a12d384ca"
+    },
+    {
+      "path": "preview/spacing-elevation.html",
+      "bytes": 3626,
+      "sha256": "f27522ba90fc1eab2a59b61391d953c8acfad869267886250482432b02682e3d"
+    },
+    {
+      "path": "preview/spacing-radii-shadows.html",
+      "bytes": 2460,
+      "sha256": "cafd8369f54daa85455c8c778c524c8a6c88e616ab5c7102f1be0745bf01a00a"
+    },
+    {
+      "path": "preview/spacing-tokens.html",
+      "bytes": 2282,
+      "sha256": "bd9cb4379ae2e71263086e93145576241ca9f25fe2832966a0b9df90ce195821"
+    },
+    {
+      "path": "preview/transition-grammar.html",
+      "bytes": 6451,
+      "sha256": "d9023015f3b585c286ae98e66e57a8757ab184277405829963a2bb1e3ac880d5"
+    },
+    {
+      "path": "preview/type-body.html",
+      "bytes": 2971,
+      "sha256": "8f588e6259086ace0294c54f61d4bbb958078eb2855e4e80e3bf900ff6d4b029"
+    },
+    {
+      "path": "preview/type-font-pairings.html",
+      "bytes": 5446,
+      "sha256": "e64de1a4893ef9b9b06643e19e943c1eee07ec3f0fe7250e199b8d95b4b62d6b"
+    },
+    {
+      "path": "preview/type-headings.html",
+      "bytes": 3096,
+      "sha256": "a0408429f07ae31a26475cd66387963d9a9525207b416c09afeb075217ec8fe4"
+    },
+    {
+      "path": "screenshots/chatbot-fixed.png",
+      "bytes": 15818,
+      "sha256": "e7feb56dbf83ea0f955562682dad2a50f114c06cb33c487f2161c233efcc77d2"
+    },
+    {
+      "path": "screenshots/chatbot-v3.png",
+      "bytes": 15818,
+      "sha256": "e7feb56dbf83ea0f955562682dad2a50f114c06cb33c487f2161c233efcc77d2"
+    },
+    {
+      "path": "screenshots/mobile-chatbot.png",
+      "bytes": 15818,
+      "sha256": "e7feb56dbf83ea0f955562682dad2a50f114c06cb33c487f2161c233efcc77d2"
+    },
+    {
+      "path": "screenshots/mobile-github-chatbot.png",
+      "bytes": 46956,
+      "sha256": "944f9b35242aafcad1009562cfe51834a9fc7297173ed10331c47fc01941eb32"
+    },
+    {
+      "path": "screenshots/mobile-kit.png",
+      "bytes": 37961,
+      "sha256": "a4d38250c91ff83d9b401f6a63328dafee3e844ac67a3ab20288b5caa5cd8eae"
+    },
+    {
+      "path": "slides/deck-stage.js",
+      "bytes": 73042,
+      "sha256": "0c125b8b1e232549531643f7b2422781728d1fa47b0d01690bcd2fbfdc51ac8e"
+    },
+    {
+      "path": "slides/index.html",
+      "bytes": 32881,
+      "sha256": "0ad665660140eb14bf2eead0f6aacfd5f8ef0492eaa263e432cb899ab65e1492"
+    },
+    {
+      "path": "tokens.json",
+      "bytes": 11375,
+      "sha256": "5af8fd0dcabeb58b861445146cdf8802135812eafd9500ebe46af7a5c1c9d7f3"
+    },
+    {
+      "path": "ui_kits/desktop/index.html",
+      "bytes": 85527,
+      "sha256": "5597a2bc9b8adddce9c38d7a68b43ce4db776fa255dd7cb9553b02e1be97be07"
+    },
+    {
+      "path": "ui_kits/mobile/index.html",
+      "bytes": 71774,
+      "sha256": "caadbc858f628bd6e581f235ac966d28c205285de12152518665721bf297b9c3"
+    },
+    {
+      "path": "ui_kits/mobile/ios-frame.jsx",
+      "bytes": 15755,
+      "sha256": "d67eb3ffe5627b46123f751ec6ae7c41dad03c3ef43f81ec11052969c74e39b3"
+    },
+    {
+      "path": "ui_kits/web/Banner.jsx",
+      "bytes": 3004,
+      "sha256": "2b42e09fab52cacb915bc8d17e2fa932849f9204fae0f0221c69abee07b495dc"
+    },
+    {
+      "path": "ui_kits/web/Cards.jsx",
+      "bytes": 5088,
+      "sha256": "eb8254a3d056367e525242a9f4bb1d4f13fd1228087a28454615557609a567b6"
+    },
+    {
+      "path": "ui_kits/web/Footer.jsx",
+      "bytes": 3821,
+      "sha256": "12129aa13fbd550deb6e3f22d78338e9fbc3417e8dab74a9539d3e6d25e54c70"
+    },
+    {
+      "path": "ui_kits/web/Forms.jsx",
+      "bytes": 5654,
+      "sha256": "aff4890988735663f7dd08fade91e4c44411c6f448483c647cf46cc96e445d51"
+    },
+    {
+      "path": "ui_kits/web/Hero.jsx",
+      "bytes": 6150,
+      "sha256": "e74cb119d56a55d30a0aa1b91056a81f134cbb026188a892a0454a34ebb940c1"
+    },
+    {
+      "path": "ui_kits/web/Nav.jsx",
+      "bytes": 4120,
+      "sha256": "8332ba0ddebf6dcbac3d5fee8924f551fa504cabe6052e84af8538f10c023076"
+    },
+    {
+      "path": "ui_kits/web/README.md",
+      "bytes": 1150,
+      "sha256": "37a01e9dcec9967ac7344315183bd9200039496159da049984d16c5a2eeaceed"
+    },
+    {
+      "path": "ui_kits/web/index.html",
+      "bytes": 19322,
+      "sha256": "3a7f1456bdca6dc1bd6b81b8e998f4320d1e1146447d86aa16cd2851c3473b82"
+    }
+  ]
+}

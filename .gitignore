@@ -1,0 +1,20 @@
+# COZY-COOL Design System — .gitignore
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build artifacts
+node_modules/
+dist/
+.cache/
+
+# Editor
+.vscode/settings.json
+.idea/
+
+# Standalone bundles (regenerate with bundler)
+COZY-COOL\ Web\ UI\ Kit.html
+
+# Logs
+*.log

@@ -1,0 +1,36 @@
+{
+  "name": "@hearthwork/design-system",
+  "version": "2.0.0",
+  "description": "Hearthwork Design System — brand tokens, UI kits, motion grammar, and component library",
+  "main": "tokens.json",
+  "keywords": ["design-system", "design-tokens", "hearthwork", "ui-kit", "css"],
+  "license": "MIT",
+  "files": [
+    "tokens.json",
+    "colors_and_type.css",
+    "assets/",
+    "preview/",
+    "ui_kits/",
+    "slides/",
+    "README.md",
+    "SKILL.md",
+    "CHANGELOG.md"
+  ],
+  "exports": {
+    "./tokens": "./tokens.json",
+    "./css": "./colors_and_type.css"
+  },
+  "scripts": {
+    "build:tokens": "style-dictionary build --config style-dictionary.config.json",
+    "validate:tokens": "node -e \"require('./tokens.json'); console.log('tokens.json valid :)')\"",
+    "serve": "npx serve . -p 3000"
+  },
+  "devDependencies": {
+    "style-dictionary": "^4.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lootziffer666/hearthwork.git"
+  },
+  "homepage": "https://github.com/lootziffer666/hearthwork#readme"
+}
